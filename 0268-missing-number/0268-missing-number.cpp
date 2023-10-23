@@ -1,7 +1,7 @@
 class Solution {
 public:
     int missingNumber(vector<int>& nums) {
-     int hash[100000]={0};
+     int hash[1000000]={0};
      for(int i=0;i<nums.size();i++){
          hash[nums[i]]++;
      }
