@@ -108,6 +108,10 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
+
+
+
+
 int32_t main()
 {
     fastio()
@@ -116,31 +120,28 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    inint(n);
-    vi v(n);
-      unordered_map<int,int>mpp;
-   rep(i,n){
-    cin>>v[i];
-    mpp[i]=v[i];
-   }
-    inint(m);
-    vi vec2(m);
-     int vasya_count=0;
-    int pasya_count=0;
-    rep(i,m){
-        cin>>vec2[i];
-        if(mpp.find(vec2[i]!=mpp.end())){
-            
-        vasya_count+=a;
-        pasya_count+=n-a+1;
+   
+    instr(x);
+    int n=x.length();
+    string v;
+    rep(i,n){
+   
+        if(x[i]=='.'){
+            v+='0';
+            continue;}
+        if(x[i]=='-'&&x[i+1]=='.'){
+            v+='1';
+            i++;
+        }
+        else{
+            v+='2';
+            i++;
         }
     }
    
-
-   
-    cout<<vasya_count<<" "<<pasya_count<<endl;
-
-
-
+   cout<<v;
+    pe;
+    
+    
     return 0;
 }
