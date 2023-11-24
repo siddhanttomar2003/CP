@@ -118,23 +118,25 @@ int32_t main()
     //Code Karlo, Coz KHNH :)
     inint(n);
     vi v(n);
-      unordered_map<int,int>mpp;
+      ll a[n+1]={0};
+      ll b[n+1]={0};
+      int j=0;
    rep(i,n){
     cin>>v[i];
-    mpp[i]=v[i];
+   a[v[i]]=i+1;
+   b[v[i]]=n-i;
    }
     inint(m);
     vi vec2(m);
-     int vasya_count=0;
-    int pasya_count=0;
+     ll vasya_count=0;
+    ll pasya_count=0;
     rep(i,m){
         cin>>vec2[i];
-        if(mpp.find(vec2[i]!=mpp.end())){
-            
-        vasya_count+=a;
-        pasya_count+=n-a+1;
+     vasya_count+=a[vec2[i]];
+pasya_count+=b[vec2[i]];
         }
-    }
+       
+    
    
 
    
