@@ -72,6 +72,8 @@
     "span": "cpp",
     "stacktrace": "cpp",
     "regex": "cpp",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "bitset": "cpp",
+    "algorithm": "cpp"
   }
 }
