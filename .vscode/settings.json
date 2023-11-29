@@ -74,6 +74,7 @@
     "regex": "cpp",
     "iostream": "cpp",
     "bitset": "cpp",
-    "algorithm": "cpp"
+    "algorithm": "cpp",
+    "valarray": "cpp"
   }
 }
