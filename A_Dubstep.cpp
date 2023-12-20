@@ -122,31 +122,27 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
    instr(x);
-   string s="";
    bool flag=false;
-   int i=0;
    int count=0;
-   for(i;i<x.length()-3;i++){
-    if(x[i]=='W'&&x[i+1]=='U'&&x[i+2]=='B'){
-        flag=true;
+   string s="";
+   rep(i,x.length()){
+     if(x[i]=='W'&&x[i+1]=='U'&&x[i+2]=='B'){
         i+=2;
-        count++;
-        if(count==1)s+=' ';
-        
+       
+        flag=true;
         continue;
     }
+      if(flag)s+=" ";
+        s+=x[i];
+        flag=false;
     
-    flag=false;
-    s+=x[i];
-   }
-   if(flag){
-    s+=x[i];
-    s+=x[i+1];
-    s+=x[i+2];
+   
+   
+  
+
+
+
    }
    cout<<s<<endl;
-   
-
-    
     return 0;
 }
