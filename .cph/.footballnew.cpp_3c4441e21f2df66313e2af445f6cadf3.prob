@@ -1,0 +1,1 @@
+{"name":"Local: footballnew","url":"c:\\Users\\HP\\Desktop\\CP\\footballnew.cpp","tests":[{"id":1703353363614,"input":"001001","output":"NO"},{"id":1703353382204,"input":"1000000001","output":"YES"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\HP\\Desktop\\CP\\footballnew.cpp","group":"local","local":true}
