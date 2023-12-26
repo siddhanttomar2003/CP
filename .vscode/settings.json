@@ -75,6 +75,7 @@
     "iostream": "cpp",
     "bitset": "cpp",
     "algorithm": "cpp",
-    "valarray": "cpp"
+    "valarray": "cpp",
+    "*.tcc": "cpp"
   }
 }
