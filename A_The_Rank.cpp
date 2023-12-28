@@ -122,35 +122,24 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
    
-    inint(n);
-    int v[n][4];
-    vector<vector<int>>ans;
-    rep(i,n){
+     inint(n);
+     vector<int>s;
+     int sum_thomas;
+     rep(i,n){
         int sum=0;
-        vector<int>one;
         for(int j=0;j<4;j++){
-            cin>>v[i][j];
-            sum+=v[i][j];
+            int a;cin>>a;
+            sum+=a;
         }
-        one.push_back(sum);
-        one.push_back(i);
-         ans.push_back(one);
-    }
-   sort(ans.begin(),ans.end());
-   reverse(ans.begin(),ans.end());
-    int rank=1;
-    for(int i=0;i<ans.size()-1;i++){
-       if(ans[i][0]==ans[i+1][0]){
-        if(ans[i][1]>ans[i+1][1]){
-            swap(ans[i],ans[i+1]);
-        }
-       }
-    }
-    for(int i=0;i<ans.size()-1;i++){
-        if(ans[i][1]==0)break;
-        else rank++;
-    }
-    cout<<rank<<endl;
+        if(i!=0)s.push_back(sum);
+        else sum_thomas=sum;
+        
+     }
+      int rank=1;
+      for(int i=0;i<s.size();i++){
+        if(s[i]>sum_thomas)rank++;
+      }
+          cout<<rank<<endl;
 
 
 
