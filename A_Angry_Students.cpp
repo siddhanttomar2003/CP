@@ -126,9 +126,28 @@ int32_t main()
      while(t--){
         inint(n);
         instr(x);
-        
+        int pos=0;
+        rep(i,n){
+            if(x[i]=='A'){pos=i;break;
+        }
      }
-     
+      int ans=0;
+      int count=0;
+      for(int i=pos;i<n;i++){
+            if(x[i]=='A'){
+                i++;
+                while(x[i]!='A'&&i<n){
+                    count++;
+                    i++;
+                }
+                ans=max(ans,count);
+                count=0;
+                i--;
+            }
+            
+      }
+      cout<<ans<<endl;
+     }
 
 
     return 0;
