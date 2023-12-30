@@ -124,8 +124,14 @@ int32_t main()
    
     inint(n);
     instr(x);
-    
-
+    int start=0;
+    rep(i,n){
+        if(x[i]=='-'){
+            if(start>0)start--;
+        }
+        else start++;
+    }
+  cout<<start<<endl;
 
     return 0;
 }
