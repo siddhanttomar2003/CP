@@ -129,9 +129,17 @@ int32_t main()
     vi v(n);
     inv;
     if(n&1){
-        cout<<1<<" "<<n-1<<endl;
-        cout<<1<<" "<<n-2<<endl;
+        cout<<4<<endl;
+        cout<<1<<" "<<2<<endl;
+        cout<<1<<" "<<2<<endl;
+        cout<<2<<" "<<n<<endl;
+        cout<<2<<" "<<n<<endl;
 
+    }
+    else{
+         cout<<2<<endl;
+         cout<<1<<" "<<n<<endl;
+        cout<<1<<" "<<n<<endl;
     }
     }
     return 0;
