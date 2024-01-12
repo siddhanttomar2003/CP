@@ -125,20 +125,15 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    long long n;
-    cin>>n;
-    int mm=0;
-    int count=0;
-    for(long long i=0;i<sqrt(n);i++){
-     if(n%(i+1)==0){
-        count++;
-     }
-     else{
-        count=0;
-     }
-     mm=max(mm,count);
-    }
-    cout<<mm<<endl;
+    long long n;cin>>n;
+    long long ans=0;
+    long long count=0;
+   for(int i=1;i<=n;i++){
+    if(n%i==0)count++;
+    else break;
+   }
+    cout<<count<<endl;
+    
     }
     return 0;
 }
