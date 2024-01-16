@@ -142,22 +142,17 @@ int32_t main()
       long long s2=0;
       long long e2=m-1;
       while(start<=end){
-        if(start==end){
-            if(abs(v[start]-s[s2])>=abs(v[start]-s[e2]))ans+=abs(v[start]-s[s2]);
-            else ans+=abs(v[start]-s[e2]);
-            start++;
-            continue;
-        }
+       if(abs(v[start]-s[e2])>=abs(v[end]-s[s2])){
         ans+=abs(v[start]-s[e2]);
-        start++;
-        e2--;
-        if(start<=end){
-            ans+=abs(v[end]-s[s2]);
-            end--;
-            s2++;
+        start++;e2--;
+       }
+       else{
+        ans+=abs(v[end]-s[s2]);
+         end--;s2++;
+       }
 
         }
-      }
+      
       cout<<ans<<endl;
      
     }
