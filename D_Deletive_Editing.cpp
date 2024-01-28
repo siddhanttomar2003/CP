@@ -125,16 +125,34 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    long long n,k;
-    cin>>n>>k;
-     if(n&1){
-       if(k>n||k%2==0)pn; 
-       
-        else py;
-     }
-     else py;
-
+       instr(x);
+       instr(y);
+       unordered_map<char,int>mp;
+       rep(i,y.length()){
+        mp[y[i]]++;
+       }
+       int index=0;
+       int pos=0;
+       for(int i=0;i<x.length();i++){
+            if(y[index]==x[i]){
+               index++;
+            }
+            if(index==y.length()){
+                pos=i;
+                break;
+            }
+       }
+       bool flag=true;
+       if(pos==y.length()){
+       for(int i=pos;i<x.length();i++){
+            if(mp.find(x[i])!=mp.end()){
+                  flag=false;
+                  break;
+            }
+       }
+       }
+       if(index!=y.length()||flag==false)pn;
+       else py;       
     }
-    
     return 0;
 }

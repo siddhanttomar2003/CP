@@ -125,16 +125,21 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    long long n,k;
-    cin>>n>>k;
-     if(n&1){
-       if(k>n||k%2==0)pn; 
-       
-        else py;
-     }
-     else py;
-
+    inint(n);
+    inint(x);
+    inint(y);
+      if(x&1){
+          if(y&1){
+              cout<<"0"<<endl;
+          }
+          else cout<<"1"<<endl;
+      }
+      else {
+          if(y%2==0){
+              cout<<"0"<<endl;
+          }
+          else cout<<"1"<<endl;
+      }
     }
-    
     return 0;
 }
