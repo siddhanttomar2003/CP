@@ -84,7 +84,7 @@ ostream& operator<<(ostream &ostream, const map<T,V> &c) { for (auto &it : c) co
 
 //Sorting
 bool sorta(const pair<int,int> &a,const pair<int,int> &b){return (a.second < b.second);}
-bool sortd(const pair<int,int> &a,const pair<int,int> &b){return (a.second > b.second);}
+
 
 //Bits
 string decToBinary(int n){string s="";int i = 0;while (n > 0) {s =to_string(n % 2)+s;n = n / 2;i++;}return s;}
@@ -128,19 +128,37 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    inint(n);
-    vi v(n);
-    inv;
-    bool flag=false;
-    for(int i=0;i<n-1;i++){
-        for(int j=i+1;j<n;j++){
-            if(gcd(v[i],v[j])<=2){flag=true;
+   inint(n);
+   inint(m);
+   inint(k);
+   vi v(n);
+   vi v2(m);
+   inv;
+   rep(i,m){
+    cin>>v2[i];
+   }
+    set<int>s1;
+    set<int>s2;
+    rep(i,n){
+        if(v[i]<=k)s1.insert(v[i]);
+    }
+    rep(i,m){
+        if(v2[i]<=k)s2.insert(v2[i]);
+    }
+    bool flag=true;
+    if(s1.size()<k/2||s2.size()<k/2)flag=false;
+    set<int>s;
+    s.insert(s1.begin(),s1.end());
+    s.insert(s2.begin(),s2.end());
+     for(int i=1;i<=k;i++){
+        if(s.find(i)==s.end()){
+            flag=false;
             break;
-            }
+        }
+     }
+     if(flag)py;
+     else pn;
     }
-    }
-    if(flag)py;
-  else pn;
-    }
+  
     return 0;
 }

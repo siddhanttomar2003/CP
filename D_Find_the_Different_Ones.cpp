@@ -84,7 +84,7 @@ ostream& operator<<(ostream &ostream, const map<T,V> &c) { for (auto &it : c) co
 
 //Sorting
 bool sorta(const pair<int,int> &a,const pair<int,int> &b){return (a.second < b.second);}
-bool sortd(const pair<int,int> &a,const pair<int,int> &b){return (a.second > b.second);}
+
 
 //Bits
 string decToBinary(int n){string s="";int i = 0;while (n > 0) {s =to_string(n % 2)+s;n = n / 2;i++;}return s;}
@@ -128,19 +128,28 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    inint(n);
-    vi v(n);
-    inv;
-    bool flag=false;
-    for(int i=0;i<n-1;i++){
-        for(int j=i+1;j<n;j++){
-            if(gcd(v[i],v[j])<=2){flag=true;
+     inint(n);
+     vi v(n);
+     inv;
+     inint(q);
+     vector<pair<int,int>>ans;
+     while(q--){
+      inint(l);inint(r);
+      while(l-1<r-1){
+        if(v[l-1]!=v[r-1]){
+            pair<int,int>p;
+            p.first=l;
+            p.second=r;
+            ans.push_back(p);
             break;
-            }
-    }
-    }
-    if(flag)py;
-  else pn;
+        }
+        l++;r--;
+      }
+     }
+     rep(i,ans.size()){
+        cout<<ans[i].first<<" "<<ans[i].second<<endl;
+     }
+
     }
     return 0;
 }
