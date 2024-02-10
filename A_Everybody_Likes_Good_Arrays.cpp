@@ -133,12 +133,20 @@ int32_t main()
      inv;
     int ans=0;
     // represent even with 0 and odd with 1
-    int curr_parity;
-    if(v[0]&1)curr_parity=1;
-    else curr_parity=0;
-    for(int i=1;i<n;i++){
+     int curr_parity;
+     if(v[0]&1)curr_parity=1;
+     else curr_parity=0;
+     rep(i,n-1){
+        int next_parity;
+        if(v[i+1]&1)next_parity=1;
+        else next_parity=0;
+
+        if(curr_parity==next_parity)ans++;
+        else curr_parity=next_parity;
+     }
+     cout<<ans<<endl;
         
-    }
+    
     }
     return 0; 
 }
