@@ -34,9 +34,7 @@ public:
                }
            }
        }
-       
-      
-      
+       mp.clear();
        return head1;    
     }
 };
