@@ -130,20 +130,19 @@ int32_t main()
     {
      inint(n);
      inint(k);
-     int a=n*k;
-     vi v(a);
-     inv;
+    
+     int v[n*k];
+     for(int i=0;i<n*k;i++){
+        cin>>v[i];
+     }
      int c=k;
-     int ans=0;
-     int count;
-        if(n&1){
-            count=n/2;
-        }
-        else count=n/2-1;
-        int i=a-1;
+      long long ans=0;
+     int count=n/2;
+        int i=n*k-1;
    while(c!=0){
     ans+=v[i-count];
-     i=i-;
+    i=i-count;
+     i--;
      c--;
    }
    cout<<ans<<endl;
