@@ -128,11 +128,9 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-      int a,b,c;
-      cin>>a>>b>>c;
-     
-   
-      
+     ll a,b,c,d;
+     cin>>a>>b>>c>>d;
+     cout<<1<<" "<<1<<" "<<a<<" "<<b<<endl;
     }
     return 0;
 }

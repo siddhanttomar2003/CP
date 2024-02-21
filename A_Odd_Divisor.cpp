@@ -128,11 +128,12 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-      int a,b,c;
-      cin>>a>>b>>c;
-     
-   
-      
+     ll n;cin>>n;
+    if(n&1)py;
+    else{
+        if(n%3==0||n)
+    }
+
     }
     return 0;
 }

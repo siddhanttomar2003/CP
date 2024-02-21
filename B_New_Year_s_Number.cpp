@@ -128,11 +128,15 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-      int a,b,c;
-      cin>>a>>b>>c;
-     
-   
-      
+     inint(n);
+     if(n%2021==0)n=0;
+     if(n%2020==0)n=0;
+     while(n>0){
+        if(n&1) n-=2021;
+        else n-=2020;   
+     }
+     if(n==0)py;
+     else pn;
     }
     return 0;
 }
