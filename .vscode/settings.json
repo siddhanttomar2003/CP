@@ -77,6 +77,7 @@
     "algorithm": "cpp",
     "valarray": "cpp",
     "*.tcc": "cpp",
-    "ostream": "cpp"
+    "ostream": "cpp",
+    "complex": "cpp"
   }
 }
