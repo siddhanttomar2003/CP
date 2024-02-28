@@ -111,19 +111,6 @@ bool isPowerOfFour(int n) { return !(n&(n-1)) && (n&0x55555555);//check the 1-bi
 }
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
-void recur(int index,vector<int> &v,vector<vector<int>>&ans){
-    if(index==v.size()){
-        ans.push_back(v);
-        return;
-    }
-    for(int i=index;i<v.size();i++){
-        swap(v[index],v[i]);
-        recur(index+1,v,ans);
-        swap(v[index],v[i]);
-    }
-}
-
-
 int32_t main()
 {
     fastio()
@@ -138,19 +125,24 @@ int32_t main()
     {
 inint(n);inint(m);
 vi v(n);
-vector<vector<int>>ans;
-int index=0;
-recur(index,v,ans);
 inv;
-  for(int i=0;i<ans.size();i++){
-      for(int j=0;j<ans[i].size();j++){
-          cout<<ans[i][j]<<" ";
-      }
-      pe;
-  }
+vector<vector<int>>ans;
+
 while(m--){
     inint(a);
-    cout<<a<<endl;
+    vector<int>m;
+    bool flag=false;
+    for(auto it:mp){
+        if(it.second==a){
+            rep(i,it.first.size()){
+                cout<<it.first[i]<<" ";
+            }
+            pe;
+            flag=true;
+            break;
+        }
+    }
+    if(flag==false)pm;
     
 }
     }
