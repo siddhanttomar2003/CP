@@ -124,24 +124,18 @@ int32_t main()
     //Code Karlo, Coz KHNH :)
     int t;
     cin>>t;
-     while(t--)
+    while(t--)
     {
-       inint(n);
-       vi v(n);
-       inv;
-       int maxi=INT_MAX;
-       vector<int>a;
-        rep(i,n){
-            a.push_back(abs(v[i]-(i+1)));
+     inint(n);
+     if(isPowerOfTwo(n))cout<<n<<endl;
+     else{
+        string ans=decToBinary(n);
+        for(int i=1;i<ans.length();i++){
+            ans[i]='0';
         }
-        int gcd=a[0];
-        for(int i=1;i<a.size();i++){
-            if(a[i]==0)continue;
-            gcd=__gcd(gcd,a[i]);
-        }
-       
-       cout<<gcd<<endl;
-
+        int a=binaryToDecimal(ans);
+        cout<<a<<endl;
+     }
     }
     return 0;
 }

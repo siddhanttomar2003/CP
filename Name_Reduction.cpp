@@ -124,23 +124,33 @@ int32_t main()
     //Code Karlo, Coz KHNH :)
     int t;
     cin>>t;
-     while(t--)
+    while(t--)
     {
-       inint(n);
-       vi v(n);
-       inv;
-       int maxi=INT_MAX;
-       vector<int>a;
-        rep(i,n){
-            a.push_back(abs(v[i]-(i+1)));
+     instr(a);
+     instr(b);
+     string p=a+b;
+     unordered_map<char,int>mp;
+     rep(i,p.length()){
+        mp[p[i]]++;
+     }
+     inint(n);
+     string s="";
+     rep(i,n){
+        instr(c);
+        s+=c;
+     }
+     bool flag=true;
+     rep(i,s.length()){
+        if(mp.find(s[i])==mp.end()||mp[s[i]]==0){
+            flag=false;
+            break;
         }
-        int gcd=a[0];
-        for(int i=1;i<a.size();i++){
-            if(a[i]==0)continue;
-            gcd=__gcd(gcd,a[i]);
+        else{
+             mp[s[i]]--;
         }
-       
-       cout<<gcd<<endl;
+     }
+     if(flag)py;
+     else pn;
 
     }
     return 0;

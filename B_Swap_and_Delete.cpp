@@ -124,24 +124,17 @@ int32_t main()
     //Code Karlo, Coz KHNH :)
     int t;
     cin>>t;
-     while(t--)
+    while(t--)
     {
-       inint(n);
-       vi v(n);
-       inv;
-       int maxi=INT_MAX;
-       vector<int>a;
-        rep(i,n){
-            a.push_back(abs(v[i]-(i+1)));
-        }
-        int gcd=a[0];
-        for(int i=1;i<a.size();i++){
-            if(a[i]==0)continue;
-            gcd=__gcd(gcd,a[i]);
-        }
-       
-       cout<<gcd<<endl;
-
+     instr(x);
+     int count_0=0;
+     int count_1=0;
+     rep(i,x.length()){
+        if(x[i]=='1')count_1++;
+        else count_0++;
+     }
+    
+     
     }
     return 0;
 }
