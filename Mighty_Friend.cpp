@@ -126,25 +126,39 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-     instr(x);
-     int count_0=0;
-     int count_1=0;
-     rep(i,x.length()){
-        if(x[i]=='1')count_1++;
-        else count_0++;
-     }
-     if(count_1==count_0)cout<<0<<endl;
-     else{
-      int i;
-      for( i=0;i<x.length();i++){
-      if(x[i]=='0'&&count_1>0) count_1--;
-      else if(x[i]=='0'&&count_1==0) break;
-      else if(x[i]=='1'&&count_0>0)count_0--;
-      else if(x[i]=='1'&&count_0==0)break;
-      }
-      cout<<x.length()-i-1+1<<endl;
-     }
-     
+        inint(n);
+        inint(k);
+        vi v(n);
+        vi odd;
+        vi even;
+        rep(i,n){
+            cin>>v[i];
+            if(i&1)odd.push_back(v[i]);
+            else even.push_back(v[i]);
+        }
+        sort(odd.begin(),odd.end());
+        sort(even.begin(),even.end());
+        int start_odd=0;int end_odd=odd.size()-1;
+        int start_even=0;int end_even=even.size()-1;
+        while(k--){
+            if(start_odd>end_odd||start_even>end_even)break;
+            int maxi=max(even[end_even],odd[start_odd]);
+            int mini=min(even[end_even],odd[start_odd]);
+            odd[start_odd]=maxi;
+            even[end_even]=mini;
+            start_odd++;end_even--;
+        }
+        ll sum_odd=0;
+        rep(i,odd.size()){
+            sum_odd+=odd[i];
+        }
+        ll sum_even=0;
+        rep(i,even.size()){
+            sum_even+=even[i];
+        }
+        if(sum_odd>sum_even)py;
+        else pn;
+        
     }
     return 0;
 }
