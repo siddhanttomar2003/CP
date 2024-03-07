@@ -78,6 +78,8 @@
     "valarray": "cpp",
     "*.tcc": "cpp",
     "ostream": "cpp",
-    "complex": "cpp"
+    "complex": "cpp",
+    "chrono": "cpp",
+    "limits": "cpp"
   }
 }
