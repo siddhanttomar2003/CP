@@ -120,29 +120,37 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-     inint(n);
-     instr(x);
-     int arr1[n];
-     int arr2[n];
-     unordered_map<char,int>mp1;
-     unordered_map<char,int>mp2;
-     for(int i=0;i<x.size();i++){
-      mp1[x[i]]++;
-      mp2[x[n-i-1]]++;
-      arr1[i]=mp1.size();
-      arr2[i]=mp2.size();
-     }
-     int ans=0;
-     int j=n-2;
-     for(int i=0;i<n;i++){
-        if(i==n-1)break;
-        ans=max(ans,arr1[i]+arr2[j]);
-        j--;
-     }
-
-     
-     cout<<ans<<endl;
-
+    inint(n);
+    vi v(n);
+    inv;
+    vi v2(n);
+    rep(i,n){cin>>v2[i];}
+    map<vector<int>,int>mp;
+    rep(i,n){
+    int curr=1;
+    while(v[i]==v[i+1]&&i<n){
+        i++;
+        curr++; 
+    }
+    vector<int>veci;
+    veci.pb(v[i]);veci.pb(curr);
+    mp[veci]++;
+    }
+    rep(i,n){
+         int curr=1;
+    while(v2[i]==v2[i+1]&&i<n){
+        i++;
+        curr++; 
+    }
+    vector<int>veci;
+    veci.pb(v2[i]);veci.pb(curr);
+    mp[veci]++;
+    }
+    ll ans=0;
+    for(auto it:mp){
+        ans=max(ans,);
+    }
+    cout<<ans<<endl;
     }
     return 0;
 }
