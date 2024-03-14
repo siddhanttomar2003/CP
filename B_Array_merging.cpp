@@ -125,32 +125,57 @@ int32_t main()
     inv;
     vi v2(n);
     rep(i,n){cin>>v2[i];}
-    map<vector<int>,int>mp;
-    rep(i,n){
+    unordered_map<int,int>mp1;
+    unordered_set<int>s1;
     int curr=1;
-    while(v[i]==v[i+1]&&i<n){
-        i++;
-        curr++; 
+    int prev=-1;
+    rep(i,n){      
+        if(v[i]==prev){
+            curr++;
+            mp1[v[i]]=max(mp1[v[i]],curr);
+        }
+        else {
+            curr=1;
+        }
+        prev=v[i];
     }
-    vector<int>veci;
-    veci.pb(v[i]);veci.pb(curr);
-    mp[veci]++;
-    }
+     unordered_set<int>s2;
+    unordered_map<int,int>mp2;
+    int prev2=-1;
+    int curr2=1;
     rep(i,n){
-         int curr=1;
-    while(v2[i]==v2[i+1]&&i<n){
-        i++;
-        curr++; 
+        if(v2[i]==prev2){
+            curr2++;
+            mp2[v2[i]]=max(mp2[v2[i]],curr2);
+        }
+        else {curr2=1;}
+        prev2=v2[i];
     }
-    vector<int>veci;
-    veci.pb(v2[i]);veci.pb(curr);
-    mp[veci]++;
+      rep(i,n){
+        if(mp1.find(v[i])==mp1.end())s1.insert(v[i]);
+        if(mp2.find(v2[i])==mp2.end())s2.insert(v2[i]);
     }
-    ll ans=0;
-    for(auto it:mp){
-        ans=max(ans,);
+    int ans=1;
+    for(auto it:mp1){
+        if(s2.find(it.first)!=s2.end())
+        ans=max(ans,it.second+mp2[it.first]+1);
+        else 
+        ans=max(ans,it.second+mp2[it.first]);
+    }
+    for(auto it:mp2){
+        if(s1.find(it.first)!=s1.end())
+        ans=max(ans,it.second+mp1[it.first]+1);
+        else 
+        ans=max(ans,it.second+mp1[it.first]);
+    }
+    for(auto it:s1){
+        if(s2.find(it)!=s2.end())ans=max(ans,2);
+    }
+     for(auto it:s2){
+        if(s1.find(it)!=s1.end())ans=max(ans,2);
     }
     cout<<ans<<endl;
+
     }
     return 0;
 }
