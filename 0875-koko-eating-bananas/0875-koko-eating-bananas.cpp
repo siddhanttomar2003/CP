@@ -18,7 +18,7 @@ public:
             int mid=i+(e-i)/2;
             int ansi=cal(piles,mid,h);
              if(ansi==0){
-                 ans=min(ans,mid);
+                ans=min(ans,mid);
                 e=mid-1;
              }
              else if(ansi==-1){
