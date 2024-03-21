@@ -275,25 +275,16 @@ int32_t main()
         rep(i,n){
             if(x[i]=='1')c1++;
             else c0++;
-        }
-        int h1,h0;
-       h1=c1/2;
-        h0=c0/2;
-        int mid;
-        if(n&1){
-            mid=n/2;
-        }
-        else mid=n/2+1;
+        }   
         int curr1=0;int curr0=0;
         int ans=0;
         rep(i,n){
-            if(x[i]=='1')curr1++;
-            else curr0++;
-          if(curr0>=h0&&(c1-curr1)>=h1){
-            int close1=abs(mid-ans);
-            int close2=abs(mid-i+1);
-            if(close2<close1)ans=i+1;
-          }
+        if(x[i]=='1')curr1++;
+        else curr0++;
+        int people=i+1;
+        if(curr0>=curr1&&c1-curr1>=c0-curr0){
+            if(abs(n/2-ans)>abs(n/2-i))ans=i;
+        }
         }
         cout<<ans<<endl;
     }
