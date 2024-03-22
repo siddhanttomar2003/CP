@@ -120,11 +120,14 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    inint(n);
-    vi v(n);
-    inv;
-    
-     
+     inint(n);
+     inint(m);
+     instr(x);
+     int ans=0;
+     int i=0;int j=0;
+     while(j<n){
+        
+     }
     }
     return 0;
 }

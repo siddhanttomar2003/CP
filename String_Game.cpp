@@ -120,11 +120,17 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    inint(n);
-    vi v(n);
-    inv;
-    
-     
+       inint(n);
+       instr(x); 
+       int count_0=0;
+       int count_1=0;
+       rep(i,n){
+           if(x[i]=='0')count_0++;
+           else count_1++;
+       }
+       int c=min(count_0,count_1);
+       if(c&1)cout<<"Zlatan"<<endl;
+       else cout<<"Ramos"<<endl;
     }
     return 0;
 }

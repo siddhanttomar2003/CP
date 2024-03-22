@@ -120,11 +120,10 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    inint(n);
-    vi v(n);
-    inv;
-    
-     
+   inint(n);
+   inint(m);
+   vi v(m);inv;
+   
     }
     return 0;
 }
