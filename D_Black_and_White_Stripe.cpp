@@ -121,13 +121,34 @@ int32_t main()
     while(t--)
     {
      inint(n);
-     inint(m);
+     inint(k);
      instr(x);
-     int ans=0;
-     int i=0;int j=0;
-     while(j<n){
-        
+     int i=0;
+     int j=0;
+     int curr=0;
+     while(j<k){
+     if(x[j]=='B')curr++;
+     j++;
      }
+     j--;
+     int maxi=INT_MIN;
+     while(j<n-1){
+       maxi=max(maxi,curr);
+       if(x[i]=='B'){
+        curr--;
+       }
+       i++;
+       j++;
+       if(x[j]=='B')curr++;
+     }
+     maxi=max(maxi,curr);
+    cout<<k-maxi<<endl;
+
+
+
+     
+     
+      
     }
     return 0;
 }
