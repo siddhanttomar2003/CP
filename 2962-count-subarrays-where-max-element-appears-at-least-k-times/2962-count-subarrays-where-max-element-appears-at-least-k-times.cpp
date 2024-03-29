@@ -6,15 +6,17 @@ public:
         int maxi=*max_element(nums.begin(),nums.end());
         int i=0;int j=0;
         while(j<nums.size()){
+            if(nums[j]==maxi)count++;
             if(count<k){
-                if(nums[j]==maxi)count++;
                 j++;
             }
             else{
-                ans+=nums.size()-j+1;
-                if(nums[i]==k){count--;}
-                i++;
-                
+                while(count>=k){
+                    ans+=nums.size()-j;
+                    if(nums[i]==maxi)count--;
+                    i++;
+                }
+                j++;
             }
         }
         return ans;
