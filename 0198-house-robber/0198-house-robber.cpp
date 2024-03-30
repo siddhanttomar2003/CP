@@ -1,13 +1,24 @@
 class Solution {
 public:
-    // time/space: O(n)/O(1)
-    int rob(vector<int>& nums) {
-        int dp0 = 0, dp1 = 0;
-        for (auto& num : nums) {
-            int curr = max(dp0 + num /* take */, dp1 /* skip (not take) */);
-            dp0 = dp1;
-            dp1 = curr;
+    int recursive(vector<int> &nums,int index,vector<int>&dp){
+        if(index==0)return nums[0];
+        if(index==1)return nums[1];
+        int maxi=INT_MIN;
+        if(dp[index]!=-1)return dp[index];
+        for(int i=2;i<=index;i++){
+                maxi=max(maxi,recursive(nums,index-i,dp)+nums[index]);       
         }
-        return max(dp0, dp1);
+        dp[index]=maxi;
+        return maxi;
+        
+    }
+    int rob(vector<int>& nums) {
+        int count=INT_MIN;
+        int n=nums.size();
+        for(int i=n-1;i>=0;i--){
+            vector<int>dp(n+1,-1);
+            count=max(count,recursive(nums,i,dp));
+        }
+        return count;
     }
 };
