@@ -1,25 +1,19 @@
 class Solution {
 public:
-    int recursive(vector<int> &nums,int index,vector<int>&dp){
-        if(index==0)return nums[0];
-        if(index==1)return nums[1];
-        int maxi=INT_MIN;
-        if(dp[index]!=-1)return dp[index];
-        for(int i=2;i<=index;i++){
-                maxi=max(maxi,recursive(nums,index-i,dp)+nums[index]);       
-        }
-        dp[index]=maxi;
-        return maxi;
-        
+    int recursive(vector<int> &nums,int i,vector<int> &dp){
+        if(i==0)return nums[0];
+        if(i<0)return 0;
+        if(dp[i]!=-1)return dp[i];
+        int pick=nums[i]+recursive(nums,i-2,dp);
+        int not_pick=recursive(nums,i-1,dp);
+        dp[i]=max(pick,not_pick);
+        return max(pick,not_pick);
+
     }
     int rob(vector<int>& nums) {
-        int count=INT_MIN;
         int n=nums.size();
-        if(n<2)return nums[0];
-        for(int i=n-1;i>=n-2;i--){
-            vector<int>dp(n+1,-1);
-            count=max(count,recursive(nums,i,dp));
-        }
-        return count;
+        vector<int>dp(n+1,-1);
+        int i=nums.size()-1;
+        return  recursive(nums,i,dp);
     }
 };
