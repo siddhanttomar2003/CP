@@ -15,7 +15,8 @@ public:
     int rob(vector<int>& nums) {
         int count=INT_MIN;
         int n=nums.size();
-        for(int i=n-1;i>=0;i--){
+        if(n<2)return nums[0];
+        for(int i=n-1;i>=n-2;i--){
             vector<int>dp(n+1,-1);
             count=max(count,recursive(nums,i,dp));
         }
