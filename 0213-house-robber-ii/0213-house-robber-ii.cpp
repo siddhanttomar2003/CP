@@ -29,6 +29,8 @@ public:
     int rob(vector<int>& nums) {
         // same as house robber just simple logic 
         // in this que we cannot take 1st and last element rest all are same
+         if(nums.size()==1)return nums[0];
+         if(nums.size()==2)return max(nums[0],nums[1]);
         int index=0;
         int ans1=maxi1(nums);
         int ans2=maxi2(nums);
