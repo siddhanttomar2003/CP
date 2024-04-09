@@ -127,19 +127,95 @@ int32_t main()
     int i=0;
     int j=n-1;
     int pos=0;
-    while(i<=j &&k>0){
-       if(ceil((double)k/2)>=v[i]){
-        k-=
+    int count=0;
+    while(i<=j && k>0){
+        if(i==j){
+            if(k>=v[i]){
+                count++;
+            }
+            break;
+        }
+      int mini=min(v[i],v[j]);
+      if(mini==v[i]&&v[i]==v[j]){
+        if(pos==0){
+            if(k>=2*mini-1){
+                k=k-(2*mini-1);
+                i++;
+                v[j]-=(mini-1);
+                pos=1;
+                count++;
+                if(k<=0)break;
+            }
+            else break;
+        }
+        else {
+            if(k>=2*mini-1){
+                k=k-(2*mini-1);
+                j--;
+                v[i]-=(mini-1);
+                pos=0;
+                   count++;
+                   if(k<=0)break;
+            }
+            else break;
+        }
+      }
+    else   if(mini==v[i]){
+        if(pos==0){
+               if(k>=2*mini-1){
+            k=k-(2*mini-1);
+            i++;
+            pos=1;
+            v[j]=v[j]-(mini-1);
+               count++;
+               if(k<=0)break;
+            }
+            else break;
+        }
+         else {
+            if(k>=2*mini){
+            k=k-(2*mini);
+            i++;
+            pos=1;
+            v[j]-=mini;
+               count++;
+               if(k<=0)break;
+            }
+            else break;
+        }
+      }
+      else {
+        if(pos==0){
+             if(k>=2*mini){
+            k=k-(2*mini);
+            j--;
+            v[i]-=mini;
+               count++;
+                pos=0;
+                if(k<=0)break;
+            }
+            else break;
+           
+        }
+        else {
+            if(k>=2*mini-1){
+                k=k-(2*mini-1);
+                j--;
+                pos=0;
+                v[i]-=(mini-1);
+                   count++;
+                   if(k<=0)break;
+            }
+            else break;
+            
+
+        }
+ 
+      }
+     
        }
-      
-       }
-       cout<<j-i+1<<endl;
-    
+     cout<<count<<endl;
        
-        
-    
-
-
     }
     return 0;
 }
