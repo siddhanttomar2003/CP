@@ -120,15 +120,38 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    ll n,k;
-    cin>>n>>k;
-    vi v(n);
-    inv;
-    ouv;
-    vi v2(n);
-    inv;
-    ouv;
-       
+    inint(n);
+     instr(x);
+     if(n==1)cout<<"Bob"<<endl;
+     else if(n==2){
+         if(x[0]!=x[1])cout<<"Bob"<<endl;
+         else cout<<"Alice"<<endl;
+     }
+     else{
+        int count1=0;
+        int count0=0;
+        rep(i,n){
+            if(x[i]=='1')count1++;
+            else count0++;
+        }
+        if(count1>0&&count0>0){
+            if(n%2==0){
+                if(count1==count0)cout<<"Bob"<<endl;
+                else cout<<"Alice"<<endl;
+            }
+            
+            else {
+                if(count1+1==count0||count0+1==count1)cout<<"Alice"<<endl;
+                else cout<<"Bob"<<endl;
+            }
+        }
+        else {
+            if(n&1)cout<<"Bob"<<endl;
+            else cout<<"Alice"<<endl;
+        }
+        
+     }
+    
     }
     return 0;
 }
