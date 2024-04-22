@@ -42,7 +42,11 @@ using namespace std;
 #define ps(x,y) fixed<<setprecision(y)<<x
 #define pe cout<<endl
 #define inv rep(i,n){cin>>v[i];}
-#define ouv rep(i,n){cout<<v[i];}
+#define ouv rep(i,n){cout<<v[i]<<" ";}
+#define inv2 rep(i,n){cin>>v2[i];}
+#define inv3 rep(i,n){cin>>v3[i];}
+#define inv4 rep(i,n){cin>>v4[i];}
+
 
 //Typedef
 typedef long long ll;
@@ -105,7 +109,16 @@ bool isPowerOfFour(int n) { return !(n&(n-1)) && (n&0x55555555);//check the 1-bi
 }
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
-
+ bool check(ll x){
+    ll a=x;
+    while(x>0){
+        ll last=x%10;
+        if(last!=0 && a%last!=0 )return false;
+     
+        x/=10;
+    }
+    return true;
+ }
 
 
 int32_t main()
@@ -120,22 +133,12 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-     ll x,y,k;
-     cin>>x>>y>>k;
-     ll extra = y*k;
-     ll curr=1;
-     ll op=0;
-     if((k-1)%(x-1)==0)op=(k-1)/(x-1);
-     else op=(k-1)/(x-1)+1;
-     curr=curr+op*(x-1);
-     ll ex1=curr-k;
-     if((extra-ex1)%(x-1)==0&& ex1<extra){
-        op+=(extra-ex1)/(x-1);
-     }
-     else if(ex1<extra)op+=(extra-ex1)/(x-1)+1;
-     cout<<op+k<<endl;
-
-
+    ll x;
+    cin>>x;
+    while(!check(x)){
+        x++;
+    }
+    cout<<x<<endl;
     }
     return 0;
 }
