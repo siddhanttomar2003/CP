@@ -19,6 +19,7 @@ public:
      
         int n=obstacleGrid.size();
         int m=obstacleGrid[0].size();
+        if(obstacleGrid[n-1][m-1]==1)return 0;
           vector<vector<int>>dp(n,vector<int>(m,0));
       return  recur(obstacleGrid,0,0,n,m,dp);
         
