@@ -15,6 +15,7 @@ public:
         int ans=INT_MAX;
         int n=grid.size();int m=grid[0].size();
         int curr=0;
+        if(n==1 && m==1)return grid[0][0];
         vector<vector<int>>dp(n,vector<int> (m,-1));
         recur(grid,0,0,n,m,curr,dp);
         return dp[0][0];
