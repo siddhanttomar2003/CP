@@ -42,6 +42,7 @@ using namespace std;
 #define ps(x,y) fixed<<setprecision(y)<<x
 #define pe cout<<endl
 #define inv rep(i,n){cin>>v[i];}
+#define invv rep(i,n){rep(j,m){cin>>vv[i][j];}}
 #define ouv rep(i,n){cout<<v[i]<<" ";}
 #define inv2 rep(i,n){cin>>v2[i];}
 #define inv3 rep(i,n){cin>>v3[i];}
@@ -135,27 +136,34 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    inint(d);
-    // we have to just find two prime factors as 1 and number itself contributes
-    ll ans=1;
-    int count=0;
-    for(ll i=2;i<1e6;i++){
-        if(isPrime(i) && i-1>=d&& count==0){
-            ans*=i;
-            count++;
-        }
-        if(isPrime(i) && i-ans>=d&& count==1){
-              ans*=i;
-            count++;
-        }
-        if(count==2)break;
-        }
-        
-    
-    
-    cout<<ans<<endl;
-
-
+      inint(n);
+      inint(m);
+      int c=m;
+      int count1=0;
+      int a=n;
+      int b=n;
+      while(n>0 && m>1){
+       n=n/m;
+        count1++;
+      }
+      int count2=1;
+      m++;
+      while(a>0){
+        a=a/m;
+        count2++;
+      }
+      int ans;
+      if(c>1)
+       ans=min(count1,count2);
+       else ans=count2;
+       m++;
+       int count3=2;
+       while(b>0){
+       b=b/m;
+        count3++;
+       }
+       ans=min(ans,count3);
+       cout<<ans<<endl;
     }
     return 0;
 }

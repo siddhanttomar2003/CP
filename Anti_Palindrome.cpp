@@ -42,6 +42,7 @@ using namespace std;
 #define ps(x,y) fixed<<setprecision(y)<<x
 #define pe cout<<endl
 #define inv rep(i,n){cin>>v[i];}
+#define invv rep(i,n){rep(j,m){cin>>vv[i][j];}}
 #define ouv rep(i,n){cout<<v[i]<<" ";}
 #define inv2 rep(i,n){cin>>v2[i];}
 #define inv3 rep(i,n){cin>>v3[i];}
@@ -135,27 +136,24 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    inint(d);
-    // we have to just find two prime factors as 1 and number itself contributes
-    ll ans=1;
-    int count=0;
-    for(ll i=2;i<1e6;i++){
-        if(isPrime(i) && i-1>=d&& count==0){
-            ans*=i;
-            count++;
-        }
-        if(isPrime(i) && i-ans>=d&& count==1){
-              ans*=i;
-            count++;
-        }
-        if(count==2)break;
-        }
-        
-    
-    
-    cout<<ans<<endl;
-
-
+       inint(n);
+       instr(x);
+       unordered_map<char,int>mp;
+       rep(i,n)mp[x[i]]++;
+       bool check=false;
+       bool even=false;
+       int forgive=0;
+       for(auto it:mp){
+           if(it.second&1)forgive++;
+           else even=true;
+       }
+       if(n&1 && forgive==1)check=true;
+       else if(n%2==0 && forgive==0)check=true;
+       if(!check)cout<<0<<endl;
+       else {
+           if(even)cout<<1<<endl;
+           else cout<<2<<endl;
+       }
     }
     return 0;
 }
