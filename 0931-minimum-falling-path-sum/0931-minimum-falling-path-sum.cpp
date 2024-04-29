@@ -1,17 +1,25 @@
-#pragma GCC optimize("O3", "unroll-loops")
 class Solution {
 public:
+     int minpath(vector<vector<int>> & matrix,vector<vector<int>>&dp,int c,int i){
+        if(i==matrix.size()-1)return matrix[i][c];
+        if(dp[i][c]!=-1)return dp[i][c];
+        int same,left,right;
+        same=INT_MAX;left=INT_MAX;right=INT_MAX;
+        same=matrix[i][c]+minpath(matrix,dp,c,i+1);
+        if(c-1>=0)
+        left=matrix[i][c]+minpath(matrix,dp,c-1,i+1);
+        if(c+1<matrix.size())right=matrix[i][c]+minpath(matrix,dp,c+1,i+1);
+        dp[i][c]=min(same,min(left,right));
+        return dp[i][c];
+     }
     int minFallingPathSum(vector<vector<int>>& matrix) {
-        const int M = 1e9 + 7, n = matrix.size();
-        if (n==1) return matrix[0][0];//edge case
-        vector<int> dp(n, M), f1;
-        f1=matrix.back();
-        for (int i=n-2; i>=0; i--){
-            for (int j=0; j < n; j++) {
-                dp[j]=matrix[i][j]+min({f1[max(0, j-1)], f1[j], f1[min(n-1, j+1)]});
-            }
-            f1=dp;
+        int n=matrix.size();
+        vector<vector<int>>dp(n,vector<int>(n,-1));
+        int mini=INT_MAX;
+        for(int i=0;i<n;i++){
+            mini=min(mini,minpath(matrix,dp,i,0));
         }
-        return *min_element(dp.begin(), dp.end());
+        return mini;
+
     }
 };
