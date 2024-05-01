@@ -1,36 +1,33 @@
 class Solution {
 public:
-    int dy[3] = {0,-1,1};
-    int memo[71][71][71];
-
-    int dfs(vector<vector<int>>& grid, int i, int c1, int c2, int m, int n){
-
-        if(i==m)return 0;
-        if(c1<0 || c2<0 || c1>=n || c2>=n) return INT_MIN;
-        if(memo[i][c1][c2] != -1) return memo[i][c1][c2];
-
-        int ans = 0;
-
-        for(int k =0;k<3;k++){
-            for(int r = 0;r<3;r++){
-                ans = max(ans, dfs(grid, i+1, c1 + dy[k], c2 + dy[r] , m, n));
+    int max_cherry(vector<vector<int>>& grid, vector<vector<vector<int>>>&dp,int i,int j1,int j2){
+        // base case 1
+        if(j1<0 || j1==grid[0].size()|| j2<0 || j2==grid[0].size())return -1e8;
+        if(i==grid.size()-1){
+            if(j1==j2)return grid[i][j1];
+            else return grid[i][j1]+grid[i][j2];
+        }
+        // now for one particular instant there are 9 possible direction in which they 
+        // can go
+             if(dp[i][j1][j2]!=-1)return dp[i][j1][j2];
+        for(int f=-1;f<=1;f++){
+            for(int s=-1;s<=1;s++){
+                if(j1==j2)
+            dp[i][j1][j2]=max(dp[i][j1][j2],grid[i][j1]+max_cherry(grid,dp,i+1,j1+f,j2+s));
+            else dp[i][j1][j2]=max(dp[i][j1][j2],grid[i][j1]+grid[i][j2]+max_cherry(grid,dp,i+1,j1+f,j2+s));
             }
         }
-
-        ans += (c1==c2) ? grid[i][c1] : grid[i][c1] + grid[i][c2];
-        return memo[i][c1][c2] = ans;
-
+        return dp[i][j1][j2];
     }
     int cherryPickup(vector<vector<int>>& grid) {
-        int m = grid.size(); //rows
-        if(!m)return 0;
-        int n  = grid[0].size(); //cols
-        memset(memo,-1,sizeof memo);
-        return dfs(grid,0,0,n-1,m,n);
-
+        // represent everything in terms of indexes
+        // we will require three indexes as one for row which is common for both robot
+        // two are for thier col in respective rows
+        // so we require a 3d dp here 
+        int r=grid.size();
+        int c=grid[0].size();
+        vector<vector<vector<int>>>dp(r,vector<vector<int>>(c,vector<int>(c,-1)));
+        max_cherry(grid,dp,0,0,c-1);
+        return dp[0][0][c-1];
     }
 };
-
-
-
-
