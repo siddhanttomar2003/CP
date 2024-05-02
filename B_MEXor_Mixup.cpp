@@ -136,21 +136,20 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    int a,b;cin>>a>>b;
-    int mini=INT_MAX;
-    for(int i=b;i<=1e9;i++){
-        if(i!=1){
-        int num=a;
-        int count=0;
-        while(num>0){
-             num/=i;
-             count++;
-        }
-        if(count+i-b>mini)break;
-        mini=min(mini,count+i-b);
-    }
-    }
-    cout<<mini<<endl;
+     inll(a);inll(b);
+     long long xr;
+     if((a-1)%4==0)xr=a-1;
+     else if((a-1)%4==3)xr=0;
+     else if((a-1)%4==1)xr=1;
+     else xr=a;
+     int count=a;
+     if(xr==b)cout<<count<<endl;
+    else{
+    long long rem = xr^b;
+    if(rem==a) cout<<a+2<<endl;
+    else cout<<a+1<<endl;
+  }
+     
     }
     return 0;
 }

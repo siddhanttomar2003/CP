@@ -136,21 +136,7 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    int a,b;cin>>a>>b;
-    int mini=INT_MAX;
-    for(int i=b;i<=1e9;i++){
-        if(i!=1){
-        int num=a;
-        int count=0;
-        while(num>0){
-             num/=i;
-             count++;
-        }
-        if(count+i-b>mini)break;
-        mini=min(mini,count+i-b);
-    }
-    }
-    cout<<mini<<endl;
+
     }
     return 0;
 }

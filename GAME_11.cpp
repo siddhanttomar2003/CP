@@ -136,21 +136,56 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    int a,b;cin>>a>>b;
-    int mini=INT_MAX;
-    for(int i=b;i<=1e9;i++){
-        if(i!=1){
-        int num=a;
+    inint(n);
+    inint(m);
+    vi v(n);
+    inv;
+   vector<int>v2(m);
+   rep(i,m)cin>>v2[i];
+   
+    if(n<4 || m<4 || n+m<11)pm;
+    else {
+        sort(v.begin(),v.end());
+        sort(v2.begin(),v2.end());
+        int i=n-1;int j=m-1;
         int count=0;
-        while(num>0){
-             num/=i;
-             count++;
+        ll sum=0;
+        int counta=0;
+        int countb=0;
+        while(i>=0 && j>=0 && count<11){
+            if(v[i]>=v2[j]){
+                  sum+=v[i];
+                i--;
+                counta++;
+            }
+            else {
+                sum+=v2[j];
+                j--;
+                countb++;
+            }
+            count++;
+            if(counta==7 || countb==7)break;
         }
-        if(count+i-b>mini)break;
-        mini=min(mini,count+i-b);
-    }
-    }
-    cout<<mini<<endl;
+        while(counta<4){
+            sum+=v[i];
+            i--;
+            counta++;
+            count++;
+        }
+        while(countb<4){
+            sum+=v2[j];j--;countb++;
+            count++;
+        }
+        while(count<11 && j>=0){
+            sum+=v2[j];
+            j--;count++;
+        }
+        while(count<11 && i>=0){
+            sum+=v[i];i--; count++;
+        }
+        cout<<sum<<endl;
+        
+   }
     }
     return 0;
 }

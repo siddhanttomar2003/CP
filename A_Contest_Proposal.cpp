@@ -136,21 +136,24 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    int a,b;cin>>a>>b;
-    int mini=INT_MAX;
-    for(int i=b;i<=1e9;i++){
-        if(i!=1){
-        int num=a;
-        int count=0;
-        while(num>0){
-             num/=i;
-             count++;
+    inint(n);
+    vi v(n);
+    inv;
+    vi v2(n);
+    inv2;
+    int count=0;
+    int i=0;
+    int j=0;
+    while(i<n && j<n){
+        if(v[i]<=v2[j]){
+            i++;
+            j++;
         }
-        if(count+i-b>mini)break;
-        mini=min(mini,count+i-b);
+        else {
+            j++;count++;
+        }
     }
-    }
-    cout<<mini<<endl;
+    cout<<count<<endl;
     }
     return 0;
 }

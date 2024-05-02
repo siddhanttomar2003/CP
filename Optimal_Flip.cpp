@@ -136,21 +136,69 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    int a,b;cin>>a>>b;
-    int mini=INT_MAX;
-    for(int i=b;i<=1e9;i++){
-        if(i!=1){
-        int num=a;
-        int count=0;
-        while(num>0){
-             num/=i;
-             count++;
+   inint(n);
+   vi v(n);
+   inv;
+//    int pos1=-1;
+//    bool flag=false;
+//    for(int i=1;i<n-1;i++){
+//        if(v[i]&1 && v[i+1]&1 && v[i-1]&1){
+//            flag=true;
+//            pos1=i;
+//            break;
+//        }
+//    }
+//    if(flag)v[pos1]=v[pos1]+1;
+//    else {
+//     int pos2=-1;
+//     bool check=false;
+//     for(int i=1;i<n-1;i++){
+//         if(v[i]&1 && v[i+1]%2==0 && v[i-1]&1 || v[i]&1 && v[i-1]%2==0 && v[i+1]&1){
+//          pos2=i;
+//          check=true;
+//          break;
+//         }
+//     }
+//     if(check)v[pos2]=v[pos2]+1;
+//     else{
+        int pos3=-1;
+        int pos1=-1;
+        bool lastcheck=false;
+        int c=0;
+        for(int i=1;i<n;i++){
+            if(v[i]&1){
+               c++;
+               if(c==2){
+                lastcheck=true;
+                pos3=i;
+                break;
+               }
+               else pos1=i;
+            }
         }
-        if(count+i-b>mini)break;
-        mini=min(mini,count+i-b);
-    }
-    }
-    cout<<mini<<endl;
+        if(lastcheck)v[pos3]=v[pos3]+1;
+        else {
+            v[pos1]=v[pos1]+1;
+        }
+//     }
+//    }
+   ll count=0;
+   int i=0;int j=0;
+   while(j<n){
+ if(v[j]&1){
+    j++;
+ }
+ else {
+    if(i<j)count+=n-j;
+    count+=n-j;
+    j++;
+    i=j;
+ }
+   }
+   cout<<count<<endl;
+
+
+
     }
     return 0;
 }
