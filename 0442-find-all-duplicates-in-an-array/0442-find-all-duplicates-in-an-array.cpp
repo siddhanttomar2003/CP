@@ -1,14 +1,20 @@
 class Solution {
 public:
     vector<int> findDuplicates(vector<int>& nums) {
-        unordered_map<int,int>mp;
-        vector<int>ans;
-        for(int i=0;i<nums.size();i++){
-            mp[nums[i]]++;
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            if(nums[i]!=i+1){
+                if(nums[i]==nums[nums[i]-1])continue;
+                else {
+                    swap(nums[i],nums[nums[i]-1]);
+                    i--;
+                }
+            }
         }
-        for(auto it: mp){
-            if(it.second>1)ans.push_back(it.first);
+        vector<int>Ans;
+        for(int i=0;i<n;i++){
+            if(nums[i]!=i+1)Ans.push_back(nums[i]);
         }
-        return ans;
+        return Ans;
     }
 };
