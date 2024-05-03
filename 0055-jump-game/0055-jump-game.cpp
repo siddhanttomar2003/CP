@@ -12,18 +12,21 @@ public:
 //    }
     bool canJump(vector<int>& nums) {
         // first using memoization
+        if(nums.size()==1)return true;
         int n=nums.size();
-        vector<int>dp(n,0);
-        dp[n-1]=true;
+        int curr=0;
+        int req=1;
         for(int i=n-2;i>=0;i--){
-            for(int j=1;j<=nums[i];j++){
-                if(i+j<n){
-                 dp[i]=dp[i]|dp[i+j];
-                 if(dp[i])break;
-                }
-            }
+           curr=nums[i];
+           if(curr>=req){
+            req=1;
+            continue;
+           }
+           else req++;
         }
-        return dp[0];
+        if(curr>=req)return true;
+        else return false;
+        
 
     }
 };
