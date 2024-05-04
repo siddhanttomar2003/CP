@@ -42,7 +42,12 @@ using namespace std;
 #define ps(x,y) fixed<<setprecision(y)<<x
 #define pe cout<<endl
 #define inv rep(i,n){cin>>v[i];}
-#define ouv rep(i,n){cout<<v[i];}
+#define invv rep(i,n){rep(j,m){cin>>vv[i][j];}}
+#define ouv rep(i,n){cout<<v[i]<<" ";}
+#define inv2 rep(i,n){cin>>v2[i];}
+#define inv3 rep(i,n){cin>>v3[i];}
+#define inv4 rep(i,n){cin>>v4[i];}
+
 
 //Typedef
 typedef long long ll;
@@ -105,7 +110,18 @@ bool isPowerOfFour(int n) { return !(n&(n-1)) && (n&0x55555555);//check the 1-bi
 }
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
-
+ll binomial_expo (ll a, ll b){
+    ll ans=1;
+    while(b){
+        if(b&1){
+            ans=(ans*a)%1000000007;
+        }
+        a=(a*a)%1000000007;
+        b>>=1;
+        
+    }
+    return ans;
+}
 
 
 int32_t main()
@@ -120,38 +136,16 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    inint(n);
-    vi v(n);
-    inv;
-    if(n==1)pm;
-    else {
-        bool check =true;
-        rep(i,n-1){
-            if(v[i]!=v[i+1]){
-             check=false;
-             break;
-            }
-        }
-        if(!check)pm;
-        else {
-            vector<int>ans(n,0);
-            if(n&1){
-                for(int i=n-1;i>=0;i--){
-                    if(i==n-1)cout<<n/2+1<<" ";
-                    else if(i==n/2)cout<<n<<" ";
-                    else cout<<i+1<<" ";
-                }
-            }
-            else {
-                for(int i=n-1;i>=0;i--){
-                    cout<<i+1<<" ";
-                }
-            }
-            pe;
-        }
-    }
-    
-     
+     inll(n);
+     string s=to_string(n);
+     bool check=false;
+     int count=0;
+     int size=s.length();
+     int cnfrm=0;
+     for(int i=size-1;i>=0;i--){
+        if(x[i]=='0')cnfrm++;
+        
+     }
     }
     return 0;
 }
