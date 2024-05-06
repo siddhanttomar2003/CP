@@ -42,7 +42,12 @@ using namespace std;
 #define ps(x,y) fixed<<setprecision(y)<<x
 #define pe cout<<endl
 #define inv rep(i,n){cin>>v[i];}
-#define ouv rep(i,n){cout<<v[i];}
+#define invv rep(i,n){rep(j,m){cin>>vv[i][j];}}
+#define ouv rep(i,n){cout<<v[i]<<" ";}
+#define inv2 rep(i,n){cin>>v2[i];}
+#define inv3 rep(i,n){cin>>v3[i];}
+#define inv4 rep(i,n){cin>>v4[i];}
+
 
 //Typedef
 typedef long long ll;
@@ -105,7 +110,18 @@ bool isPowerOfFour(int n) { return !(n&(n-1)) && (n&0x55555555);//check the 1-bi
 }
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
-
+ll binomial_expo (ll a, ll b){
+    ll ans=1;
+    while(b){
+        if(b&1){
+            ans=(ans*a)%1000000007;
+        }
+        a=(a*a)%1000000007;
+        b>>=1;
+        
+    }
+    return ans;
+}
 
 
 int32_t main()
@@ -120,40 +136,7 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    inll(n);
-    vl v(n);
-    inv;
-    if(n==1)pm;
-     map<ll,ll>mp;
-     rep(i,n)mp[v[i]]++;
-     bool flag=true;
-     for(auto it:mp){
-        if(it.second==1){
-            flag=false;
-            break;
-        }
-     }
-     if(!flag)pm;
-     else {
-        map<ll,vector<ll>>mp;
-        for(ll i=0;i<v.size();i++){
-            mp[v[i]].pb(i);// pushing all position of the repeating numbers
-            // now we have to just exchange the position of them
-        }
-        for(int i=0;i<v.size();i++){
-            vector<ll>temp=mp[v[i]];
-            vector<ll>::iterator low1=lower_bound(all(temp),i);
-            int index=low1-temp.begin() +1;
-            // cout<<index<<endl;
-            cout<<temp[(index)%temp.size()]+1<<' ';
-        }
-        pe;
-     }
-
-        
-    
-    
-    
+     
     }
     return 0;
 }

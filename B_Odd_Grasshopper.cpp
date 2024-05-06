@@ -1,4 +1,6 @@
 //author:-Siddhant Tomar
+//codecheft:-https://www.codechef.com/users/siddhanttomar2
+//leetcode:-https://leetcode.com/viking_12/
 //linked in :-https://www.linkedin.com/in/siddhant-tomar-9b3aab261/
 
 
@@ -35,13 +37,14 @@ using namespace std;
 #define SUM(x) accumulate(all(x), 0LL)
 #define COUNT(x,u) count(all(x), u)
 #define B break
+#define C continue
 #define py cout<<"YES"<<endl
 #define pn cout<<"NO"<<endl
 #define pm cout<<"-1"<<endl
 #define po cout<<"0"<<endl;
 #define ps(x,y) fixed<<setprecision(y)<<x
 #define pe cout<<endl
-#define inv rep(i,n){cin>>v[i];}
+#define inv rep(i,n){cin>>v[i];}//n is the size of vector
 #define ouv rep(i,n){cout<<v[i];}
 
 //Typedef
@@ -65,6 +68,11 @@ typedef set<int> st;
 #define debug(x)
 #endif
 
+void _print(ll t) {cerr << t;}
+void _print(int t) {cerr << t;}
+void _print(string t) {cerr << t;}
+void _print(char t) {cerr << t;}
+void _print(double t) {cerr << t;}
 
 // Operator overloads
 template<typename T> // cin >> vector<T>
@@ -101,7 +109,7 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 ll count_one(int n) { ll count=0; while(n) {  n = n&(n-1); count++; } return count;}
-bool isPowerOfFour(int n) { return !(n&(n-1)) && (n&0x55555555);//check the 1-bit location;
+bool isPowerOfFour(ll n) { return !(n&(n-1)) && (n&0x55555555);//check the 1-bit location;
 }
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
@@ -120,40 +128,17 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    inll(n);
-    vl v(n);
-    inv;
-    if(n==1)pm;
-     map<ll,ll>mp;
-     rep(i,n)mp[v[i]]++;
-     bool flag=true;
-     for(auto it:mp){
-        if(it.second==1){
-            flag=false;
-            break;
-        }
+     inll(x);
+     inll(n);
+     if(n%2==0){
+        if(n%4==0)cout<<x<<endl;
+        else cout<<x+1<<endl;
      }
-     if(!flag)pm;
      else {
-        map<ll,vector<ll>>mp;
-        for(ll i=0;i<v.size();i++){
-            mp[v[i]].pb(i);// pushing all position of the repeating numbers
-            // now we have to just exchange the position of them
-        }
-        for(int i=0;i<v.size();i++){
-            vector<ll>temp=mp[v[i]];
-            vector<ll>::iterator low1=lower_bound(all(temp),i);
-            int index=low1-temp.begin() +1;
-            // cout<<index<<endl;
-            cout<<temp[(index)%temp.size()]+1<<' ';
-        }
-        pe;
-     }
-
         
-    
-    
-    
+     }
+     
+
     }
     return 0;
 }
