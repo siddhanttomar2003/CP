@@ -136,13 +136,31 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    
-     inint(n);
-     instr(x);
+     inll(n);
+     ll k=(n*(n-1))/2;
+     vl v(k);
+     rep(i,k){
+        cin>>v[i];
+     }
+     vector<int>ans;
+     map<ll,int>mp;
+     rep(i,k)mp[v[i]]++;
+     ll last=0;
+     int i=0;
+     for(auto it:mp){
+       int times=it.second;
+       while(times>0){
+        times=times-(n-(i+1));
+        ans.pb(it.first);
+        i++;
+       }
+       last=it.first;
+     }
      
-    
-
-
-         }
+     ans.push_back(last);
+     rep(i,ans.size())cout<<ans[i]<<" ";
+     pe;
+   
+    }
     return 0;
 }
