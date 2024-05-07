@@ -11,21 +11,41 @@
 class Solution {
 public:
     ListNode* doubleIt(ListNode* head) {
-        ListNode* dummy = new ListNode();
-        ListNode* cur = dummy;
-        if (head->val > 4) {
-            ListNode* node = new ListNode(1);
-            cur->next = node;
-            cur = cur->next;
+        // first reverse it
+        // then travel and update at the same time
+        ListNode *prev=NULL;
+        ListNode *nex=NULL;
+        ListNode *curr=head;
+        while(curr!=NULL){
+            nex=curr->next;
+            curr->next=prev;
+             prev=curr;
+             curr=nex;
         }
-        cur->next = head;
-        while (head != NULL) {
-            int carry = 0;
-            if (head->next != NULL && head->next->val > 4)
-                carry = 1;
-            head->val = (2 * head->val + carry) % 10;
-            head = head->next;
+        int carry=0;
+        ListNode *rev=prev;
+        while(prev!=NULL){
+         int a=(prev->val)*2;
+         prev->val=(a+carry)%10;
+         carry=(a+carry)/10;
+         if(prev->next== NULL && carry>0){
+            ListNode *newnode=new ListNode (carry);
+            prev->next=newnode;
+            prev=prev->next;
+            break;
+         }
+         prev=prev->next;
         }
-        return dummy->next;
+        ListNode *temp2=rev;// newhead but is reversed
+        ListNode * prev2=NULL;
+        ListNode *nex2=NULL;
+        while(temp2!=NULL){
+            nex2=temp2->next;
+            temp2->next=prev2;
+            prev2=temp2;
+            temp2=nex2;
+        }
+          return prev2;
+          
     }
 };
