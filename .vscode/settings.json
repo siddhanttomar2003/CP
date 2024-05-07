@@ -80,6 +80,9 @@
     "ostream": "cpp",
     "complex": "cpp",
     "chrono": "cpp",
-    "limits": "cpp"
+    "limits": "cpp",
+    "barrier": "cpp",
+    "latch": "cpp",
+    "semaphore": "cpp"
   }
 }
