@@ -24,7 +24,22 @@ public:
         // we can use two indexes to find out till that what is the max substring we can get
         int index1=nums1.size();
         int index2=nums2.size();
-        vector<vector<int>>dp(index1,vector<int>(index2,-1));
-          return  find_max(nums1,nums2,index1-1,index2-1,dp);
+        vector<vector<int>>dp(index1+1,vector<int>(index2+1,0));
+         // now using the same concept as in largest common subseq
+         // but here we dont have option for nottake 
+         // This is bcz we need to have continous takes so nottake is not an option
+            int ans=0;
+          for(int i=1;i<=index1;i++){
+            for(int j=1;j<=index2;j++){
+                if(nums1[i-1]==nums2[j-1]){
+                       dp[i][j]=1+dp[i-1][j-1];
+                       ans=max(ans,dp[i][j]);
+                }
+            }
+          }
+          return ans;
+      
+       
+
     }
 };
