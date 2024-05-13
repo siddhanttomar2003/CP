@@ -160,8 +160,7 @@ public:
             }
             if(count_zero>count_one){
                 rep(i,m){
-                if(grid[i][j])grid[i][j]=0;
-                else grid[i][j]=1;
+               grid[i][j]^=1;
             }
             }
 
