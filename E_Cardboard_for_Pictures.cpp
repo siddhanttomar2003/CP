@@ -1,3 +1,4 @@
+
 //author:-Siddhant Tomar
 //linked in :-https://www.linkedin.com/in/siddhant-tomar-9b3aab261/
 
@@ -44,7 +45,7 @@ using namespace std;
 #define inv rep(i,n){cin>>v[i];}
 #define invv rep(i,n){rep(j,m){cin>>vv[i][j];}}
 #define ouv rep(i,n){cout<<v[i]<<" ";}
-#define inv2 rep(i,n2){cin>>v2[i];}
+#define inv2 rep(i,n){cin>>v2[i];}
 #define inv3 rep(i,n){cin>>v3[i];}
 #define inv4 rep(i,n){cin>>v4[i];}
 #define sort(v) sort(v.begin(),v.end());
@@ -125,14 +126,16 @@ ll binomial_expo (ll a, ll b){
     }
     return ans;
 }
-int two_to_thepower(int num){
-    int count=1;
-    while(pow(2,count)!=num){
-        count++;
-    }
-    return count;
-}
 
+unsigned long long check(vector<unsigned long long> &v, unsigned long long mid,ll c){
+   unsigned long long sum=0;
+    rep(i,v.size()){
+        if((v[i]+(2*mid*1ll))>sqrt(1e18))return c+1;
+        sum+=((v[i]+(2*mid*1ll))*(v[i]+(2*mid*1ll)));
+        if(sum>c)return c+1;
+    }
+    return sum;
+}
 int32_t main()
 {
     fastio()
@@ -145,21 +148,29 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-     inint(n);
-     inint(q);
-     vi v(n);
+     // bs on answers
+     inll(n);
+     unsigned long long c;cin>>c;
+     vector<unsigned long long> v(n);
      inv;
-     vi vec(q);
-     rep(i,q){cin>>vec[i];}
-     ull mp;
-    rep(i,n){
-        if(!(v[i]&(v[i]-1))){
-            cout<<"yes"<<" ";
+     ll i=0;
+    
+     ll ans=0;
+     ll e=c;
+     while(i<=e){
+        unsigned long long mid=i+(e-i)/2;
+        unsigned long long num=check(v,mid,c);
+        if(num==c){
+            ans=mid;
+            break;
         }
-        else cout<<"no"<<" ";
-    }
-     pe;
-     pe;
+        else {
+            if(num<c)i=mid+1;
+            else e=mid-1;
+        }
+     }
+     cout<<ans<<endl;
+
     }
     return 0;
 }

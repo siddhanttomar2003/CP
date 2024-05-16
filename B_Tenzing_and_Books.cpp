@@ -44,7 +44,7 @@ using namespace std;
 #define inv rep(i,n){cin>>v[i];}
 #define invv rep(i,n){rep(j,m){cin>>vv[i][j];}}
 #define ouv rep(i,n){cout<<v[i]<<" ";}
-#define inv2 rep(i,n2){cin>>v2[i];}
+#define inv2 rep(i,n){cin>>v2[i];}
 #define inv3 rep(i,n){cin>>v3[i];}
 #define inv4 rep(i,n){cin>>v4[i];}
 #define sort(v) sort(v.begin(),v.end());
@@ -125,13 +125,7 @@ ll binomial_expo (ll a, ll b){
     }
     return ans;
 }
-int two_to_thepower(int num){
-    int count=1;
-    while(pow(2,count)!=num){
-        count++;
-    }
-    return count;
-}
+
 
 int32_t main()
 {
@@ -146,20 +140,38 @@ int32_t main()
     while(t--)
     {
      inint(n);
-     inint(q);
-     vi v(n);
-     inv;
-     vi vec(q);
-     rep(i,q){cin>>vec[i];}
-     ull mp;
-    rep(i,n){
-        if(!(v[i]&(v[i]-1))){
-            cout<<"yes"<<" ";
-        }
-        else cout<<"no"<<" ";
-    }
-     pe;
-     pe;
+     inint(x);
+     vector<int>v1(n);
+     rep(i,n)cin>>v1[i];
+       vector<int>v2(n);
+     rep(i,n)cin>>v2[i];
+       vector<int>v3(n);
+     rep(i,n)cin>>v3[i];
+     bool flag1=false;
+     bool flag2=false;
+     bool flag3=false;
+     int u1=0;
+     rep(i,n){
+        u1|=v1[i];
+        if(u1>x)break;
+        if(u1==x)flag1=true;
+     }
+     int u2=0;
+     rep(i,n){
+        u2|=v1[i];
+        if(u2>x)break;
+        if(u2==x)flag2=true;
+     }
+       int u3=0;
+     rep(i,n){
+        u3|=v1[i];
+        if(u3>x)break;
+        if(u3==x)flag3=true;
+     }
+     if(flag1 || flag2 || flag3 || x==0)py;
+     else pn;
+
+
     }
     return 0;
 }

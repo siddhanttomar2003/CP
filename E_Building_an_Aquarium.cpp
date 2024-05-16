@@ -44,7 +44,7 @@ using namespace std;
 #define inv rep(i,n){cin>>v[i];}
 #define invv rep(i,n){rep(j,m){cin>>vv[i][j];}}
 #define ouv rep(i,n){cout<<v[i]<<" ";}
-#define inv2 rep(i,n2){cin>>v2[i];}
+#define inv2 rep(i,n){cin>>v2[i];}
 #define inv3 rep(i,n){cin>>v3[i];}
 #define inv4 rep(i,n){cin>>v4[i];}
 #define sort(v) sort(v.begin(),v.end());
@@ -125,12 +125,14 @@ ll binomial_expo (ll a, ll b){
     }
     return ans;
 }
-int two_to_thepower(int num){
-    int count=1;
-    while(pow(2,count)!=num){
-        count++;
-    }
-    return count;
+bool check(vector<ll> &v,ll mid,ll maxi){
+ll ans=0;
+for(int i=0;i<v.size();i++){
+    if(mid>v[i])ans+=(mid-v[i]);
+    else break;
+}
+if(ans<=maxi)return true;
+return false;
 }
 
 int32_t main()
@@ -145,21 +147,28 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-     inint(n);
-     inint(q);
-     vi v(n);
-     inv;
-     vi vec(q);
-     rep(i,q){cin>>vec[i];}
-     ull mp;
-    rep(i,n){
-        if(!(v[i]&(v[i]-1))){
-            cout<<"yes"<<" ";
+      inint(n);
+      inll(maxi);
+      vl v(n);
+      inv;
+      // bs on answers
+      sort(v);
+      ll i=1;
+      ll e=v[n-1]+maxi;
+    
+      ll ans=INT_MIN;
+      while(i<=e){
+        ll mid=i+(e-i)/2;
+        if(check(v,mid,maxi)){
+            ans=max(ans,mid);
+            i=mid+1;
         }
-        else cout<<"no"<<" ";
-    }
-     pe;
-     pe;
+        else e=mid-1;
+        
+      }
+      cout<<ans<<endl;
+      
+          
     }
     return 0;
 }

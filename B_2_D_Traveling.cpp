@@ -44,7 +44,7 @@ using namespace std;
 #define inv rep(i,n){cin>>v[i];}
 #define invv rep(i,n){rep(j,m){cin>>vv[i][j];}}
 #define ouv rep(i,n){cout<<v[i]<<" ";}
-#define inv2 rep(i,n2){cin>>v2[i];}
+#define inv2 rep(i,n){cin>>v2[i];}
 #define inv3 rep(i,n){cin>>v3[i];}
 #define inv4 rep(i,n){cin>>v4[i];}
 #define sort(v) sort(v.begin(),v.end());
@@ -125,13 +125,7 @@ ll binomial_expo (ll a, ll b){
     }
     return ans;
 }
-int two_to_thepower(int num){
-    int count=1;
-    while(pow(2,count)!=num){
-        count++;
-    }
-    return count;
-}
+
 
 int32_t main()
 {
@@ -145,21 +139,56 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-     inint(n);
-     inint(q);
-     vi v(n);
-     inv;
-     vi vec(q);
-     rep(i,q){cin>>vec[i];}
-     ull mp;
-    rep(i,n){
-        if(!(v[i]&(v[i]-1))){
-            cout<<"yes"<<" ";
+      ll n,k,a,b;
+      cin>>n>>k>>a>>b;
+      vector<pair<ll,ll>>pos(n);
+      rep(i,n){
+        inll(c);
+        inll(d);
+        pos[i]={c,d};
+      }
+      ll ans1=abs(pos[b-1].first-pos[a-1].first)+abs(pos[b-1].second-pos[a-1].second);
+    
+      if(a<=k && b<=k){
+        cout<<0<<endl;
+      }
+      else if(a<=k){   
+        ll x_tar=pos[b-1].first;
+        ll y_tar=pos[b-1].second;
+        ll mini=1e10;
+        rep(i,k){
+            mini=min(mini,abs(x_tar-pos[i].first)+abs(y_tar-pos[i].second));
         }
-        else cout<<"no"<<" ";
-    }
-     pe;
-     pe;
+        cout<<min(mini,ans1)<<endl;
+      }
+      else if(b<=k){
+        ll x_tar=pos[a-1].first;
+        ll y_tar=pos[a-1].second;
+        ll mini=1e10;
+        rep(i,k){
+            mini=min(mini,abs(x_tar-pos[i].first)+abs(y_tar-pos[i].second));
+        }
+        cout<<min(mini,ans1)<<endl;
+      }
+      else {
+         ll x_tar1=pos[b-1].first;
+        ll y_tar1=pos[b-1].second;
+        
+        ll mini1=1e10;
+        rep(i,k){
+            mini1=min(mini1,abs(x_tar1-pos[i].first)+abs(y_tar1-pos[i].second));
+        }
+         ll x_tar2=pos[a-1].first;
+        ll y_tar2=pos[a-1].second;
+        ll mini2=1e10;
+        rep(i,k){
+            mini2=min(mini2,abs(x_tar2-pos[i].first)+abs(y_tar2-pos[i].second));
+        }
+        ll f_ans=mini1+mini2;
+        cout<<min(f_ans,ans1)<<endl;
+
+      }
+
     }
     return 0;
 }
