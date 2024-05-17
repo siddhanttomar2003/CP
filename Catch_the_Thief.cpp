@@ -1,4 +1,3 @@
-
 //author:-Siddhant Tomar
 //linked in :-https://www.linkedin.com/in/siddhant-tomar-9b3aab261/
 
@@ -136,26 +135,23 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    inint(n);
-    vi v(n);
-    inv;
-    
-    unordered_map<int,int>mp;
-    rep(i,n){
-        mp[v[i]]=i+1;
+    int t;
+    cin>>t;
+    while(t--)
+    {
+     ll x,y,k,n;
+     cin>>x>>y>>k>>n;
+     ll theif_max,police_max;
+     if(y>x){
+         theif_max=y+((n-y)/k)*k;
+         police_max=x+((n-y)/k)*k;
+     }
+     else {
+         theif_max=y-((y/k)*k);
+         police_max=x-((y/k)*k);
+     }
+     if(abs(theif_max-police_max)%(2*k*1ll)==0)cout<<"Yes"<<endl;
+     else cout<<"No"<<endl;
     }
-    int start=1;
-    int count=1;
-    while(start<n){
-    if(mp[start+1]>mp[start]){
-        start++;
-        
-    }
-    else {
-        count++;
-        start++;
-    }
-    }
-    cout<<count<<endl;
     return 0;
 }

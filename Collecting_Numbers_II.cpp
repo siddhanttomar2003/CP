@@ -137,13 +137,14 @@ int32_t main()
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
     inint(n);
+    inint(q);
     vi v(n);
     inv;
-    
-    unordered_map<int,int>mp;
+ unordered_map<int,int>mp;
     rep(i,n){
         mp[v[i]]=i+1;
     }
+    unordered_map<int,int>mp2;
     int start=1;
     int count=1;
     while(start<n){
@@ -155,7 +156,16 @@ int32_t main()
         count++;
         start++;
     }
+    mp2[start]=count;
     }
-    cout<<count<<endl;
+  while(q--){   
+    inint(a);
+    inint(b);
+   int count2=0;
+   swap(mp[v[a-1]],mp[v[b-1]]);
+   
+   
+    
+  }
     return 0;
 }
