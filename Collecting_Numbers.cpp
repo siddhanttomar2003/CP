@@ -1,3 +1,4 @@
+
 //author:-Siddhant Tomar
 //linked in :-https://www.linkedin.com/in/siddhant-tomar-9b3aab261/
 
@@ -126,13 +127,7 @@ ll binomial_expo (ll a, ll b){
     return ans;
 }
 
-bool check(int u1,int x){
-    while(x>0 && u1>0){
-        if((u1&1) && !(x&1))return false;
-        u1>>=1;x>>=1;
-    }
-    return true;
-}
+
 int32_t main()
 {
     fastio()
@@ -141,77 +136,25 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    int t;
-    cin>>t;
-    while(t--)
-    {
-     inint(n);
-     inint(x);
-     vector<int>v1(n);
-     rep(i,n)cin>>v1[i];
-       vector<int>v2(n);
-     rep(i,n)cin>>v2[i];
-       vector<int>v3(n);
-     rep(i,n)cin>>v3[i];
-      bool flag=false;
-     int u1=0;
-     if(u1==x)flag=true;
-     int prev=u1;
-     rep(i,n){
-        prev=u1;
-       if(v1[i]>x)break;
-       u1|=v1[i];
-          if(u1==x){
-        flag=true;
-        break;
-                   }     
-       else if(!(check(u1,x))){
-        u1=prev;
-        break;
-       }
-     }
-     if(flag)py;
-     else {
-     int prev1=u1;
-     rep(i,n){
-        prev1=u1;
-       if(v2[i]>x)break;
-       u1|=v2[i];
-          if(u1==x){
-        flag=true;
-        break;
-                 }     
-       else if(!(check(u1,x))){
-        u1=prev1;
-        break;
-       }
-     }
-      if(flag)py;
-     else {
-     int prev2=u1;
-     rep(i,n){
-        prev2=u1;
-       if(v3[i]>x)break;
-       u1|=v3[i];
-          if(u1==x){
-        flag=true;
-        break;
-                   }     
-       else if(!(check(u1,x))){
-        u1=prev2;
-        break;
-       }
-     }
-     if(flag)py;
-     else pn;
-     }
-     
-
-     }
-    
-    
-
-
+    inint(n);
+    vi v(n);
+    inv;
+    unordered_map<int,int>mp;
+    rep(i,n){
+        mp[v[i]]=i+1;
     }
+    int start=1;
+    int count=1;
+    while(start<n){
+    if(mp[start+1]>mp[start]){
+        start++;
+        
+    }
+    else {
+        count++;
+        start++;
+    }
+    }
+    cout<<count<<endl;
     return 0;
 }
