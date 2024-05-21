@@ -135,30 +135,101 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-   
+    int t;
+    cin>>t;
+    while(t--)
+    {
      inint(n);
-    
-      for(int i=0;i<pow(2,n);i++){
-      int  num=i^(i>>1);
-        string  ans=decToBinary(num);
-        if(ans.length()<n){
-            deque<char>dq;
-            rep(j,ans.length()){
-                dq.push_back(ans[j]);
+     instr(x);
+     int curr_rx=0;
+     int curr_ry=0;
+     int curr_hx=0;
+     int curr_hy=0;
+     int up=0;
+     int down=0;
+     int right=0;
+     int left=0;
+     int countr=0;
+     int counth=0;
+     int countN=0;
+     int countS=0;
+     int countW=0;
+     int countE=0;
+     string ans="";
+     rep(i,n){
+        if(x[i]=='N'){
+            up++;
+            countN++;
+            if(up&1  ){
+                curr_ry++;
+                ans+='R';
+                countr++;
             }
-            while(dq.size()!=n){
-                dq.push_front('0');
+            else {
+                curr_hy++;
+                ans+='H';
+                counth++;
             }
-            while(dq.size()>0){
-                cout<<dq.front();
-                dq.pop_front();
-            }
-            pe;
         }
-        else cout<<ans<<endl;
-
+        else if(x[i]=='S'){
+            countS++;
+            down++;
+            if(down&1){
+                curr_ry--;
+                ans+='R';
+                 countr++;
+            }
+            else {
+                curr_hy--;
+                ans+='H';
+                counth++;
+            }
+        }
+        else if(x[i]=='W'){
+            countW++;
+            left++;
+            if(left&1){
+                curr_rx--;
+                ans+='R';
+                 countr++;
+            }
+            else {
+                curr_hx--;
+                ans+='H';
+                counth++;
+            }
+        }
+        else{
+          countE++;
+         right++;
+         if(right&1){
+            curr_rx++;
+            ans+='R';
+             countr++;
+         }
+         else {
+            curr_hx++;
+            ans+='H';
+            counth++;
+         }
+        }
         
      }
-    
-    return 0;
+     if(curr_rx==curr_hx && curr_ry==curr_hy && countr>=1 && counth>=1)cout<<ans<<endl;
+     else {
+        string temp="";
+             if(countN==1 && countS==1 && countW==1 && countE==1){
+                rep(i,n){
+                    if(x[i]=='N' || x[i]=='S')temp+='R';
+                    else temp+='H';
+                }
+                cout<<temp<<endl;
+             }
+             else pn;
+             
+     }
+   
 }
+}
+
+    

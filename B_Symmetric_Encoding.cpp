@@ -135,30 +135,38 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-   
-     inint(n);
-    
-      for(int i=0;i<pow(2,n);i++){
-      int  num=i^(i>>1);
-        string  ans=decToBinary(num);
-        if(ans.length()<n){
-            deque<char>dq;
-            rep(j,ans.length()){
-                dq.push_back(ans[j]);
-            }
-            while(dq.size()!=n){
-                dq.push_front('0');
-            }
-            while(dq.size()>0){
-                cout<<dq.front();
-                dq.pop_front();
-            }
-            pe;
+    int t;
+    cin>>t;
+    while(t--)
+    {
+    inint(n);
+    instr(x);
+    vector<int>v(26,0);
+    rep(i,n){
+        v[x[i]-97]++;
+    }
+    map<char,char>mp;
+    int i=0;
+    int j=25;
+    while(i<=j){
+        if(v[i]!=0 && v[j]!=0){
+           char a=(char)(i+97);
+           char b=(char)(j+97);
+          mp[a]=b;
+          mp[b]=a;
+          i++;j--;
         }
-        else cout<<ans<<endl;
-
-        
-     }
+        if(v[i]==0)i++;
+        if(v[j]==0)j--;
+    }
     
-    return 0;
+    string ans="";
+    rep(i,n){
+       ans+=mp[x[i]];
+    }
+    cout<<ans;
+    pe;
 }
+}
+
+    
