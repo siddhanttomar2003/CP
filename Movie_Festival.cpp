@@ -135,67 +135,31 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    int t;
-    cin>>t;
-    while(t--)
-    {
    inint(n);
-   vl v(n);
-   inv;
-   map<pair<ll,ll>,map<ll,ll>>mp1;
-    map<pair<ll,ll>,map<ll,ll>>mp2;
-     map<pair<ll,ll>,map<ll,ll>>mp3;
-     rep(i,n-2){
-        pair<ll,ll>p1;
-        p1.first=v[i];
-        p1.second=v[i+1];
-           pair<ll,ll>p2;
-        p2.first=v[i];
-        p2.second=v[i+2];
-        pair<ll,ll>p3;
-        p3.first=v[i+1];
-        p3.second=v[i+2];
-        mp1[p1][v[i+2]]++;
-        mp2[p2][v[i+1]]++;
-        mp3[p3][v[i]]++;
-     }
-     ll ans=0;
-     for(auto it:mp1){
-      ll  sum=0;
-      for(auto it2:it.second){
-        sum+=it2.second;
-      }
-      for(auto it2:it.second){
-        ans+=(it2.second*(sum-it2.second));
-        sum-=it2.second;
-      }
-     }
-      for(auto it:mp2){
-      ll sum=0;
-      for(auto it2:it.second){
-        sum+=it2.second;
-      }
-      for(auto it2:it.second){
-        ans+=(it2.second*(sum-it2.second));
-        sum-=it2.second;
-      }
-     }
-      for(auto it:mp3){
-      ll sum=0;
-      for(auto it2:it.second){
-        sum+=it2.second;
-      }
-      for(auto it2:it.second){
-        ans+=(it2.second*(sum-it2.second));
-        sum-=it2.second;
-      }
-     }
-     cout<<ans<<endl;
-
-    
-
-   
+   vector<pair<int,int>>v(n);
+   rep(i,n){
+    inint(a);
+    inint(b);
+    v[i]={a,b};
+   }
+   sort(v);
+   int start=v[0].first;
+   int end=v[0].second;
+   int count=1;
+   for(int i=1;i<n;i++){
+    if(v[i].first<end){
+        if(v[i].second<end){
+            start=v[i].first;
+            end=v[i].second;
+        }
+       
+    }
+    else{
+        count++;
+        start=v[i].first;
+        end=v[i].second;
+    }
+   }
+   cout<<count<<endl;
+    return 0;
 }
-}
-
-    
