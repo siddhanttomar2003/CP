@@ -1,26 +1,30 @@
 class Solution {
 public:
-    string smallestSubsequence(string text) {
-        vector<int> count(26, 0);
-        for (char c : text) {
-            count[c - 'a'] += 1;
+    string smallestSubsequence(string s) {
+        unordered_map<char,int>mp;// to keep the track of last index of every char
+        for(int i=0;i<s.size();i++){
+            mp[s[i]]=i;
         }
+        vector<int> visited(26,0);
+        stack<char>st;
+        for(int i=0;i<s.length();i++){
+            if(!(visited[s[i]-'a'])){
+                while(st.size()>0 && s[i]<st.top()/* means this is lexicographically smaller than the top of the stack element*/
+                 && mp[st.top()]>i/* means there are further appearence of this char so we can take it in our stack further */){
+                 visited[st.top()-'a']=0;
+                 st.pop();
+                }
+                st.push(s[i]);
+                visited[s[i]-'a']=1;
+            } 
+        }
+        string ans="";
+        while(st.size()>0){
+            ans+=st.top();
+            st.pop();
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
         
-        string result = "";
-        vector<bool> used(26, false);
-        for (char c : text) {
-            if (used[c - 'a']) {
-                count[c - 'a'] -= 1;
-                continue;
-            }
-            while (!result.empty() and c < result.back() and count[result.back() - 'a'] > 0) {
-                used[result.back() - 'a'] = false;
-                result.pop_back();
-            }
-            result.push_back(c);
-            used[c - 'a'] = true;
-            count[c - 'a'] -= 1;
-        }
-        return result;
     }
 };
