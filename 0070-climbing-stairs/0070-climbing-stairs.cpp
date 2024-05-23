@@ -1,13 +1,13 @@
 class Solution {
 public:
+     int find_ans(vector<int> &dp,int n){
+        if(n==0)return 1;
+        if(n<0)return 0;
+        if(dp[n]!=-1)return dp[n];
+        return dp[n]=find_ans(dp,n-1)+find_ans(dp,n-2);
+     }
     int climbStairs(int n) {
-        if(n <= 2) return n;
-        int a = 1, b = 2, c;
-        for(int i=3; i<=n; i++){
-            c = a + b;
-            a = b;
-            b = c;
-        }
-        return c;
+        vector<int>dp(n+1,-1);
+       return find_ans(dp,n);
     }
 };
