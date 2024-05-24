@@ -138,9 +138,9 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    inint(n);
-    vector<int> v1(n);
-    vector<int> v2(n);
+    inll(n);
+    vector<ll> v1(n);
+    vector<ll> v2(n);
     rep(i,n){
         cin>>v1[i];
     }
@@ -149,9 +149,28 @@ int32_t main()
     }
     sort(v2.begin(),v2.end());
     sort(v1.begin(),v1.end());
-    
-    
-     
+    bool flag=true;
+    rep(i,n){
+        if(v2[i]>=v1[i])flag=false;
+    }
+    if(!flag)cout<<0<<endl;
+    else {
+        unsigned long long int ans=1;
+        for(ll i=0;i<n;i++){
+            auto it= lower_bound(v2.begin(),v2.end(),v1[i]);
+           unsigned long long int pos;
+            if(it!=v2.end()){
+                pos=it-v2.begin()-i;
+            }
+            else {
+                pos=n-i;
+            }
+            ans=(ans*pos)%M;
+
+        }
+           cout<<ans<<endl;
+    }
+ 
     }
     return 0;
 }
