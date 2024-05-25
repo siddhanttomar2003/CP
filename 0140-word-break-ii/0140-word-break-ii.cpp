@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void recur(vector<string> &ans, string &temp, unordered_set<string> &st, string s, int i){
+    void recur(vector<string> &ans, string &temp, unordered_map<string,int> &st, string s, int i){
         if(i==s.length()){
             ans.push_back(temp);
             return;
@@ -9,7 +9,7 @@ public:
         string curr="";
         for(int j=i;j<s.length();j++){
             curr+=s[j];
-            if(st.find(curr)!=st.end()){
+            if(st[curr]>0){
                 temp+=curr;
                 if(j!=s.length()-1)
                 temp+=" ";
@@ -21,9 +21,9 @@ public:
       
     }
     vector<string> wordBreak(string s, vector<string>& wordDict) {
-        unordered_set<string>st;
+         unordered_map<string,int>st;
         for(int i=0;i<wordDict.size();i++){
-            st.insert(wordDict[i]);
+            st[wordDict[i]]++;
         }
         string temp="";
         vector<string>ans;
