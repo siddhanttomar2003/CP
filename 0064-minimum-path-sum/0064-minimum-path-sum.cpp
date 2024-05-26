@@ -12,12 +12,28 @@ public:
 
     }
     int minPathSum(vector<vector<int>>& grid) {
-        int ans=INT_MAX;
         int n=grid.size();int m=grid[0].size();
-        int curr=0;
         if(n==1 && m==1)return grid[0][0];
+        // now tabulation
+
         vector<vector<int>>dp(n,vector<int> (m,-1));
-        recur(grid,0,0,n,m,curr,dp);
-        return dp[0][0];
+        dp[0][0]=grid[0][0];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                int curr1=0;
+                int curr2=0;
+                if(i==0  && j==0)continue;
+                else {
+                    if(i-1>=0)
+                     curr1+=grid[i][j]+dp[i-1][j];
+                     if(j-1>=0)
+                     curr2+=grid[i][j]+dp[i][j-1];
+                     if(curr1==0)dp[i][j]=curr2;
+                     else if(curr2==0)dp[i][j]=curr1;
+                     else dp[i][j]=min(curr1,curr2);
+                }
+            }
+        }
+        return dp[n-1][m-1];
     }
 };
