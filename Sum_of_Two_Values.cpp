@@ -47,9 +47,9 @@ using namespace std;
 #define inv2 rep(i,n){cin>>v2[i];}
 #define inv3 rep(i,n){cin>>v3[i];}
 #define inv4 rep(i,n){cin>>v4[i];}
+#define sort(v) sort(v.begin(),v.end());
 #define add(sum,v) accumulate(v.begin(),v.end(),sum);
 #define repa(it)      for(auto it:mp)
-#define sort(v)   sort(v.begin(),v.end());
 
 //Typedef
 typedef long long ll;
@@ -135,31 +135,35 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    int t;
-    cin>>t;
-    while(t--)
-    {
-    inll(n);
-    vector<ll> v1(n);
-    vector<ll> v2(n);
-    rep(i,n){
-        cin>>v1[i];
-    }
-        rep(i,n){
-        cin>>v2[i];
-    }
-    sort(v2);
-    sort(v1);
-   rep(i,n)cout<<v1[i];
-   pe;
-   rep(i,n)
-   {
-    cout<<v2[i];
-   }
-   pe;
    
+     inint(n);
+     inll(tar);
+     vpl v(n);
+     rep(i,n,0){
+        pair<ll,ll>p;
+        inll(a);
+        p.first=a;
+        p.second=i;
+       v[i]=p;
+     }
+     sort(v);
    
- 
-    }
+
+    int i=0;int j=n-1;
+     bool flag=false;
+     while(i<j){
+        if(v[i].first+v[j].first==tar){
+            cout<<v[i].second+1<<" "<<v[j].second+1<<endl;
+            flag=true;
+            break;
+        }
+        else if(v[i].first+v[j].first<tar){
+            i++;
+        }
+        else j--;
+     }
+     if(!flag)cout<<"IMPOSSIBLE"<<endl;
+
+    
     return 0;
 }
