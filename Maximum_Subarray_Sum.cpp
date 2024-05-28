@@ -41,7 +41,7 @@ using namespace std;
 #define po cout<<"0"<<endl;
 #define ps(x,y) fixed<<setprecision(y)<<x
 #define pe cout<<endl
-#define inv rep(i,n){cin>>v[i];}
+#define inv rep(i,n,0){cin>>v[i];}
 #define invv rep(i,n){rep(j,m){cin>>vv[i][j];}}
 #define ouv rep(i,n){cout<<v[i]<<" ";}
 #define inv2 rep(i,n){cin>>v2[i];}
@@ -135,7 +135,19 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-   inll(n);
-   
+  
+     inint(n);
+     vl v(n);
+     inv;
+     ll sum=0;
+     ll ans=INT_MIN;
+     rep(i,n,0){
+     sum+=v[i];
+     ans=max(ans,sum);
+     if(sum<0)sum=0;
+     }
+     cout<<ans<<endl;
+
+    
     return 0;
 }
