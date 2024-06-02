@@ -128,21 +128,31 @@ ll binomial_expo (ll a, ll b){
 }
 class Solution {
 public:
-    vector<int> singleNumber(vector<int>& nums) {
-        long long x=0;
-        int n=nums.size();
-        rep(i,n,0){
-            x^=nums[i];
+    int find_min(int i, int j, vi & Cut,vvi &dp){
+        if(i>j)return 0;
+        int mini=1e8;
+        if(dp[i][j]!=-1)return dp[i][j];
+        rep(ind,j+1,i){
+            int ans=Cut[j+1]-Cut[i-1]+find_min(i,ind-1,Cut,dp)+find_min(ind+1,j,Cut,dp);
+
+            mini=min(mini,ans);
         }
-        // find the last set bit in O(1);
-        int lastset=(x&(x-1))^x;
-        int a=0;
-        rep(i,n,0){
-            if(nums[i]&lastset){
-                a^=nums[i];
-            }
-        }
-        int b=x^a;
-        return {a,b};
+        return dp[i][j]= mini;
+    }
+    int minCost(int n, vector<int>& cuts) {
+        // using recur
+       
+        int s=cuts.size();
+       vector<int>Cut(s+2);
+        vvi dp(s+2,vi(s+2,-1));
+       Cut[0]=0;
+       Cut[s+1]=n;
+       sort(cuts);
+       rep(i,s+1,1){
+        Cut[i]=cuts[i-1];
+       }
+       int i=1;
+       int j=s;
+       return find_min(i,j,Cut,dp);
     }
 };

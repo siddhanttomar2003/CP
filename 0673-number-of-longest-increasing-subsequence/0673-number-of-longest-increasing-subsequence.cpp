@@ -128,21 +128,33 @@ ll binomial_expo (ll a, ll b){
 }
 class Solution {
 public:
-    vector<int> singleNumber(vector<int>& nums) {
-        long long x=0;
+    int findNumberOfLIS(vector<int>& nums) {
+        int count=0;
+        //  first let find out the lis
         int n=nums.size();
+        int ans=1;
+        vi dp(n,1);
         rep(i,n,0){
-            x^=nums[i];
+         rep(j,i,0){
+            if(nums[i]>nums[j]){
+                dp[i]=max(dp[i],1+dp[j]);
+            }
+         }
+         ans=max(ans,dp[i]);
         }
-        // find the last set bit in O(1);
-        int lastset=(x&(x-1))^x;
-        int a=0;
+        vi dp2(n,1);
         rep(i,n,0){
-            if(nums[i]&lastset){
-                a^=nums[i];
+            rep(j,i,0){
+                if(nums[i]>nums[j]){
+                   dp2[i]=max(dp2[i],1+dp2[j]);
+                   if(1+dp[j]==ans && ans!=1)count++;
+                }
+                
             }
         }
-        int b=x^a;
-        return {a,b};
+        if(ans==1)return n; 
+        return count;
+            
+        
     }
 };

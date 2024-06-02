@@ -42,7 +42,7 @@ using namespace std;
 #define po cout<<"0"<<endl;
 #define ps(x,y) fixed<<setprecision(y)<<x
 #define pe cout<<endl
-#define inv rep(i,n){cin>>v[i];}
+#define inv rep(i,n,0){cin>>v[i];}
 #define invv rep(i,n){rep(j,m){cin>>vv[i][j];}}
 #define ouv rep(i,n){cout<<v[i]<<" ";}
 #define inv2 rep(i,n){cin>>v2[i];}
@@ -126,23 +126,21 @@ ll binomial_expo (ll a, ll b){
     }
     return ans;
 }
-class Solution {
+
+  class Solution {
 public:
-    vector<int> singleNumber(vector<int>& nums) {
-        long long x=0;
+    int subarraysDivByK(vector<int>& nums, int k) {
+        ull mp;
         int n=nums.size();
+        int ans=0;
+        int sum=0;
+        mp[0]=1;
         rep(i,n,0){
-            x^=nums[i];
+            sum+=nums[i];
+            int rem=(sum%k+k)%k;
+            ans+=mp[rem];
+            mp[rem]++;
         }
-        // find the last set bit in O(1);
-        int lastset=(x&(x-1))^x;
-        int a=0;
-        rep(i,n,0){
-            if(nums[i]&lastset){
-                a^=nums[i];
-            }
-        }
-        int b=x^a;
-        return {a,b};
+        return ans;
     }
 };
