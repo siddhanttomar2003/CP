@@ -125,16 +125,23 @@ ll binomial_expo (ll a, ll b){
     }
     return ans;
 }
-int recur(int i, vi &v, vi &dp, int tar){
-    if(tar==1)return 1;
-   if(tar<0)return 0;
-   
-   int curr=0;
-   rep(i,n,0){
-    if(v[i]<=tar)curr+=recur(i,v,dp,tar-v[i]);
-   }
-
-
+ll find_min(ll n, vl &dp){
+    if(n<0)return 1e8;
+    if(n==0)return 0;
+    if(dp[n]!=-1)return dp[n];
+    ull mp;
+    ll a=n;
+    while(a){
+        ll rem=a%10;
+        if(rem!=0)
+        mp[rem]++;
+        a/=10;
+    }
+    ll ans=1e8;
+    for(auto it:mp){
+         ans=min(ans,1+find_min(n-it.first,dp));
+    }
+    return dp[n]=ans;
 }
 
 int32_t main()
@@ -145,12 +152,9 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-   inint(n);
-   inint(tar);
-   vi v(n);
-   inv;
-   // at any target we can choose any one 
-   vi dp(tar+1,-1);
-   return recur(0,v,dp,tar);
+    inll(n);
+    vl dp(n+1,-1);
+    ll ans=find_min(n,dp);
+    cout<<ans<<endl;
     return 0;
 }

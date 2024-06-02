@@ -125,17 +125,7 @@ ll binomial_expo (ll a, ll b){
     }
     return ans;
 }
-int recur(int i, vi &v, vi &dp, int tar){
-    if(tar==1)return 1;
-   if(tar<0)return 0;
-   
-   int curr=0;
-   rep(i,n,0){
-    if(v[i]<=tar)curr+=recur(i,v,dp,tar-v[i]);
-   }
 
-
-}
 
 int32_t main()
 {
@@ -145,12 +135,22 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-   inint(n);
-   inint(tar);
-   vi v(n);
-   inv;
-   // at any target we can choose any one 
-   vi dp(tar+1,-1);
-   return recur(0,v,dp,tar);
+    int t;
+    cin>>t;
+    while(t--)
+    {
+     inll(n);
+     vl v(n);
+     inv;
+     sort(v);
+     ll gg=v[0];
+     rep(i,n,1){
+         gg=gcd(gg,v[i]);
+     }
+     ll ans=gg*n*1ll;
+     cout<<ans<<endl;
+     
+     }
+    
     return 0;
 }

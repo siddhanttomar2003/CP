@@ -59,11 +59,13 @@ typedef long double lld;
 typedef pair<int, int> pi;
 typedef pair<ll, ll> pl;
 typedef vector<int> vi;
+typedef vector<char> vc;
 typedef vector<ll> vl;
 typedef vector<pi> vpi;
 typedef vector<pl> vpl;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
+typedef vector<vc> vvc;
 typedef map<int,int> mii;
 typedef set<int> st;
 
@@ -125,16 +127,11 @@ ll binomial_expo (ll a, ll b){
     }
     return ans;
 }
-int recur(int i, vi &v, vi &dp, int tar){
-    if(tar==1)return 1;
-   if(tar<0)return 0;
-   
-   int curr=0;
-   rep(i,n,0){
-    if(v[i]<=tar)curr+=recur(i,v,dp,tar-v[i]);
-   }
-
-
+int find_ways(int i, int j, vvc &grid,vvi &dp, int n){
+    if(i>=n || j>=n || grid[i][j]=='*')return 0;
+    if(i==n-1 && j==n-1)return 1;
+    if(dp[i][j]!=-1)return dp[i][j];
+    return dp[i][j]=(find_ways(i+1,j,grid,dp,n)+find_ways(i,j+1,grid,dp,n))%M;
 }
 
 int32_t main()
@@ -145,12 +142,18 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-   inint(n);
-   inint(tar);
-   vi v(n);
-   inv;
-   // at any target we can choose any one 
-   vi dp(tar+1,-1);
-   return recur(0,v,dp,tar);
-    return 0;
+    inint(n);
+    vvc grid(n,vc(n));
+    rep(i,n,0){
+        rep(j,n,0){
+            cin>>grid[i][j];
+          
+        }
+        
+    }
+    vvi dp(n,vi(n,-1));
+    long long ans= find_ways(0,0,grid,dp,n);
+    cout<<ans<<endl;
+
+    
 }
