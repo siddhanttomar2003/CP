@@ -1,26 +1,22 @@
 class Solution {
 public:
-    void sortColors(vector<int>& arr) {
-        //dnf algo very important
-      int n=arr.size();
-      int low=0;
-      int mid=0;
-      int high=n-1;
-    while(mid<=high){
-    if(arr[mid]==0){
-        swap(arr[low],arr[mid]);
-        low++;
-        mid++;
-        
-    }
-    else if(arr[mid]==1){
-        mid++;
-    }
-    else{
-        swap(arr[mid],arr[high]);
-        high--;
-    }
-    }
-
+    void sortColors(vector<int>& nums) {
+        int low=0;
+        int mid=0;
+        int high=nums.size()-1;
+        while(mid<=high){
+            if(nums[mid]==0){
+                swap(nums[low],nums[mid]);
+                low++;
+                mid++;
+            }
+            else if(nums[mid]==1){
+                mid++;
+            }
+            else {
+                swap(nums[high],nums[mid]);
+                high--;
+            }
+        }
     }
 };
