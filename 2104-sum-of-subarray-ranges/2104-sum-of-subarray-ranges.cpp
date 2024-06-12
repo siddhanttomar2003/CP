@@ -128,18 +128,91 @@ ll binomial_expo (ll a, ll b){
 }
 class Solution {
 public:
-    long long subArrayRanges(vector<int>& nums) {
-        ll ans=0;
-        int n=nums.size();
+    ll find_max(vi &arr){
+        stack<int>s1;
+        s1.push(-1);
+        int n=arr.size();
+        vi left(n);
         rep(i,n,0){
-            int mini=nums[i];
-            int maxi=nums[i];
-         rep(j,n,i){
-           maxi=max(maxi,nums[j]);
-           mini=min(mini,nums[j]);
-           ans+=(maxi-mini);
+         while(s1.top()!=-1 && arr[s1.top()]<arr[i]){
+                  s1.pop();
          }
+         if(s1.top()==-1){
+            left[i]=-1;
+         }
+         else {
+               left[i]=s1.top();
+         }
+         s1.push(i);
+        }
+        stack<int>s2;
+        vi right(n);
+        s2.push(n);
+        for(int i=n-1;i>=0;i--){
+            while(s2.top()!=n && arr[s2.top()]<=arr[i]){
+                s2.pop();
+            }
+            if(s2.top()==n){
+                right[i]=n;
+            }
+            else right[i]=s2.top();
+            s2.push(i);
+        }
+        ll ans=0;
+        rep(i,n,0){
+            ll l=i-left[i];
+            ll r=right[i]-i;
+            ll temp=(l*r);
+            ll ansi=(temp*arr[i]*1ll);
+            ans=(ans+ansi);
         }
         return ans;
+    }
+    ll find_min(vi &arr){
+        stack<int>s1;
+        s1.push(-1);
+        int n=arr.size();
+        vi left(n);
+        rep(i,n,0){
+         while(s1.top()!=-1 && arr[s1.top()]>arr[i]){
+                  s1.pop();
+         }
+         if(s1.top()==-1){
+            left[i]=-1;
+         }
+         else {
+               left[i]=s1.top();
+         }
+         s1.push(i);
+        }
+        stack<int>s2;
+        vi right(n);
+        s2.push(n);
+        for(int i=n-1;i>=0;i--){
+            while(s2.top()!=n && arr[s2.top()]>=arr[i]){
+                s2.pop();
+            }
+            if(s2.top()==n){
+                right[i]=n;
+            }
+            else right[i]=s2.top();
+            s2.push(i);
+        }
+        ll ans=0;
+        rep(i,n,0){
+            ll l=i-left[i];
+            ll r=right[i]-i;
+            ll temp=(l*r);
+            ll ansi=(temp*arr[i]*1ll);
+            ans=(ans+ansi);
+        }
+        return ans;
+    }
+    long long subArrayRanges(vector<int>& nums) {
+           ll sum=0;
+           sum-=find_min(nums);
+        // for max now
+           sum+=find_max(nums);
+           return sum;
     }
 };
