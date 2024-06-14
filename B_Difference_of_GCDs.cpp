@@ -140,11 +140,26 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-    inll(n);
-    ll square=binomial_expo(n,2);
-    ll cube=binomial_expo(n,3);
-    cout<<((((((4*cube)%M+(3*square)%M-n)+M)%M))*337)%M;
-    pe;
+    inint(n);
+    inll(l);
+    inll(r);
+     vi temp;
+    temp.pb(l);
+    rep(i,n+1,2){
+        if(l%i==0)temp.pb(l);
+        else {
+            if(l+(i-(l%i))<=r){
+                temp.pb(l+(i-(l%i)));
+            }
+        }
+    }
+    if(temp.size()==n){
+        py;
+        rep(i,n,0)cout<<temp[i]<<" ";
+        pe;
+    }
+    else pn;
+
  
 
 
