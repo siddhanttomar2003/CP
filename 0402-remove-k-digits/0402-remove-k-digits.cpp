@@ -129,41 +129,38 @@ ll binomial_expo (ll a, ll b){
 class Solution {
 public:
     string removeKdigits(string num, int k) {
-        // removing the digit from front and having more abs value will be benefitable
-        // trying using stack
-        priority_queue<pair<char,int>>pq;
-        set<int>st;
-        pq.push({num[0],0});
-        int n=num.size();
-        rep(i,n,1){
-          while(pq.size()>0 && pq.top().first>num[i] && k>0){
-            st.insert(pq.top().second);
-            pq.pop();
-            k--;
-          }
-          pq.push({num[i],i});
-        }
-        deque<char>ans;
-        for(int i=n-1;i>=0;i--){
-            if(st.find(i)==st.end()){
-                if(num[i]=='0' && k>0)continue;
-                else if(num[i]=='0' && k==0)ans.push_front(num[i]);
-                else if(k>0){
-                    k--;
-                }
-                else if(k==0)ans.push_front(num[i]);
+        stack<int>st;
+        unordered_set<int>s;
+        int n=num.length();
+        rep(i,n,0){
+           if(st.size()==0){
+            st.push(i);
+           }
+           else {
+            while(k && st.size()>0 && num[st.top()]>num[i]){
+                s.insert(st.top());
+                st.pop();k--;
             }
+            st.push(i);
+           }
         }
-          while(ans.size()>0  && ans.front()=='0'){
-            ans.pop_front();
+        int j=n-1;
+     while(k){
+        s.insert(j);j--;k--;
+     }
+     string ans="";
+     int count=0;
+     rep(i,n,0){
+        if(s.find(i)==s.end() && num[i]!='0'){
+            ans+=num[i];
+            count++;
         }
-        if(ans.size()==0)return "0";
-        string temp="";
-        while(ans.size()>0){
-            temp+=ans.front();
-            ans.pop_front();
+        else if (s.find(i)==s.end() && num[i]=='0' && count>0){
+                ans+=num[i];
         }
-        return temp;
-
+     }
+     
+     if(ans.size()==0)return "0";
+     return ans;
     }
 };
