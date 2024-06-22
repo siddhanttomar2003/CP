@@ -126,14 +126,38 @@ ll binomial_expo (ll a, ll b){
     return ans;
 }
  void solve(){
-  inint(n);
+ inint(n);
   vl v(n);
   inv;
-  sort(v);
-  map<ll,ll>mp;
-   rep(i,n-1,0){
-      mp[]
+ 
+  ll c=0;
+  rep(i,n,1){
+    c+=abs(v[i]-v[i-1]);
+  }
+ if(n==1 || c==0){
+    cout<<1<<endl;
+    return;
+  }
+  ll count=2;
+  // 1 3 1 =>4
+  // 1 9 10 
+  vl temp;
+  rep(i,n-1,0){
+   while(i+1<n && v[i]==v[i+1]){
+    i++;
    }
+   temp.pb(v[i]);
+  }
+  if(v[n-1]!=v[n-2])temp.pb(v[n-1]);
+  rep(i,temp.size()-1,1){
+     if((temp[i] > temp[i-1] && temp[i] > temp[i+1]) || (temp[i] < temp[i-1] && temp[i] < temp[i+1]) )
+     count++;
+    }
+  
+  cout<<count<<endl;
+  
+return;
+
 
 }
 
@@ -145,7 +169,11 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
+    int t;
+    cin>>t;
+    while(t--)
+    {
      solve();
-    
+    }
     return 0;
 }

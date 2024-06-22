@@ -125,15 +125,68 @@ ll binomial_expo (ll a, ll b){
     }
     return ans;
 }
+ll secondLargest(vl &arr,int n)
+{
+	if(n<2)
+	return -1;
+    ll large=INT_MIN,second_large=INT_MIN;
+    int i;
+    for (i = 0; i < n; i++) 
+    {
+        if (arr[i] >= large) 
+        {
+            second_large = large;
+            large = arr[i];
+        }
+ 
+        else if (arr[i] > second_large && arr[i] != large) 
+        {
+            second_large = arr[i];
+        }
+    }
+    return second_large;                
+}
  void solve(){
   inint(n);
+  inint(k);
   vl v(n);
   inv;
-  sort(v);
-  map<ll,ll>mp;
-   rep(i,n-1,0){
-      mp[]
-   }
+  map<int,vector<ll>>mp;
+  rep(i,n,0){
+    mp[v[i]].pb(i+1);
+  }
+  map<int,vector<ll>>mp2;
+  for(auto it:mp){
+    ll start=(-1);
+    rep(i,it.second.size(),0){
+        if(start==-1){
+             mp2[it.first].pb(abs(it.second[i]-1));
+        }
+        else {
+      mp2[it.first].pb(abs(it.second[i]-start-1));
+        }
+      start=it.second[i];
+    }
+    mp2[it.first].pb(abs(n-start));
+  }
+  ll ans=INT_MAX;
+  for(auto it:mp2){
+    ll maxi=*max_element(it.second.begin(),it.second.end());
+    ll smaxi=secondLargest(it.second,it.second.size());
+    ll nmaxi;
+    //  cout<<maxi<<" "<<smaxi<<endl;
+     if(maxi<2)nmaxi=0;
+    
+       nmaxi=maxi/2;
+    ans=min(ans,max(nmaxi,smaxi));
+  }
+//  pe;
+//  pe;
+
+
+  cout<<ans<<endl;
+  return;
+
 
 }
 
@@ -145,7 +198,11 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
+    int t;
+    cin>>t;
+    while(t--)
+    {
      solve();
-    
+    }
     return 0;
 }
