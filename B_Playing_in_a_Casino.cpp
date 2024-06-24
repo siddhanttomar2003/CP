@@ -1,3 +1,4 @@
+
 //author:-Siddhant Tomar
 //linked in :-https://www.linkedin.com/in/siddhant-tomar-9b3aab261/
 
@@ -136,7 +137,18 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  Seg_tree[i]=build_left+build_right;
  return Seg_tree[i];
 }
- ll travel(ll i, ll a, ll b, ll l , ll r , vl &Seg_tree ){
+ ll updateTree(ll i,ll l ,ll r , ll a, vl &Seg_tree,ll value){
+    if(l==r &&r==a){
+        Seg_tree[i]=value;
+        return Seg_tree[i];
+    }
+     if(r<a || l>a)return Seg_tree[i];
+     ll mid=(l+r)/2;
+    ll left= updateTree(2*i+1,l,mid,a,Seg_tree,value);
+      ll right= updateTree(2*i+2,mid+1,r,a,Seg_tree,value);
+      return Seg_tree[i]=left+right ;
+ }
+  ll travel(ll i, ll a, ll b, ll l , ll r , vl &Seg_tree ){
     if(l>=a && r<=b)return Seg_tree[i];
     if(l>b || r<a)return 0;// outofbounds
     if(l==r)return 0;
@@ -144,22 +156,36 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll left=travel(2*i+1,a,b,l,mid,Seg_tree);
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
-
  }
  void solve(){
-    inll(n);
-    inll(q);
-    vl v(n);
-    inv;
-vector<ll>Seg_tree(4*n,0);
- buildTree(0,0,n-1,v,Seg_tree);
-  while(q--){
-  inll(a);
-  inll(b);
-  a--;
-  b--;
-   cout<<travel(0,a,b,0,n-1,Seg_tree)<<endl;
+// vector<int>Seg_tree(4*n,0);
+inll(n);
+inll(k);
+vvl v(k,vl(n));
+rep(i,n,0){
+    rep(j,k,0){
+        cin>>v[j][i];
+        // cout<<v[j]
+    }
+}
+rep(i,k,0){
+  sort(v[i]);
+}
+
+
+
+
+  
+ 
+  ll ans=0;
+  rep(i,k,0){
+    ll sum=v[i][n-1];
+    for(int j=n-2;j>=0;j--){
+        ans+=(sum-(v[i][j]*(n-1-j)));
+      sum+=v[i][j];
+    }
   }
+   cout<<ans<<endl;
 }
 
 int32_t main()
@@ -170,9 +196,12 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-   
+    int t;
+    cin>>t;
+    while(t--)
+    {
      
      solve();
-    
+    }
     return 0;
 }
