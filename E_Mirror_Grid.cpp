@@ -158,32 +158,39 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
-   inint(houses);
-   inint(n);
-   vl v(n);
-   inv;
-   sort(v);
-//    rep(i,n,0)cout<<v[i]<<" ";
-   vl temp;
-   rep(i,n-1,0){
-    temp.pb(v[i+1]-v[i]-1);
-   }
-   temp.pb(houses-v[n-1]+(v[0]-1));
-   sort(temp);
-   reverse(temp.begin(),temp.end());
-   ll curr=0;
-   queue<int>q;
-   ll ans=0;
-   rep(i,n,0){
-     if(temp[i]-2*curr>0){
-        if(temp[i]-2*curr==1)ans++;
-        else 
-          ans+=(temp[i]-2*curr-1);
-          curr+=2;
-     }
-     else break;
-   }
-   cout<<houses-ans<<endl;
+inint(n);
+ vvl v(n,vl(n));
+rep(i,n,0){
+    instr(x);
+    rep(j,n,0){
+       v[i][j]=x[j]-48;
+    //    cout<<v[i][j];
+    }
+    // pe;
+}
+ll count=0;
+vvl temp(n,vl(n));
+rep(i,n,0){
+    rep(j,i,0){
+        temp[i][j]=v[n-1-j][i];
+        if(temp[i][j]!=v[i][j])count++;
+    }
+}
+// rep(i,n,0){
+//     rep(j,n,0){
+//         v[i][j]=temp[n-1-j][i];
+//         if(v[i][j]!=temp[i][j])count++;
+//     }
+// }
+// rep(i,n,0){
+//     rep(j,n,0){
+//         temp[i][j]=v[n-1-j][i];
+//         if(temp[i][j]!=v[i][j])count++;
+//     }
+// }
+cout<<count<<endl;
+
+
 
 }
 

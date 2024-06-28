@@ -136,18 +136,20 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  Seg_tree[i]=build_left+build_right;
  return Seg_tree[i];
 }
- ll updateTree(ll i,ll l ,ll r , ll a, vl &Seg_tree,ll value){
-    if(l==r &&r==a){
-        Seg_tree[i]=value;
+ ll updateTree(ll i,ll l ,ll r , ll a,ll b, vl &Seg_tree,ll value){
+    if(l>=a && r<=b){
+        Seg_tree[i]+=((r-l+1)*value);
         return Seg_tree[i];
+       
     }
-     if(r<a || l>a)return Seg_tree[i];
+    // if(l==r)return Seg_tree[i];
+     if(r<a || l>b)return Seg_tree[i];
      ll mid=(l+r)/2;
-    ll left= updateTree(2*i+1,l,mid,a,Seg_tree,value);
-      ll right= updateTree(2*i+2,mid+1,r,a,Seg_tree,value);
+    ll left= updateTree(2*i+1,l,mid,a,b,Seg_tree,value);
+      ll right= updateTree(2*i+2,mid+1,r,a,b,Seg_tree,value);
       return Seg_tree[i]=left+right ;
  }
-  ll travel(ll i, ll a, ll b, ll l , ll r , vl &Seg_tree ){
+  ll travel(ll i, ll a,ll b, ll l , ll r , vl &Seg_tree ){
     if(l>=a && r<=b)return Seg_tree[i];
     if(l>b || r<a)return 0;// outofbounds
     if(l==r)return 0;
@@ -157,33 +159,29 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     return left+right;
  }
  void solve(){
-// vector<int>Seg_tree(4*n,0);
-   inint(houses);
-   inint(n);
-   vl v(n);
-   inv;
-   sort(v);
-//    rep(i,n,0)cout<<v[i]<<" ";
-   vl temp;
-   rep(i,n-1,0){
-    temp.pb(v[i+1]-v[i]-1);
-   }
-   temp.pb(houses-v[n-1]+(v[0]-1));
-   sort(temp);
-   reverse(temp.begin(),temp.end());
-   ll curr=0;
-   queue<int>q;
-   ll ans=0;
-   rep(i,n,0){
-     if(temp[i]-2*curr>0){
-        if(temp[i]-2*curr==1)ans++;
-        else 
-          ans+=(temp[i]-2*curr-1);
-          curr+=2;
-     }
-     else break;
-   }
-   cout<<houses-ans<<endl;
+    inint(n);
+    inint(q);
+    vl v(n);inv;
+vector<ll>Seg_tree(4*n,0);buildTree(0,0,n-1,v,Seg_tree);
+// rep(i,4*n,0)cout<<Seg_tree[i]<<" ";
+// pe;
+while(q--){
+   
+    inint(type);
+    if(type==1){
+        inint(a);
+        inint(b);
+        inint(val);
+        a--;b--;
+        updateTree(0,0,n-1,a,b,Seg_tree,val);
+        
+    }
+    else {
+        inint(a);
+        a--;
+        cout<<travel(0,a,a,0,n-1,Seg_tree)<<endl;
+    }
+}
 
 }
 
@@ -195,12 +193,10 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    int t;
-    cin>>t;
-    while(t--)
-    {
+    
+   
      
      solve();
-    }
+    
     return 0;
 }

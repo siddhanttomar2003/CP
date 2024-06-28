@@ -133,7 +133,7 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  ll mid=(l+r)/2;
  ll build_left=buildTree(2*i+1,l,mid,v,Seg_tree);
  ll build_right=buildTree(2*i+2,mid+1,r,v,Seg_tree);
- Seg_tree[i]=build_left+build_right;
+ Seg_tree[i]=build_left^build_right;
  return Seg_tree[i];
 }
  ll updateTree(ll i,ll l ,ll r , ll a, vl &Seg_tree,ll value){
@@ -145,7 +145,7 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
      ll mid=(l+r)/2;
     ll left= updateTree(2*i+1,l,mid,a,Seg_tree,value);
       ll right= updateTree(2*i+2,mid+1,r,a,Seg_tree,value);
-      return Seg_tree[i]=left+right ;
+      return Seg_tree[i]=left^right ;
  }
   ll travel(ll i, ll a, ll b, ll l , ll r , vl &Seg_tree ){
     if(l>=a && r<=b)return Seg_tree[i];
@@ -154,36 +154,18 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll mid=(l+r)/2;
     ll left=travel(2*i+1,a,b,l,mid,Seg_tree);
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
-    return left+right;
+    return left^right;
  }
  void solve(){
-// vector<int>Seg_tree(4*n,0);
-   inint(houses);
-   inint(n);
-   vl v(n);
-   inv;
-   sort(v);
-//    rep(i,n,0)cout<<v[i]<<" ";
-   vl temp;
-   rep(i,n-1,0){
-    temp.pb(v[i+1]-v[i]-1);
-   }
-   temp.pb(houses-v[n-1]+(v[0]-1));
-   sort(temp);
-   reverse(temp.begin(),temp.end());
-   ll curr=0;
-   queue<int>q;
-   ll ans=0;
-   rep(i,n,0){
-     if(temp[i]-2*curr>0){
-        if(temp[i]-2*curr==1)ans++;
-        else 
-          ans+=(temp[i]-2*curr-1);
-          curr+=2;
-     }
-     else break;
-   }
-   cout<<houses-ans<<endl;
+    inint(n);
+    inint(q);
+    vl v(n);inv;
+vector<ll>Seg_tree(4*n,0);buildTree(0,0,n-1,v,Seg_tree);
+while(q--){
+    inint(a);
+    inint(b);
+    cout<<travel(0,a-1,b-1,0,n-1,Seg_tree)<<endl;
+}
 
 }
 
@@ -195,12 +177,9 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    int t;
-    cin>>t;
-    while(t--)
-    {
+  
      
      solve();
-    }
+    
     return 0;
 }

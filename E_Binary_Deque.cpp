@@ -158,34 +158,33 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
-   inint(houses);
-   inint(n);
-   vl v(n);
-   inv;
-   sort(v);
-//    rep(i,n,0)cout<<v[i]<<" ";
-   vl temp;
-   rep(i,n-1,0){
-    temp.pb(v[i+1]-v[i]-1);
-   }
-   temp.pb(houses-v[n-1]+(v[0]-1));
-   sort(temp);
-   reverse(temp.begin(),temp.end());
-   ll curr=0;
-   queue<int>q;
-   ll ans=0;
-   rep(i,n,0){
-     if(temp[i]-2*curr>0){
-        if(temp[i]-2*curr==1)ans++;
-        else 
-          ans+=(temp[i]-2*curr-1);
-          curr+=2;
-     }
-     else break;
-   }
-   cout<<houses-ans<<endl;
-
+inint(n);
+inll(x);
+vl v(n);
+inv;
+ll i=0;ll j=0;
+ll ans=0;ll curr=0;
+ll sum=0;
+sum=add(sum,v);
+if(x>sum){
+    pm;return;
 }
+while(j<n){
+ curr+=v[j];
+ if(curr<=x){
+    ans=max(ans,j-i+1);
+    j++;
+ }
+ else {
+    while(curr>x){
+        if(v[i]==1)curr--;
+        i++;
+    }
+    j++;
+ }
+}
+cout<<n-ans<<endl;
+ }
 
 int32_t main()
 {
