@@ -158,22 +158,33 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
- inint(n);
- instr(s);
-int s1,sum=10000;
-		
-		for(int i{0}; i<n-1; i++){
-			s1=((s[i]-'0')*10+s[i+1]-'0');
-			for(int j=0;j<n;j++){
-				if(j!=i && j!=i+1)
-				s1=min(s1+(s[j]-'0'),s1*(s[j]-'0'));
-			}
-			sum=min(sum,s1);
-		}
-		cout<<sum<<"\n";
-	}
-
-
+// on applying bs on every index;
+inint(n);
+inll(x);
+vl v(n);
+inv;
+sort(v);
+vl days(n,0);
+vl prefix(n,0);
+ll sum=0;
+rep(i,n,0){
+    sum+=v[i];
+    prefix[i]=sum;
+}
+for(int i=n-1;i>=0;i--){
+    ll day;
+ if((x-prefix[i])%(i+1)==0)day=(x-prefix[i])/(i+1);
+ else {
+    day=(x-prefix[i])/(i+1)+1;
+ } 
+if(day>=1)days[i]=day;
+}
+ll ans=0;
+rep(i,n,0){
+    ans+=days[i];
+}
+cout<<ans<<endl;
+}
 
 
 int32_t main()

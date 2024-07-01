@@ -158,23 +158,45 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
- inint(n);
- instr(s);
-int s1,sum=10000;
-		
-		for(int i{0}; i<n-1; i++){
-			s1=((s[i]-'0')*10+s[i+1]-'0');
-			for(int j=0;j<n;j++){
-				if(j!=i && j!=i+1)
-				s1=min(s1+(s[j]-'0'),s1*(s[j]-'0'));
-			}
-			sum=min(sum,s1);
-		}
-		cout<<sum<<"\n";
-	}
+inint(n);
+char c;cin>>c;
+instr(x);
+bool flag1=true;
+rep(i,n,0){
+if(x[i]!=c)flag1=false;
+}
+if(flag1){
+    cout<<0<<endl;
+    return;
+}
+map<int,int>mp;
+rep(i,n,0){
+    if(x[i]!=c){
+        mp[i+1]++;
+    }
+}
+for(int i=n;i>=1;i--){
+    bool flag=true;
+    for(int j=i-1;j<n;j+=i){
+       if(x[j]!=c){
+        flag=false;break;
+       }
+    }
+    if(flag){
+        cout<<1<<endl;
+        cout<<i<<endl;return;
+    }
+}
+cout<<2<<endl;
+cout<<mp.rbegin()->first<<" ";
+rep(i,n,2){
+    if(mp.rbegin()->first%i!=0){
+        cout<<i<<endl;return;
+    }
+}
 
 
-
+}
 
 int32_t main()
 {

@@ -158,22 +158,42 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
- inint(n);
- instr(s);
-int s1,sum=10000;
-		
-		for(int i{0}; i<n-1; i++){
-			s1=((s[i]-'0')*10+s[i+1]-'0');
-			for(int j=0;j<n;j++){
-				if(j!=i && j!=i+1)
-				s1=min(s1+(s[j]-'0'),s1*(s[j]-'0'));
-			}
-			sum=min(sum,s1);
-		}
-		cout<<sum<<"\n";
-	}
+  int n,q;
+    cin >> n >> q;
+    vi v(n);
+    cin >> v;
+    vi last(n,0);
+    ll x1=-1,x2=-1;
+    ll sum=0;
+    for(auto i:v){
+        sum+=i;
+    }
+    for(int i=1 ; i<=q ; i++){
+        int ty;
+        cin >> ty;
+        if(ty==1){
+            ll ind,x;
+            cin >> ind >> x;
+            ind--;
+            if(last[ind]<x1){
+                sum-=x2;
+            }else{
+                sum-=v[ind];
+            }
+            sum+=x;
+            v[ind]=x;
+            last[ind]=i;
+        }else{
+            ll x;
+            cin >> x;
+            sum=(n*x);
+            x1=i;
+            x2=x;
+        }
+        cout << sum << endl;
+    }
 
-
+ }
 
 
 int32_t main()
@@ -184,12 +204,9 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    int t;
-    cin>>t;
-    while(t--)
-    {
+  
      
      solve();
-    }
+    
     return 0;
 }

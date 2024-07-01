@@ -158,23 +158,27 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
- inint(n);
- instr(s);
-int s1,sum=10000;
-		
-		for(int i{0}; i<n-1; i++){
-			s1=((s[i]-'0')*10+s[i+1]-'0');
-			for(int j=0;j<n;j++){
-				if(j!=i && j!=i+1)
-				s1=min(s1+(s[j]-'0'),s1*(s[j]-'0'));
-			}
-			sum=min(sum,s1);
-		}
-		cout<<sum<<"\n";
-	}
-
-
-
+inint(n);
+ vl v(n);
+ inv;
+if(v[n-2]>v[n-1]){
+ 
+    cout<<-1<<endl;
+    return;
+}
+if(is_sorted(v.begin(),v.end())){
+    cout<<0<<endl;
+    return;
+}
+else if(v[n-1]>=0){
+cout<<n-2<<endl;
+rep(i,n-2,0){
+    cout<<i+1<<" "<<n-1<<" "<<n<<endl;
+}
+}
+else cout<<-1<<endl;
+  
+}
 
 int32_t main()
 {
