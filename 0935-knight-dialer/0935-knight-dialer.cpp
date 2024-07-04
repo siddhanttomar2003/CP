@@ -159,7 +159,7 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
 class Solution {
 public:
-    int recur(int i,int n, map<int,vector<int>>mp,int s, vvi& dp){
+    int recur(int i,int n, vvi &mp,int s, vvi& dp){
         if(i==n){
             return 1;
         }
@@ -172,17 +172,18 @@ public:
 
     }
     int knightDialer(int n) {
-        map<int,vector<int>>mp;
+        if(n==1)return 10;
+        // map<int,vector<int>>mp;
         vvi dp(n,vi(10,-1));
-        mp[1]={6,8};mp[3]={4,8};mp[6]={1,7,0};mp[8]={1,3};mp[0]={4,6};
-        mp[2]={7,9};mp[4]={3,9,0};mp[7]={6,2};mp[9]={2,4};
+        vector<vector<int>>mp ={
+        {4,6},{6,8},{7,9},{4,8},{3,9,0},{},{0,1,7},{2,6},{1,3},{2,4}
+    };
         int ans=0;
         rep(i,10,0){
+            if(i!=5){
            ans=(ans+recur(1,n,mp,i,dp))%M;
-        }
-        
-        return ans;
-       
-        
+            }
+        } 
+        return ans; 
     }
 };
