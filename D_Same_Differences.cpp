@@ -158,55 +158,18 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
-   ll n;
-    string s;
-    cin >> n >> s;
- 
-    for (char c = 'a'; c <= 'z'; c++)
-    {
-        if (s.find(c) == -1)
-        {
-            cout << c << endl;
-            return;
-        }
-    }
- 
-    for (char i = 'a'; i <= 'z'; i++)
-    {
-        for (char j = 'a'; j <= 'z'; j++)
-        {
-            string str;
-            str += i;
-            str += j;
-            if (s.find(str) == -1)
-            {
-                cout << str << endl;
-                return;
-            }
-        }
-    }
- 
-    for (char k = 'a'; k <= 'z'; k++)
-    {
-        for (char i = 'a'; i <= 'z'; i++)
-        {
-            for (char j = 'a'; j <= 'z'; j++)
-            {
-                string str;
-                str += k;
-                str += i;
-                str += j;
-                if (s.find(str) == -1)
-                {
-                    cout << str << endl;
-                    return;
-                }
-            }
-        }
-    }
+inint(n);
+vl v(n);
+inv;
+map<ll,ll>mp;
+ll ans=0;
+rep(i,n,0){
+     if(mp.find(v[i]-i)!=mp.end())ans+=mp[v[i]-i];
+    mp[v[i]-i]++;
+}
+cout<<ans<<endl;
 
 }
-
 
 int32_t main()
 {
