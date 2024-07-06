@@ -159,16 +159,34 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  void solve(){
 // vector<int>Seg_tree(4*n,0);
 inint(n);
-vl v(n);
-inv;
-map<ll,ll>mp;
-ll ans=0;
+instr(x);
+instr(y);
+vi temp(n);
+ll sum=0;
 rep(i,n,0){
-     if(mp[v[i]-i]>0)ans+=mp[v[i]-i];
-    mp[v[i]-i]++;
+if(x[i]=='1')sum++;
+else sum--;
+temp[i]=sum;
 }
-cout<<ans<<endl;
-
+ll turn=0;
+for(int i=n-1;i>=0;i--){
+int a=x[i]-48;
+int curr;
+if(turn&1){
+    curr=a^1;
+}
+else curr=a;
+if(curr!=y[i]-48){
+    if(temp[i]!=0){
+        pn;return;
+    }
+    else {
+        turn++;
+    }
+}
+}
+py;
+return;
 }
 
 int32_t main()

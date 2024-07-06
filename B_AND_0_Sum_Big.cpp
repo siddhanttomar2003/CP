@@ -158,16 +158,9 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
-inint(n);
-vl v(n);
-inv;
-map<ll,ll>mp;
-ll ans=0;
-rep(i,n,0){
-     if(mp[v[i]-i]>0)ans+=mp[v[i]-i];
-    mp[v[i]-i]++;
-}
-cout<<ans<<endl;
+inll(n);inll(k);
+cout<<binomial_expo(n,k)<<endl;
+
 
 }
 
