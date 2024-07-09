@@ -159,26 +159,25 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 class Solution {
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
-        set<string>st;
-        rep(i,wordList.size(),0){
-            st.insert(wordList[i]);
-        }
-        if(st.find(endWord)==st.end())return 0;
+       map<string,int>mp;
+       rep(i,wordList.size(),0)mp[wordList[i]]++;
+       if(mp.find(endWord)==mp.end())return 0;
         queue<pair<string,int>>q;
         q.push({beginWord,1});
-        set<string>is_visited;
+        map<string,int>mp2;
         while(q.size()>0){
             string temp=q.front().first;
             int level=q.front().second;q.pop();
-            is_visited.insert(temp);
+            mp2[temp]++;
             rep(i,temp.size(),0){
                 rep(j,26,0){
                     if(temp[i]-97!=j){
                         char orr=temp[i];
                     char ch=97+j;
                     temp[i]=ch;
-                    if(st.find(temp)!=st.end() && is_visited.find(temp)==is_visited.end()){
+                    if(mp[temp]>0 && mp2[temp]<1){
                         if(temp==endWord)return level+1;
+                        mp.erase(temp);
                         q.push({temp,level+1});
                     }
                     temp[i]=orr;
