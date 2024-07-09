@@ -1,6 +1,4 @@
 //author:-Siddhant Tomar
-//codecheft:-https://www.codechef.com/users/siddhanttomar2
-//leetcode:-https://leetcode.com/viking_12/
 //linked in :-https://www.linkedin.com/in/siddhant-tomar-9b3aab261/
 
 
@@ -19,8 +17,8 @@ using namespace std;
 #define s second
 #define foreach(i, j, k, in) for(int i=j;i<k;i+=in)
 #define rforeach(i, j, k, in) for(int i=j;i>=k;i-=in)
-#define rep(i,j) foreach(i,0,j,1)
-#define rrep(i,j) rforeach(i,j,0,1)
+#define rep(i,j,s) foreach(i,s,j,1)
+#define rrep(i,j,k) rforeach(i,j,k,1)
 #define set_bits(x) __builtin_popcountll(x)
 #define zero_bits(x) __builtin_ctzll(x)
 #define sz(s) (int)(s.size())
@@ -37,19 +35,26 @@ using namespace std;
 #define SUM(x) accumulate(all(x), 0LL)
 #define COUNT(x,u) count(all(x), u)
 #define B break
-#define C continue
 #define py cout<<"YES"<<endl
 #define pn cout<<"NO"<<endl
 #define pm cout<<"-1"<<endl
 #define po cout<<"0"<<endl;
 #define ps(x,y) fixed<<setprecision(y)<<x
 #define pe cout<<endl
-#define inv rep(i,n){cin>>v[i];}//n is the size of vector
-#define ouv rep(i,n){cout<<v[i];}
+#define inv rep(i,n,0){cin>>v[i];}
+#define invv rep(i,n){rep(j,m){cin>>vv[i][j];}}
+#define ouv rep(i,n){cout<<v[i]<<" ";}
+#define inv2 rep(i,n){cin>>v2[i];}
+#define inv3 rep(i,n){cin>>v3[i];}
+#define inv4 rep(i,n){cin>>v4[i];}
+#define sort(v) sort(v.begin(),v.end());
+#define add(sum,v) accumulate(v.begin(),v.end(),sum);
+#define repa(it)      for(auto it:mp)
 
 //Typedef
 typedef long long ll;
-typedef unsigned long long ull;
+typedef unordered_map<ll,ll> ull;
+typedef  map<ll,ll> oll;
 typedef long double lld;
 typedef pair<int, int> pi;
 typedef pair<ll, ll> pl;
@@ -68,11 +73,6 @@ typedef set<int> st;
 #define debug(x)
 #endif
 
-void _print(ll t) {cerr << t;}
-void _print(int t) {cerr << t;}
-void _print(string t) {cerr << t;}
-void _print(char t) {cerr << t;}
-void _print(double t) {cerr << t;}
 
 // Operator overloads
 template<typename T> // cin >> vector<T>
@@ -113,8 +113,71 @@ bool isPowerOfFour(int n) { return !(n&(n-1)) && (n&0x55555555);//check the 1-bi
 }
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 
+ll binomial_expo (ll a, ll b){
+    ll ans=1;
+    while(b){
+        if(b&1){
+            ans=(ans*a)%1000000007;
+        }
+        a=(a*a)%1000000007;
+        b>>=1;
+        
+    }
+    return ans;
+}
+ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
+ if(l==r){
+   Seg_tree[i]=v[l];
+   return Seg_tree[i];
+ }
+ ll mid=(l+r)/2;
+ ll build_left=buildTree(2*i+1,l,mid,v,Seg_tree);
+ ll build_right=buildTree(2*i+2,mid+1,r,v,Seg_tree);
+ Seg_tree[i]=build_left+build_right;
+ return Seg_tree[i];
+}
+ ll updateTree(ll i,ll l ,ll r , ll a, vl &Seg_tree,ll value){
+    if(l==r &&r==a){
+        Seg_tree[i]=value;
+        return Seg_tree[i];
+    }
+     if(r<a || l>a)return Seg_tree[i];
+     ll mid=(l+r)/2;
+    ll left= updateTree(2*i+1,l,mid,a,Seg_tree,value);
+      ll right= updateTree(2*i+2,mid+1,r,a,Seg_tree,value);
+      return Seg_tree[i]=left+right ;
+ }
+  ll travel(ll i, ll a, ll b, ll l , ll r , vl &Seg_tree ){
+    if(l>=a && r<=b)return Seg_tree[i];
+    if(l>b || r<a)return 0;// outofbounds
+    if(l==r)return 0;
+    ll mid=(l+r)/2;
+    ll left=travel(2*i+1,a,b,l,mid,Seg_tree);
+    ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
+    return left+right;
+ }
+ void solve(){
+// vector<int>Seg_tree(4*n,0);
+inint(n);vl v(n);inv;inint(q);
+vl temp(n);temp[n-1]=(-1);
+for(int i=n-2;i>=0;i--){
+  if(v[i]!=v[i+1]){
+    temp[i]=i+1;
+  }
+  else {
+    temp[i]=temp[i+1];
+  }
+}
+// rep(i,n,0)cout<<temp[i]<<" ";
+pe;
+while(q--){
+    inint(l);inint(r);
+    l--;r--;
+    if(temp[l]<=r && temp[l]!=(-1))cout<<l+1<<" "<<temp[l]+1<<endl;
+    else cout<<-1<<" "<<-1<<endl;
+}
 
-
+}
 
 int32_t main()
 {
@@ -128,28 +191,8 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-     inint(n);
-     vi v(n);
-     inv;
-     inint(q);
-     vector<pair<int,int>>ans;
-     while(q--){
-      inint(l);inint(r);
-      while(l-1<r-1){
-        if(v[l-1]!=v[r-1]){
-            pair<int,int>p;
-            p.first=l;
-            p.second=r;
-            ans.push_back(p);
-            break;
-        }
-        l++;r--;
-      }
-     }
-     rep(i,ans.size()){
-        cout<<ans[i].first<<" "<<ans[i].second<<endl;
-     }
-
+     
+     solve();
     }
     return 0;
 }
