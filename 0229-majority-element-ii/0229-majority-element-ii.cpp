@@ -1,15 +1,36 @@
 class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
-        unordered_map<int,int>mpp;
-        vector<int>v;
+        // using moore voting algo
+        int count1=0;int count2=0;
+        int el1,el2;
         for(int i=0;i<nums.size();i++){
-            mpp[nums[i]]++;
+              if(el1==nums[i]){
+                count1++;
+            }
+             else if(el2==nums[i])count2++;
+          else  if(count1==0){
+                el1=nums[i];
+                count1++;
+            }
+            else if(count2==0 && nums[i]!=el1){
+                el2=nums[i];
+                count2++;
+            }
+          
+           
+            else {
+                count1--;count2--;
+            }
         }
-        for(auto i:mpp){
-            if(i.second>nums.size()/3)v.push_back(i.first);
+        int check1=0;int check2=0;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]==el1)check1++;
+            else if(nums[i]==el2)check2++;
         }
-         return v;
+        vector<int>ans;
+        if(check1>nums.size()/3)ans.push_back(el1);
+        if(check2>nums.size()/3)ans.push_back(el2);
+        return ans;
     }
-   
 };
