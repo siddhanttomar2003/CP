@@ -126,25 +126,60 @@ ll binomial_expo (ll a, ll b){
     }
     return ans;
 }
+ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
+ if(l==r){
+   Seg_tree[i]=v[l];
+   return Seg_tree[i];
+ }
+ ll mid=(l+r)/2;
+ ll build_left=buildTree(2*i+1,l,mid,v,Seg_tree);
+ ll build_right=buildTree(2*i+2,mid+1,r,v,Seg_tree);
+ Seg_tree[i]=build_left+build_right;
+ return Seg_tree[i];
+}
+ ll updateTree(ll i,ll l ,ll r , ll a, vl &Seg_tree,ll value){
+    if(l==r &&r==a){
+        Seg_tree[i]=value;
+        return Seg_tree[i];
+    }
+     if(r<a || l>a)return Seg_tree[i];
+     ll mid=(l+r)/2;
+    ll left= updateTree(2*i+1,l,mid,a,Seg_tree,value);
+      ll right= updateTree(2*i+2,mid+1,r,a,Seg_tree,value);
+      return Seg_tree[i]=left+right ;
+ }
+  ll travel(ll i, ll a, ll b, ll l , ll r , vl &Seg_tree ){
+    if(l>=a && r<=b)return Seg_tree[i];
+    if(l>b || r<a)return 0;// outofbounds
+    if(l==r)return 0;
+    ll mid=(l+r)/2;
+    ll left=travel(2*i+1,a,b,l,mid,Seg_tree);
+    ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
+    return left+right;
+ }
 class Solution {
 public:
     vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
-        vi ans;
-        int m=nums1.size();
-        int n=nums2.size();
-        rep(i,m,0){
-            int j=n-1;
-            int maxi=-1;
-            while(nums2[j]!=nums1[i]){
-              if(nums2[j]>nums1[i]){
-                maxi=nums2[j];
-              }
-              j--;
+        stack<int>st;int n=nums2.size();
+        st.push(n-1);
+        map<int,int>mp;
+        mp[nums2[n-1]]= -1;
+        for(int i=n-2;i>=0;i--){
+            while( st.size()>0 && nums2[st.top()]<=nums2[i]){
+                st.pop();
             }
-            ans.pb(maxi);
-
+            if(st.size()==0){
+               mp[nums2[i]]= -1;
+            }
+            else {
+                mp[nums2[i]]= nums2[st.top()];
+            }
+            st.push(i);
+        }
+        vector<int>ans;
+        rep(i,nums1.size(),0){
+            ans.push_back(mp[nums1[i]]);
         }
         return ans;
-        
     }
 };
