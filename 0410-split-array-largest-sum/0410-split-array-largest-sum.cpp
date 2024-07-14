@@ -20,16 +20,13 @@ public:
         int low=*max_element(nums.begin(),nums.end());
         int high=0;
         high=accumulate(nums.begin(),nums.end(),high);
-        int ans=INT_MAX;
         while(low<=high){
           int mid=low+(high-low)/2;
-          if(check(nums,mid)==k){
-            ans=min(ans,mid);
-            high=mid-1;
+          if(check(nums,mid)<=k){
+    high=mid-1;
           }
-          else if(check(nums,mid)<k) high=mid-1;
           else low=mid+1;
         }
-        return ans;
+        return low;
     }
 };
