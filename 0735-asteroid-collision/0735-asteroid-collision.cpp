@@ -129,49 +129,32 @@ ll binomial_expo (ll a, ll b){
 class Solution {
 public:
     vector<int> asteroidCollision(vector<int>& asteroids) {
-        stack<int>s1;
-        int n=asteroids.size();
-         for(int i=n-1;i>=0;i--){
-            if(asteroids[i]>0){
-                s1.push(i);
+      // ON TRAVELLING FROM BACKWARD IF THIER IS A NEG AND THEN POS VALUE COME
+      // ONLY THEN THEY WILL MEET OTHERWISE THEY WILL NEVER MEET
+      stack<int>s;
+      int n=asteroids.size();
+      for(int i=n-1;i>=0;i--){
+        if(asteroids[i]<0){
+            s.push(i);
+        }
+        else {
+            while(s.size() && asteroids[i]>abs(asteroids[s.top()])){
+                asteroids[s.top()]=0;
+                s.pop();
             }
-            else {
-                while(s1.size()>0 && asteroids[s1.top()]<abs(asteroids[i])){
-                    asteroids[s1.top()]=0;
-                    s1.pop();
-                }
-                if(s1.size()>0){
-                    if(abs(asteroids[i])==asteroids[s1.top()]){
-                        asteroids[s1.top()]=0;
-                        s1.pop();
-                    }
-                    asteroids[i]=0;
-                }
-            }
-         }
-         stack<int>s2;
-         for(int i=n-1;i>=0;i--){
-            if(asteroids[i]!=0){
-                if(asteroids[i]<0)s2.push(i);     
-            else {
-               while(s2.size()>0 && abs(asteroids[s2.top()])<asteroids[i]){
-                asteroids[s2.top()]=0;
-                s2.pop();
-               }
-               if(s2.size()>0){
-                if(abs(asteroids[s2.top()])==asteroids[i]){
-                    asteroids[s2.top()]=0;
-                    s2.pop();
+            if(s.size()){
+                if(asteroids[i]==abs(asteroids[s.top()])){
+                    asteroids[s.top()]=0;
+                    s.pop();
                 }
                 asteroids[i]=0;
-               }
             }
-            }
-         }
-         vi ans;
-         rep(i,asteroids.size(),0){
-            if(asteroids[i]!=0)ans.pb(asteroids[i]);
-         }
-         return ans;
+        }
+      }
+      vi ans;
+      rep(i,n,0){
+        if(asteroids[i]!=0)ans.pb(asteroids[i]);
+      }
+      return ans;
     }
 };
