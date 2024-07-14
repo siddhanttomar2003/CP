@@ -150,7 +150,7 @@ public:
         vi right(n);
         s2.push(n);
         for(int i=n-1;i>=0;i--){
-            while(s2.top()!=n && arr[s2.top()]>arr[i]){
+            while(s2.top()!=n && arr[s2.top()]>=arr[i]){
                 s2.pop();
             }
             if(s2.top()==n){
