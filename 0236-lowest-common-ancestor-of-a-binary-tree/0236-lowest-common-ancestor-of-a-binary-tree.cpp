@@ -9,25 +9,17 @@
  */
 class Solution {
 public:
-    TreeNode * recur(TreeNode *root, TreeNode* p, TreeNode* q,TreeNode * &ans){
-     if(root==NULL)return NULL;
-     if(root->val==p->val||root->val==q->val){
-         return root;
-     }
-     TreeNode * left=recur(root->left,p,q,ans);
-     TreeNode * right=recur(root->right,p,q,ans);
-     if(left!=NULL ||right!=NULL){
-         if(left!=NULL&&right!=NULL)return root;
-         else if(left==NULL)return right;
-     }
-     return left;
-     
-
-    }
+   
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        TreeNode * ans=nullptr;
-       return recur(root,p,q,ans);
-
+    if(root==NULL || root==p || root==q)return root;
+   TreeNode *l= lowestCommonAncestor(root->left,p,q);
+   TreeNode *r= lowestCommonAncestor(root->right,p,q);
+    if(l!=nullptr || r!=nullptr){
+        if(l!=NULL && r!=NULL)return root;
+        else if(l==nullptr)return r;
+       
+    }
+    return l;
 
     }
 };
