@@ -6,30 +6,16 @@
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
- * right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
-        if (root == NULL)
-            return 0;
-        queue<TreeNode*> q;
-        q.push(root);
-        int count = 0;
-        while (!q.empty()) {
-            int n = q.size();
-            for (int i = 0; i < n; i++) {
-                TreeNode* temp = q.front();
-                q.pop();
-                if (temp->left != NULL)
-                    q.push(temp->left);
-                if (temp->right != NULL)
-                    q.push(temp->right);
-            }
-            count++;
-        }
-        return count;
+        if(root==NULL)return 0;
+        // if(root->left==NULL && root->right==NULL)return 1;
+        int a=maxDepth(root->left);
+        int b=maxDepth(root->right);
+        return 1+max(a,b);
     }
 };
