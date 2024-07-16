@@ -161,7 +161,7 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 class Solution {
 public: 
     int cal(vi &nums, int i, vi &dp){
-        if(i<0)return -1e8;
+        if(i<0)return 0;
         if(i==0){
             return nums[0];
         }
@@ -172,7 +172,23 @@ public:
     }
     int rob(vector<int>& nums) {
         int n =nums.size();
-        vi dp(n,-1);
-        return cal(nums,n-1,dp);
+        // vi dp(n,-1);
+        // return cal(nums,n-1,dp);
+        if(n==1)return nums[0];
+        else if(n==2){
+            return max(nums[0],nums[1]);
+        }
+        vi dp(n+1,-1);
+        dp[0]=nums[0];
+        dp[1]=max(nums[1],nums[0]);
+        rep(i,n,2){
+            int t=0;int nt=0;
+            // if(i-2>=0){
+                t=nums[i]+dp[i-2];
+            
+            nt=dp[i-1];
+            dp[i]=max(t,nt);
+        }
+        return dp[n-1];
     }
 };
