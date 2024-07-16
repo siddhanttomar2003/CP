@@ -159,48 +159,43 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
 class Solution {
 public:
-     
-     void dfs(vector<vector<char>>& board , int start_r,int start_c, vvi &is_visited){
-        int n=board.size();
-        int m=board[0].size();
-        is_visited[start_r][start_c]=1;
-        int delRow[]={-1,0,1,0};
-     int delCol[]={0,1,0,-1};
-        rep(i,4,0){
-            int new_r=start_r+delRow[i];
-            int new_c=start_c+delCol[i];
-            if(new_r<n && new_r>=0 && new_c>=0 && new_c<m && !is_visited[new_r][new_c] && board[new_r][new_c]!='X')dfs(board,new_r,new_c,is_visited);
+   void dfs(int i, int j, vvi &is_visited, vector<vector<char>>& board) {
+    is_visited[i][j] = 1;
+    int delRow[] = {-1, 0, 1, 0};
+    int delCol[] = {0, -1, 0, 1};
+    int n = board.size();
+    int m = board[0].size();
+    
+    for (int k = 0; k < 4; k++) {
+        int nr = i + delRow[k];
+        int nc = j + delCol[k];
+        if (nr >= 0 && nr < n && nc >= 0 && nc < m && board[nr][nc] == 'O' && !is_visited[nr][nc]) {
+            dfs(nr, nc, is_visited, board);
         }
-        
-     }
-    void solve(vector<vector<char>>& board) {
-        int n=board.size();
-        int m=board[0].size();
-        vvi is_visited(n,vi(m,0));
-        rep(i,n,0){
-            rep(j,m,0){
-                if(board[i][j]!='X' && (i==0 || i==n-1 || j==0 || j==m-1)){
-                    cout<<i<<" "<<j<<endl;
-                         dfs(board,i,j,is_visited);
-                }
-            }
-        }
-        rep(i,n,0){
-            rep(j,m,0){
-                if(is_visited[i][j]){
-                    continue;
-                }
-                else {
-                    board[i][j]='X';
-                }
-            }
-        }
-        // rep(i,n,0){
-        //     rep(j,m,0){
-        //         cout<<is_visited[i][j]<<" ";
-
-        //     }
-        //     pe;
-        // }
     }
+}
+
+void solve(vector<vector<char>>& board) {
+    int n = board.size();
+    int m = board[0].size();
+    vvi is_visited(n, vi(m, 0));
+    
+    // Run DFS for 'O's on the border
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if ((i == 0 || i == n - 1 || j == 0 || j == m - 1) && board[i][j] == 'O' && !is_visited[i][j]) {
+                dfs(i, j, is_visited, board);
+            }
+        }
+    }
+    
+    // Convert unvisited 'O's to 'X's
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (!is_visited[i][j] && board[i][j] == 'O') {
+                board[i][j] = 'X';
+            }
+        }
+    }
+}
 };
