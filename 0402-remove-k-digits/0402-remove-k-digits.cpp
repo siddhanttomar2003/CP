@@ -137,7 +137,7 @@ public:
             st.push(i);
            }
            else {
-            while(k && st.size()>0 && num[st.top()]>num[i]){
+            while(k>0 && st.size()>0 && num[st.top()]>num[i]){
                 s.insert(st.top());
                 st.pop();k--;
             }
@@ -145,8 +145,11 @@ public:
            }
         }
         int j=n-1;
-     while(k){
+     while(k>0){
+        if(s.find(j)==s.end()){
         s.insert(j);j--;k--;
+        }
+        else j--;
      }
      string ans="";
      int count=0;

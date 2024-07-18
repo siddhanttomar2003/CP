@@ -126,59 +126,29 @@ ll binomial_expo (ll a, ll b){
     }
     return ans;
 }
-ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
- if(l==r){
-   Seg_tree[i]=v[l];
-   return Seg_tree[i];
- }
- ll mid=(l+r)/2;
- ll build_left=buildTree(2*i+1,l,mid,v,Seg_tree);
- ll build_right=buildTree(2*i+2,mid+1,r,v,Seg_tree);
- Seg_tree[i]=build_left+build_right;
- return Seg_tree[i];
-}
- ll updateTree(ll i,ll l ,ll r , ll a, vl &Seg_tree,ll value){
-    if(l==r &&r==a){
-        Seg_tree[i]=value;
-        return Seg_tree[i];
-    }
-     if(r<a || l>a)return Seg_tree[i];
-     ll mid=(l+r)/2;
-    ll left= updateTree(2*i+1,l,mid,a,Seg_tree,value);
-      ll right= updateTree(2*i+2,mid+1,r,a,Seg_tree,value);
-      return Seg_tree[i]=left+right ;
- }
-  ll travel(ll i, ll a, ll b, ll l , ll r , vl &Seg_tree ){
-    if(l>=a && r<=b)return Seg_tree[i];
-    if(l>b || r<a)return 0;// outofbounds
-    if(l==r)return 0;
-    ll mid=(l+r)/2;
-    ll left=travel(2*i+1,a,b,l,mid,Seg_tree);
-    ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
-    return left+right;
- }
 class Solution {
 public:
-    int singleNonDuplicate(vector<int>& arr) {
-        int i=0;
-        int n=arr.size();int j=n-1;
-        if(n==1)return arr[0];
-        while(i<=j){
-            int mid=i+(j-i)/2;
-            if(i==j)return arr[mid];
-           else if(arr[mid]==arr[mid-1]){
-               int len=mid-i+1;
-               if(len&1)j=mid-2;
-               else i=mid+1;
-            }
-            else if(arr[mid]==arr[mid+1]){
-                int len=n-mid;
-                if(len&1)i=mid+2;
-                else j=mid-1;
-            }
-          
+    vector<int> nextGreaterElements(vector<int>& nums) {
+        stack<int>st;
+        for(int i=nums.size()-1;i>=0;i--){
+                while(st.size()>0 && st.top()<=nums[i]){
+                    st.pop();
+                }
+                st.push(nums[i]);
         }
-        return -1;
-        
+        vi ans;
+        for(int i=nums.size()-1;i>=0;i--){
+            while(st.size()>0 && st.top()<=nums[i]){
+                st.pop();
+            }
+            if(st.size()>0){
+                ans.pb(st.top());
+            }
+            else ans.pb(-1);
+            st.push(nums[i]);
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+
     }
 };

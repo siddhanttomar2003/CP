@@ -159,26 +159,38 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
 class Solution {
 public:
-    int singleNonDuplicate(vector<int>& arr) {
-        int i=0;
-        int n=arr.size();int j=n-1;
-        if(n==1)return arr[0];
-        while(i<=j){
-            int mid=i+(j-i)/2;
-            if(i==j)return arr[mid];
-           else if(arr[mid]==arr[mid-1]){
-               int len=mid-i+1;
-               if(len&1)j=mid-2;
-               else i=mid+1;
+    string reverseParentheses(string s) {
+        stack<char>st;
+           int n=s.length();
+           rep(i,n,0){
+            if(s[i]=='(' || s[i]>=97){
+                st.push(s[i]);
             }
-            else if(arr[mid]==arr[mid+1]){
-                int len=n-mid;
-                if(len&1)i=mid+2;
-                else j=mid-1;
+            else {
+                   queue<char>q;
+                while(st.top()!='('){
+                 q.push(st.top());
+                 st.pop();
+                }
+                st.pop();
+                while(q.size()>0){
+                    st.push(q.front());
+                    q.pop();
+                }
             }
-          
-        }
-        return -1;
+           }
+           string ans="";
+           while(st.size()>0){
+            ans+=st.top();
+            st.pop();
+           }
+           reverse(ans.begin(),ans.end());
+           return ans;
         
+
+
+
+
+
     }
 };

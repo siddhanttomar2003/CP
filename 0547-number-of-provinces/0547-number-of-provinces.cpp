@@ -159,26 +159,37 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
 class Solution {
 public:
-    int singleNonDuplicate(vector<int>& arr) {
-        int i=0;
-        int n=arr.size();int j=n-1;
-        if(n==1)return arr[0];
-        while(i<=j){
-            int mid=i+(j-i)/2;
-            if(i==j)return arr[mid];
-           else if(arr[mid]==arr[mid-1]){
-               int len=mid-i+1;
-               if(len&1)j=mid-2;
-               else i=mid+1;
+  void dfs(vvl  &adj, vi &is_Visited, int curr_node){
+      is_Visited[curr_node]=1;
+        rep(i,adj[curr_node].size(),0){
+            if(!is_Visited[adj[curr_node][i]]){
+                // is_Visited[adj[curr_node][i]]=1;
+                dfs(adj,is_Visited,adj[curr_node][i]);
             }
-            else if(arr[mid]==arr[mid+1]){
-                int len=n-mid;
-                if(len&1)i=mid+2;
-                else j=mid-1;
-            }
-          
         }
-        return -1;
-        
+    }
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        int n=isConnected.size();
+        vi is_visited(n+1,0);
+        // we can use isvisited array and apply dfs to find how many are reamining
+        ll ans=0;
+        vvl adj(n+1);
+        rep(i,n,0){
+            rep(j,n,0){
+                if(isConnected[i][j]==1){
+                    if(i!=j)
+                    adj[i+1].pb(j+1);
+                }
+            }
+        }
+        rep(i,n+1,1){
+          if(!is_visited[i]){
+            ans++;
+            // is_visited[i]=1;
+           int curr_node=i;
+            dfs(adj,is_visited,curr_node);
+          }
+        }
+        return ans;
     }
 };

@@ -24,13 +24,14 @@ public:
         // if sum is even there must be some method to divide the array into 
         // two parts having equal sum
         int n=nums.size();
-        vector<vector<int>>dp(n,vector<int> (sum+1,0));
+        vector<vector<int>>dp(n,vector<int> (sum/2+1,0));
          for(int i=0;i<n;i++){
          dp[i][0]=1;
          }
+         if(nums[0]<=sum/2)
          dp[0][nums[0]]=1;
          for(int i=1;i<n;i++){
-            for(int j=1;j<=sum;j++){
+            for(int j=1;j<=sum/2;j++){
                 bool take=false;
                 if(nums[i]<=j)take=dp[i-1][j-nums[i]];
                 bool nottake=false;
@@ -39,7 +40,7 @@ public:
             }
 
          }
-         return dp[n-1][sum];
+         return dp[n-1][sum/2];
          
 
     }

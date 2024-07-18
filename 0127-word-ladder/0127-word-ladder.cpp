@@ -1,4 +1,3 @@
-
 //author:-Siddhant Tomar
 //linked in :-https://www.linkedin.com/in/siddhant-tomar-9b3aab261/
 
@@ -42,7 +41,7 @@ using namespace std;
 #define po cout<<"0"<<endl;
 #define ps(x,y) fixed<<setprecision(y)<<x
 #define pe cout<<endl
-#define inv rep(i,n){cin>>v[i];}
+#define inv rep(i,n,0){cin>>v[i];}
 #define invv rep(i,n){rep(j,m){cin>>vv[i][j];}}
 #define ouv rep(i,n){cout<<v[i]<<" ";}
 #define inv2 rep(i,n){cin>>v2[i];}
@@ -159,26 +158,34 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
 class Solution {
 public:
-    int singleNonDuplicate(vector<int>& arr) {
-        int i=0;
-        int n=arr.size();int j=n-1;
-        if(n==1)return arr[0];
-        while(i<=j){
-            int mid=i+(j-i)/2;
-            if(i==j)return arr[mid];
-           else if(arr[mid]==arr[mid-1]){
-               int len=mid-i+1;
-               if(len&1)j=mid-2;
-               else i=mid+1;
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+       map<string,int>mp;
+       rep(i,wordList.size(),0)mp[wordList[i]]++;
+       if(mp.find(endWord)==mp.end())return 0;
+        queue<pair<string,int>>q;
+        q.push({beginWord,1});
+        map<string,int>mp2;
+        while(q.size()>0){
+            string temp=q.front().first;
+            int level=q.front().second;q.pop();
+            mp2[temp]++;
+            rep(i,temp.size(),0){
+                rep(j,26,0){
+                    if(temp[i]-97!=j){
+                        char orr=temp[i];
+                    char ch=97+j;
+                    temp[i]=ch;
+                    if(mp[temp]>0 && mp2[temp]<1){
+                        if(temp==endWord)return level+1;
+                        mp.erase(temp);
+                        q.push({temp,level+1});
+                    }
+                    temp[i]=orr;
+                    }
+                }
             }
-            else if(arr[mid]==arr[mid+1]){
-                int len=n-mid;
-                if(len&1)i=mid+2;
-                else j=mid-1;
-            }
-          
         }
-        return -1;
-        
+        return 0;
+
     }
 };

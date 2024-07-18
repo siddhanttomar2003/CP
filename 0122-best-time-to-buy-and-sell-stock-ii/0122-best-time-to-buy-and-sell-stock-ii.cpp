@@ -20,10 +20,17 @@ public:
         // so if we buy we need to sell at any day after this
         // so trying all possible ways
         // using recursion
-        int n=prices.size();
-        int i=0;
-        int buy=1; // so current state is buy then we can buy else we need to sell
-        vector<vector<int>>dp(n,vector<int>(2,-1));
-         return find_max(prices,dp,i,buy);
+       // as it is given that you can buy it then immediately sell it on the same day.
+       // so we can apply greedy
+       int ans=0;
+       int mini=prices[0];
+       int profit=0;
+       for(int i=1;i<prices.size();i++){
+        profit=prices[i]-mini;
+        mini=prices[i];
+        if(profit>0)ans+=profit;
+        profit=0;
+       }
+       return ans;
     }
 };

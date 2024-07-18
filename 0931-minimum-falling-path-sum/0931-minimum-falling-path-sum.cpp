@@ -1,3 +1,4 @@
+
 //author:-Siddhant Tomar
 //linked in :-https://www.linkedin.com/in/siddhant-tomar-9b3aab261/
 
@@ -125,27 +126,58 @@ ll binomial_expo (ll a, ll b){
     }
     return ans;
 }
+ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
+ if(l==r){
+   Seg_tree[i]=v[l];
+   return Seg_tree[i];
+ }
+ ll mid=(l+r)/2;
+ ll build_left=buildTree(2*i+1,l,mid,v,Seg_tree);
+ ll build_right=buildTree(2*i+2,mid+1,r,v,Seg_tree);
+ Seg_tree[i]=build_left+build_right;
+ return Seg_tree[i];
+}
+ ll updateTree(ll i,ll l ,ll r , ll a, vl &Seg_tree,ll value){
+    if(l==r &&r==a){
+        Seg_tree[i]=value;
+        return Seg_tree[i];
+    }
+     if(r<a || l>a)return Seg_tree[i];
+     ll mid=(l+r)/2;
+    ll left= updateTree(2*i+1,l,mid,a,Seg_tree,value);
+      ll right= updateTree(2*i+2,mid+1,r,a,Seg_tree,value);
+      return Seg_tree[i]=left+right ;
+ }
+  ll travel(ll i, ll a, ll b, ll l , ll r , vl &Seg_tree ){
+    if(l>=a && r<=b)return Seg_tree[i];
+    if(l>b || r<a)return 0;// outofbounds
+    if(l==r)return 0;
+    ll mid=(l+r)/2;
+    ll left=travel(2*i+1,a,b,l,mid,Seg_tree);
+    ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
+    return left+right;
+ }
 class Solution {
 public:
-    int minFallingPathSum(vector<vector<int>>& matrix) {
-        int n=matrix.size();
-        vvi dp(n,vi(n,0));
-        int mini=INT_MAX;
-        rep(i,n,0){
-            dp[0][i]=matrix[0][i];
-            mini=min(mini,dp[0][i]);
-        }
-        if(n==1)return mini;
-        int ans=INT_MAX;
-        rep(i,n,1){
-            rep(j,n,0){
-                int mini=INT_MAX;
-                mini=min(mini,dp[i-1][j]);
-                if(j>0)mini=min(mini,dp[i-1][j-1]);
-                if(j<n-1)mini=min(mini,dp[i-1][j+1]);
-                dp[i][j]=matrix[i][j]+mini;
-                if(i==n-1)ans=min(ans,dp[i][j]);
+     int cal(int i, int j, vvi & matrix, vvi &dp){
+        if(j<0 || j>matrix[0].size()-1)return 1e8;
+        if(i==0){
+            if(j>=0 && j<matrix[0].size()){
+            return matrix[i][j];
             }
+            return 1e8;
+        }
+        int u=matrix[i][j]+cal(i-1,j,matrix,dp);
+        int l=matrix[i][j]+cal(i-1,j-1,matrix,dp);
+        int r=matrix[i][j]+cal(i-1,j+1,matrix,dp);
+        return dp[i][j]=min(u,min(l,r));
+     }
+    int minFallingPathSum(vector<vector<int>>& matrix) {
+        int n=matrix.size();int m=matrix[0].size();
+        vvi dp(n,vi(m,1e8));
+        int ans=INT_MAX;
+        rep(i,m,0){
+         ans=min(ans,cal(n-1,i,matrix,dp));
         }
         return ans;
     }

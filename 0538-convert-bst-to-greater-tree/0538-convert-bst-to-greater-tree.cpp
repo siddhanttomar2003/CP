@@ -11,31 +11,17 @@
  */
 class Solution {
 public:
-     void inorder(TreeNode *root,vector<int> &v){
-         if(!root)return;
-         inorder(root->left,v);
-         v.push_back(root->val);
-         inorder(root->right,v);
-     }
-     TreeNode * update(TreeNode *root,unordered_map<int,int>&mp){
-         if(!root)return nullptr;
-         root->val=mp[root->val];
-         update(root->left,mp);
-         update(root->right,mp);
-         return root;
-     }
+   void recur(TreeNode *root,int &sum){
+    if(root==NULL)return ;
+    recur(root->right,sum);
+     sum+=root->val;
+    root->val=sum;
+    recur(root->left,sum);
+   
+   }
     TreeNode* convertBST(TreeNode* root) {
-        if(root==NULL)return nullptr;
-        vector<int>v;
-        inorder(root,v);
-        int size=v.size();
-        long long sum=v[size-1];
-        unordered_map<int,int>mp;
-        mp[sum]=sum;
-        for(int i=size-2;i>=0;i--){
-            sum+=v[i];
-            mp[v[i]]=sum;
-        }
-       return update(root,mp);
+        int sum=0;
+        recur(root,sum);
+      return root;
     }
 };

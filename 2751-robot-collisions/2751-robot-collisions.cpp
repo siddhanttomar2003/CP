@@ -159,26 +159,39 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
 class Solution {
 public:
-    int singleNonDuplicate(vector<int>& arr) {
-        int i=0;
-        int n=arr.size();int j=n-1;
-        if(n==1)return arr[0];
-        while(i<=j){
-            int mid=i+(j-i)/2;
-            if(i==j)return arr[mid];
-           else if(arr[mid]==arr[mid-1]){
-               int len=mid-i+1;
-               if(len&1)j=mid-2;
-               else i=mid+1;
-            }
-            else if(arr[mid]==arr[mid+1]){
-                int len=n-mid;
-                if(len&1)i=mid+2;
-                else j=mid-1;
-            }
-          
+    vector<int> survivedRobotsHealths(vector<int>& positions, vector<int>& healths, string directions) {
+        vector<pi>v;
+        int n=positions.size();
+        rep(i,n,0){
+            v.push_back({positions[i],i});
         }
-        return -1;
-        
+        sort(v);stack<int>s;
+        for(int i=n-1;i>=0;i--){
+            int index=v[i].second;
+            if(directions[index]=='L'){
+               s.push(index);
+            }
+            else {
+                while(!s.empty() && healths[index]>healths[s.top()]){
+                    healths[index]--;
+                    healths[s.top()]=0;
+                    s.pop();
+                }
+                if(!s.empty() && healths[index]<healths[s.top()]){
+                    healths[index]=0;
+                    healths[s.top()]--;
+                }
+              else  if(!s.empty() && healths[index]==healths[s.top()]){
+                    healths[index]=0;healths[s.top()]=0;
+                    s.pop();
+                }
+            }
+        }
+        vi ans;
+        rep(i,n,0){
+            if(healths[i]<=0)continue;
+            ans.pb(healths[i]);
+        }
+        return ans;
     }
 };

@@ -1,3 +1,4 @@
+
 //author:-Siddhant Tomar
 //linked in :-https://www.linkedin.com/in/siddhant-tomar-9b3aab261/
 
@@ -17,7 +18,7 @@ using namespace std;
 #define s second
 #define foreach(i, j, k, in) for(int i=j;i<k;i+=in)
 #define rforeach(i, j, k, in) for(int i=j;i>=k;i-=in)
-#define rep(i,j) foreach(i,0,j,1)
+#define rep(i,j,s) foreach(i,s,j,1)
 #define rrep(i,j,k) rforeach(i,j,k,1)
 #define set_bits(x) __builtin_popcountll(x)
 #define zero_bits(x) __builtin_ctzll(x)
@@ -125,19 +126,50 @@ ll binomial_expo (ll a, ll b){
     }
     return ans;
 }
+ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
+ if(l==r){
+   Seg_tree[i]=v[l];
+   return Seg_tree[i];
+ }
+ ll mid=(l+r)/2;
+ ll build_left=buildTree(2*i+1,l,mid,v,Seg_tree);
+ ll build_right=buildTree(2*i+2,mid+1,r,v,Seg_tree);
+ Seg_tree[i]=build_left+build_right;
+ return Seg_tree[i];
+}
+ ll updateTree(ll i,ll l ,ll r , ll a, vl &Seg_tree,ll value){
+    if(l==r &&r==a){
+        Seg_tree[i]=value;
+        return Seg_tree[i];
+    }
+     if(r<a || l>a)return Seg_tree[i];
+     ll mid=(l+r)/2;
+    ll left= updateTree(2*i+1,l,mid,a,Seg_tree,value);
+      ll right= updateTree(2*i+2,mid+1,r,a,Seg_tree,value);
+      return Seg_tree[i]=left+right ;
+ }
+  ll travel(ll i, ll a, ll b, ll l , ll r , vl &Seg_tree ){
+    if(l>=a && r<=b)return Seg_tree[i];
+    if(l>b || r<a)return 0;// outofbounds
+    if(l==r)return 0;
+    ll mid=(l+r)/2;
+    ll left=travel(2*i+1,a,b,l,mid,Seg_tree);
+    ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
+    return left+right;
+ }
 class Solution {
 public:
-
-    int recur(int i, int j, vvi &dp){
-        if(i==0 && j==0)return 1;
+    int cal(int i, int j, vvi &dp){
         if(i<0 || j<0)return 0;
+        if(i==0 && j==0)return 1;
         if(dp[i][j]!=-1)return dp[i][j];
-        return  dp[i][j]=recur(i-1,j,dp)+recur(i,j-1,dp);
+        int up=cal(i-1,j,dp);
+        int down=cal(i,j-1,dp);
+        return dp[i][j]=up + down;
+        
     }
     int uniquePaths(int m, int n) {
-        // bottom up up or left;
-        vvi dp(m,vi(n,-1));
-       return recur(m-1,n-1,dp);
-        
+        vvi dp(m+1,vi(n+1,-1));
+        return cal(m-1,n-1,dp);
     }
 };

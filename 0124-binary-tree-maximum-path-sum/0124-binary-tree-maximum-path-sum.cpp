@@ -11,11 +11,20 @@
  */
 class Solution {
 public:
-    int maxDepth(TreeNode* root) {
+
+    int cal(TreeNode *root, int &ans){
         if(root==NULL)return 0;
-        // if(root->left==NULL && root->right==NULL)return 1;
-        int a=maxDepth(root->left);
-        int b=maxDepth(root->right);
-        return 1+max(a,b);
+        // ans=max(ans,root->val);
+        int a=cal(root->left,ans);
+        int b=cal(root->right,ans);
+        ans=max(ans,max(root->val,root->val+a+b));
+        ans=max(ans,max(root->val+a,root->val+b));
+        return max(root->val,root->val+max(a,b));
+        
+    }
+    int maxPathSum(TreeNode* root) {
+        int ans=INT_MIN;
+       cal(root,ans);
+        return ans;
     }
 };
