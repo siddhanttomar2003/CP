@@ -17,7 +17,7 @@ using namespace std;
 #define s second
 #define foreach(i, j, k, in) for(int i=j;i<k;i+=in)
 #define rforeach(i, j, k, in) for(int i=j;i>=k;i-=in)
-#define rep(i,j) foreach(i,0,j,1)
+#define rep(i,j,s) foreach(i,s,j,1)
 #define rrep(i,j,k) rforeach(i,j,k,1)
 #define set_bits(x) __builtin_popcountll(x)
 #define zero_bits(x) __builtin_ctzll(x)
@@ -41,10 +41,10 @@ using namespace std;
 #define po cout<<"0"<<endl;
 #define ps(x,y) fixed<<setprecision(y)<<x
 #define pe cout<<endl
-#define inv rep(i,n){cin>>v[i];}
+#define inv rep(i,n,0){cin>>v[i];}
 #define invv rep(i,n){rep(j,m){cin>>vv[i][j];}}
 #define ouv rep(i,n){cout<<v[i]<<" ";}
-#define inv2 rep(i,n2){cin>>v2[i];}
+#define inv2 rep(i,n){cin>>v2[i];}
 #define inv3 rep(i,n){cin>>v3[i];}
 #define inv4 rep(i,n){cin>>v4[i];}
 #define sort(v) sort(v.begin(),v.end());
@@ -125,12 +125,67 @@ ll binomial_expo (ll a, ll b){
     }
     return ans;
 }
-int two_to_thepower(int num){
-    int count=1;
-    while(pow(2,count)!=num){
-        count++;
+ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
+ if(l==r){
+   Seg_tree[i]=v[l];
+   return Seg_tree[i];
+ }
+ ll mid=(l+r)/2;
+ ll build_left=buildTree(2*i+1,l,mid,v,Seg_tree);
+ ll build_right=buildTree(2*i+2,mid+1,r,v,Seg_tree);
+ Seg_tree[i]=build_left+build_right;
+ return Seg_tree[i];
+}
+ ll updateTree(ll i,ll l ,ll r , ll a, vl &Seg_tree,ll value){
+    if(l==r &&r==a){
+        Seg_tree[i]=value;
+        return Seg_tree[i];
     }
-    return count;
+     if(r<a || l>a)return Seg_tree[i];
+     ll mid=(l+r)/2;
+    ll left= updateTree(2*i+1,l,mid,a,Seg_tree,value);
+      ll right= updateTree(2*i+2,mid+1,r,a,Seg_tree,value);
+      return Seg_tree[i]=left+right ;
+ }
+  ll travel(ll i, ll a, ll b, ll l , ll r , vl &Seg_tree ){
+    if(l>=a && r<=b)return Seg_tree[i];
+    if(l>b || r<a)return 0;// outofbounds
+    if(l==r)return 0;
+    ll mid=(l+r)/2;
+    ll left=travel(2*i+1,a,b,l,mid,Seg_tree);
+    ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
+    return left+right;
+ }
+ void solve(){
+// vector<int>Seg_tree(4*n,0);
+inint(n);inint(q);
+vl v(n);inv;
+vl temp(q);
+rep(i,q,0)cin>>temp[i];
+// sort(temp);
+// int j=0;
+set<int>st;
+rep(i,q,0){
+    st.insert(temp[i]);
+}
+rep(i,q,0){
+    if(st.find(temp[i])!=st.end()){
+     ll num=pow(2,temp[i]);
+     rep(j,n,0){
+        if(v[j]%num==0){
+           v[j]+=(num/2);
+        }
+     }
+     st.erase(temp[i]);
+    }
+    }
+rep(i,n,0){
+    cout<<v[i]<<" ";
+}
+pe;
+
+
+
 }
 
 int32_t main()
@@ -145,21 +200,8 @@ int32_t main()
     cin>>t;
     while(t--)
     {
-     inint(n);
-     inint(q);
-     vi v(n);
-     inv;
-     vi vec(q);
-     rep(i,q){cin>>vec[i];}
-     ull mp;
-    rep(i,n){
-        if(!(v[i]&(v[i]-1))){
-            cout<<"yes"<<" ";
-        }
-        else cout<<"no"<<" ";
-    }
-     pe;
-     pe;
+     
+     solve();
     }
     return 0;
 }
