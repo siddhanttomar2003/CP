@@ -158,30 +158,14 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
-inint(n);
-vl v(n);inv;
-vl temp=v;
-sort(v);
-map<ll,ll>mp;
-vl prefix(n);
-prefix[0]=v[0];
-rep(i,n,1){
- prefix[i]=prefix[i-1]+v[i];
-}
-ll prev_best=0;
-for(ll i =0;i<n;i++){
-    ll start=prefix[i];
-    prev_best=max(prev_best,i+1);
-    while(prev_best<n && start>=v[prev_best]){
-        start+=v[prev_best];
-        prev_best++;
-    }
-    mp[v[i]]=prev_best-1;
-}
+inint(n);vl v(n);inv;
+int curr=0;
 rep(i,n,0){
-    cout<<mp[temp[i]]<<" ";
+    if(v[i]-curr>0){
+        cout<<v[i]-curr
+    }
 }
-pe;
+
 }
 
 int32_t main()
