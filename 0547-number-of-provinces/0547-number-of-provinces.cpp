@@ -160,10 +160,9 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 class Solution {
 public:
   void dfs(vvl  &adj, vi &is_Visited, int curr_node){
-      is_Visited[curr_node]=1;
         rep(i,adj[curr_node].size(),0){
             if(!is_Visited[adj[curr_node][i]]){
-                // is_Visited[adj[curr_node][i]]=1;
+                is_Visited[adj[curr_node][i]]=1;
                 dfs(adj,is_Visited,adj[curr_node][i]);
             }
         }
@@ -185,7 +184,7 @@ public:
         rep(i,n+1,1){
           if(!is_visited[i]){
             ans++;
-            // is_visited[i]=1;
+            is_visited[i]=1;
            int curr_node=i;
             dfs(adj,is_visited,curr_node);
           }
