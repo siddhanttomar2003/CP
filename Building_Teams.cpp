@@ -113,15 +113,12 @@ bool isPowerOfFour(int n) { return !(n&(n-1)) && (n&0x55555555);//check the 1-bi
 }
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 class Disjoint{
-    public:
 vector<int>parent;
 vector<int>rank;
-vector<int>size;
 public:
 Disjoint(int n){
     parent.resize(n+1);
     rank.resize(n+1,0);
-    size.resize(n+1,1);
     for(int i=0;i<n+1;i++){
         parent[i]=i;
     }
@@ -131,7 +128,7 @@ int findpar(int node){
     else return parent[node]=findpar(parent[node]);
 }
 public:
-void unionbyRank(int u, int v){
+void unions(int u, int v){
       u=findpar(u);
       v=findpar(v);
       if(u==v)return;
@@ -145,19 +142,6 @@ void unionbyRank(int u, int v){
         parent[u]=v;
         rank[v]++;
       }
-}
-void unionbySize(int u,int v){
-  u=findpar(u);
-  v=findpar(v);
-  if(u==v)return;
-  if(size[u]>size[v]){
-    parent[v]=u;
-    size[u]+=size[v];
-  }
-  else {
-    parent[u]=v;
-    size[v]+=size[u];
-  }
 }
 };
 ll binomial_expo (ll a, ll b){
@@ -203,41 +187,52 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
+ void dfs(int curr, vi &is_visited,vi & allot,int st,vvi &adj){
+    is_visited[curr]=1;
+    allot[curr]=st;
+    for(int i=0;i<adj[curr].size();i++){
+        if(!is_visited[adj[curr][i]]){
+            dfs(adj[curr][i],is_visited,allot,st^1,adj);
+        }
+    }
 
+ }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
- inint(vertices);inint(edges);
- int req=vertices-1-edges;
- Disjoint d(vertices);
- int ans=0;
- vector<pair<int,int>>ansvec;
- for(int i=0;i<edges;i++){
+inint(n);inint(m);
+vector<vector<int>>adj(n+1);
+for(int i=0;i<m;i++){
     inint(u);inint(v);
-    if(d.findpar(u)!=d.findpar(v)){
-        d.unionbySize(u,v);
-    }
- }
- vector<int>temp=d.size;
- int maxi=1;
- int par=0;
- for(int i=0;i<temp.size();i++){
-    // cout<<temp[i]<<endl
-    if(maxi<=temp[i]){
-       maxi=temp[i];
-       par=i;
-    }
- }
- for(int i=1;i<=vertices;i++){
-    if(d.findpar(i)!=d.findpar(par)){
-        ansvec.push_back({i,par});
-        d.unionbySize(i,par);
-    }
- }
-
-cout<<ansvec.size()<<endl;
-for(int i=0;i<ansvec.size();i++){
-    cout<<ansvec[i].first<<" "<<ansvec[i].second<<endl;
+    adj[u].push_back(v);
+    adj[v].push_back(u);
 }
+vector<int>allot(n+1);
+vector<int>is_visited(n+1,0);
+for(int i=1;i<n+1;i++){
+    if(!is_visited[i]){
+        dfs(i,is_visited,allot,1,adj);
+    }
+}
+bool flag=true;
+for(int i=1;i<=n;i++){
+    for(int j=0;j<adj[i].size();j++){
+        if(allot[i]==allot[adj[i][j]]){
+            flag=false;break;
+        }
+    }
+}
+// rep(i,n+1,1)cout<<allot[i]<<" ";
+// pe;
+if(!flag)cout<<"IMPOSSIBLE"<<endl;
+else {
+    for(int i=1;i<=n;i++){
+        if(allot[i]==0)cout<<2<<" ";
+        else cout<<1<<" ";
+    }
+}
+return;
+
+
 }
 
 int32_t main()

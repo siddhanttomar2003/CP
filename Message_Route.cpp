@@ -113,15 +113,12 @@ bool isPowerOfFour(int n) { return !(n&(n-1)) && (n&0x55555555);//check the 1-bi
 }
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 class Disjoint{
-    public:
 vector<int>parent;
 vector<int>rank;
-vector<int>size;
 public:
 Disjoint(int n){
     parent.resize(n+1);
     rank.resize(n+1,0);
-    size.resize(n+1,1);
     for(int i=0;i<n+1;i++){
         parent[i]=i;
     }
@@ -131,7 +128,7 @@ int findpar(int node){
     else return parent[node]=findpar(parent[node]);
 }
 public:
-void unionbyRank(int u, int v){
+void unions(int u, int v){
       u=findpar(u);
       v=findpar(v);
       if(u==v)return;
@@ -145,19 +142,6 @@ void unionbyRank(int u, int v){
         parent[u]=v;
         rank[v]++;
       }
-}
-void unionbySize(int u,int v){
-  u=findpar(u);
-  v=findpar(v);
-  if(u==v)return;
-  if(size[u]>size[v]){
-    parent[v]=u;
-    size[u]+=size[v];
-  }
-  else {
-    parent[u]=v;
-    size[v]+=size[u];
-  }
 }
 };
 ll binomial_expo (ll a, ll b){
@@ -203,41 +187,56 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
-
  void solve(){
 // vector<int>Seg_tree(4*n,0);
- inint(vertices);inint(edges);
- int req=vertices-1-edges;
- Disjoint d(vertices);
- int ans=0;
- vector<pair<int,int>>ansvec;
- for(int i=0;i<edges;i++){
+inint(n);inint(m);
+vector<vector<int>>adj(n+1);
+for(int i=0;i<m;i++){
     inint(u);inint(v);
-    if(d.findpar(u)!=d.findpar(v)){
-        d.unionbySize(u,v);
-    }
- }
- vector<int>temp=d.size;
- int maxi=1;
- int par=0;
- for(int i=0;i<temp.size();i++){
-    // cout<<temp[i]<<endl
-    if(maxi<=temp[i]){
-       maxi=temp[i];
-       par=i;
-    }
- }
- for(int i=1;i<=vertices;i++){
-    if(d.findpar(i)!=d.findpar(par)){
-        ansvec.push_back({i,par});
-        d.unionbySize(i,par);
-    }
- }
-
-cout<<ansvec.size()<<endl;
-for(int i=0;i<ansvec.size();i++){
-    cout<<ansvec[i].first<<" "<<ansvec[i].second<<endl;
+    adj[u].push_back(v);
+    adj[v].push_back(u);
 }
+vector<int>dis(n+1,1e9);
+queue<pair<int,int>>q;
+ vector<int>par(n+1);
+  for(int i=0;i<n+1;i++){
+    par[i]=i;
+  }
+//   cout<<endl;
+
+
+
+q.push({1,0});
+dis[1]=0;
+while(q.size()>0){
+    int wt=q.front().second;
+    int parent=q.front().first;
+    q.pop();
+    for(int i=0;i<adj[parent].size();i++){
+        int child=adj[parent][i];
+        if(dis[child]>wt+1){
+            dis[child]=wt+1;
+            par[child]=parent;
+            q.push({child,wt+1});
+        }
+        // q.push({child,wt+1});
+    }
+}
+// cout<<dis[n]<<endl;
+int node=n;
+if(par[n]==n){
+    cout<<"IMPOSSIBLE"<<endl;
+    return;
+}
+vector<int>ans;
+while(par[node]!=node){
+ans.push_back(node);
+node=par[node];
+}
+cout<<ans.size()+1<<endl;cout<<1<<" ";
+ for(int i=ans.size()-1;i>=0;i--){
+    cout<<ans[i]<<" ";
+ }
 }
 
 int32_t main()
@@ -248,7 +247,7 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-
+    
      
      solve();
     
