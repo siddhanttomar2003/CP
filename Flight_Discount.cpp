@@ -1,13 +1,13 @@
 //author:-Siddhant Tomar
 //linked in :-https://www.linkedin.com/in/siddhant-tomar-9b3aab261/
- 
- 
+
+
 #include <bits/stdc++.h>
 using namespace std;
- 
+
 //Speed
 #define fastio() ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
- 
+
 //Macros
 #define IOtext freopen("input.txt","r",stdin); freopen("output.txt","w",stdout);
 #define PI (3.141592653589)
@@ -50,7 +50,7 @@ using namespace std;
 #define sort(v) sort(v.begin(),v.end());
 #define add(sum,v) accumulate(v.begin(),v.end(),sum);
 #define repa(it)      for(auto it:mp)
- 
+
 //Typedef
 typedef long long ll;
 typedef unordered_map<ll,ll> ull;
@@ -66,14 +66,14 @@ typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 typedef map<int,int> mii;
 typedef set<int> st;
- 
+
 #ifndef ONLINE_JUDGE
 #define debug(x) cerr<<#x<<" ";_print(x); cerr<<endl;
 #else
 #define debug(x)
 #endif
- 
- 
+
+
 // Operator overloads
 template<typename T> // cin >> vector<T>
 istream& operator>>(istream &istream, vector<T> &v){for (auto &it : v)cin >> it;return istream;}
@@ -81,24 +81,24 @@ template<typename T> // cout << vector<T>
 ostream& operator<<(ostream &ostream, const vector<T> &c) { for (auto &it : c) cout << it << " "; return ostream; }
 template<typename T, typename V> // cout << map<T,T>
 ostream& operator<<(ostream &ostream, const map<T,V> &c) { for (auto &it : c) cout << it.first << " " << it.second<<endl; return ostream; }
- 
+
 //Sorting
 bool sorta(const pair<int,int> &a,const pair<int,int> &b){return (a.second < b.second);}
- 
- 
+
+
 //Bits
 string decToBinary(int n){string s="";int i = 0;while (n > 0) {s =to_string(n % 2)+s;n = n / 2;i++;}return s;}
 ll binaryToDecimal(string n){string num = n;ll dec_value = 0;int base = 1;int len = num.length();for(int i = len - 1; i >= 0; i--){if (num[i] == '1')dec_value += base;base = base * 2;}return dec_value;}
- 
+
 //Check
 bool isPrime(ll n){if(n<=1)return false;if(n<=3)return true;if(n%2==0||n%3==0)return false;for(int i=5;i*i<=n;i=i+6)if(n%i==0||n%(i+2)==0)return false;return true;}
 bool isPowerOfTwo(int n){if(n==0)return false;return (ceil(log2(n)) == floor(log2(n)));}
 bool isPerfectSquare(ll x){if (x >= 0) {ll sr = sqrt(x);return (sr * sr == x);}return false;}
- 
+
 //Constants
 vector <ll> primes;
 vector <bool> is_prime;
- 
+
 // Mathematical functions
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
@@ -187,52 +187,49 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
-  void djk(int start, vector<ll>& dis, vector<vector<pair<int, ll>>>& adj) {
-    dis[start] = 0;
-    set<pair<ll, int>> s;
-    s.insert({0, start});
- 
-    while (!s.empty()) {
-        int par = s.begin()->second;
-        ll wt = s.begin()->first;
-        s.erase(s.begin());
- 
-        if (wt > dis[par]) continue;
- 
-        for (int i = 0; i < adj[par].size(); i++) {
-            int child = adj[par][i].first;
-            ll dist = adj[par][i].second;
-            if (dis[child] > dis[par] + dist) {
-                // If the child node is already in the set, remove it before inserting the updated value
-                s.erase({dis[child], child});
-                dis[child] = dis[par] + dist;
-                s.insert({dis[child], child});
-            }
-        }
-    }
-}
- 
  void solve(){
 // vector<int>Seg_tree(4*n,0);
-  inint(n);
-  inint(m);
-  vector<vector<pair<int,ll>>>adj(n+1);
-  for(int i=0;i<m;i++){
+inint(n);
+inint(m);
+vector<vector<pair<int,ll>>>adj(n+1);
+map<pair<int,int>,ll>mp;
+for(int i=0;i<m;i++){
     inint(u);inint(v);inll(wt);
     adj[u].push_back({v,wt});
-  }
-  vector<ll>dis(n+1,-1e10);
-  // priority_queue<pair<int,int>>pq;
-  // pq.push({0,1});
-  for(int i=1;i<=n;i++){
-    for(int j=0;j<m;j++){
-          int u=
-    }
-  }
- 
-  cout<<dis[n]<<endl;
-  
+    mp[{u,v}]=wt;
 }
+
+vvl dis(n+1,vl(2,1e18));
+
+priority_queue<pair<ll,pi>,vector<pair<ll,pi>>,greater<pair<ll,pi>>>pq;
+pq.push({0,{1,0}});
+dis[1][0]=dis[1][1]=0;
+while(pq.size()>0){
+    int par=pq.top().second.first;
+    int op=pq.top().second.second;
+    ll cost=pq.top().first;
+    pq.pop();
+    if(cost>dis[par][op])continue;
+    for(int i=0;i<adj[par].size();i++){
+        int child=adj[par][i].first;
+        ll wt=adj[par][i].second;
+        if(dis[child][op]>cost+wt){
+            dis[child][op]=cost+wt;
+            pq.push({dis[child][op],{child,op}});
+        }
+
+        if(dis[child][1]>cost+wt/2 && op==0){
+            dis[child][1]=cost+wt/2;
+            pq.push({dis[child][1],{child,1}});
+        }
+      }
+    }
+
+
+
+cout<<min(dis[n][0],dis[n][1])<<endl;
+}
+
 int32_t main()
 {
     fastio()
@@ -241,6 +238,8 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
+    
+     
      solve();
     
     return 0;
