@@ -187,72 +187,31 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
-   bool dfs(int curr, vvi &adj, vi &is_visited,vi &parent,int &start,unordered_map<int,int> &mp){
-     is_visited[curr]=1;
-     for(int i=0;i<adj[curr].size();i++){
-      if(!is_visited[adj[curr][i]]){
-        parent[adj[curr][i]]=curr;
-        mp[curr]=adj[curr][i];
-        if(dfs(adj[curr][i],adj,is_visited,parent,start,mp))return true;
-      }
-      else if(is_visited[adj[curr][i]] && parent[curr]!=adj[curr][i] ){
-        mp[curr]=adj[curr][i];
-        start=adj[curr][i];
-        return true;
-      }
-     }
-     return false;
-   }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
-inint(n);inint(m);
-vvi adj(n+1);
-rep(i,m,0){
-  inint(u);inint(v);
-  adj[u].pb(v);
-  adj[v].pb(u);
+inint(n);
+vl v(n);inv;
+int co=0;int ce=0;
+rep(i,n,0){
+    if(v[i]&1)co++;
+    else ce++;
 }
-// for(int i=1;i<=n;i++){
-//   cout<<i<<"->";
-//   for(int j=0;j<adj[i].size();j++){
-//     cout<<adj[i][j]<<" ";
-//   }
-//   pe;
-vector<int>is_visited(n+1,0);
-vector<int>parent(n+1);
-for(int i=1;i<=n;i++)parent[i]=i;
-bool cycle=false;
-vector<int>ans;
-for(int i=1;i<=n;i++){
-  int start=0;
- if(!is_visited[i]){
-    unordered_map<int,int>mp;
-    if(dfs(i,adj,is_visited,parent,start,mp)){
-      int s=start;
-      vector<int>temp;
-      while(mp[start]!=s){
-        temp.pb(start);start=mp[start];
-      }
-      temp.pb(start);temp.pb(s);
-      if(temp.size()>1){
-        ans=temp;
-      cycle=true;break;
-      }
-    }
- }
-}
-if(cycle){
-  cout<<ans.size()<<endl;
-  for(int i=0;i<ans.size();i++){
-    cout<<ans[i]<<" ";
-  }
-  pe;
-}
-else cout<<"IMPOSSIBLE";
-
+if(co>=1 && ce>=1)pm;
+else {
+    cout<<40<<endl;
+   rep(j,40,0){
+    int maxi=*max_element(v.begin(),v.end());
+    int mini=*min_element(v.begin(),v.end());
+    int num=(maxi+mini)/2;
+    cout<<num<<" ";
+     rep(i,n,0){
+        v[i]=abs(v[i]-num);
+     } 
+   }
+   pe;
 }
 
-
+}
 
 int32_t main()
 {
@@ -262,9 +221,12 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-   
+    int t;
+    cin>>t;
+    while(t--)
+    {
      
      solve();
-    
+    }
     return 0;
 }
