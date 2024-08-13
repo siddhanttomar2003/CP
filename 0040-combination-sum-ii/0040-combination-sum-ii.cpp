@@ -1,32 +1,30 @@
 class Solution {
 public:
-     void recursion(vector<vector<int>>&ans,vector<int>&v,vector<int>&candidates,int target,int index){
-         if(target==0){ans.push_back(v);return;}
-         if(index==candidates.size()){
-         if(target==0){
-             ans.push_back(v);
+
+     void cal(vector<int> &candidates, int tar, int i,vector<int> &temp,vector<vector<int>>&ans){
+        if(tar==0){ 
+            ans.push_back(temp);
+            return ;
+        }
+        if(i==candidates.size()){
+            return;
+        }
+        if(candidates[i]<=tar){
+            temp.push_back(candidates[i]);
+            cal(candidates,tar-candidates[i],i+1,temp,ans);
+            temp.pop_back();
+        }
+         while(  i+1<candidates.size() && candidates[i]==candidates[i+1] ){
+            i++;
          }
-         return;
-         }
-         if(target<0)return;
-         if(candidates[index]>target)return;
-         v.push_back(candidates[index]);
-         recursion(ans,v,candidates,target-candidates[index],index+1);
-         v.pop_back();
-         while(index+1<candidates.size()&&candidates[index+1]==candidates[index]){
-             index++;
-         }
-         recursion(ans,v,candidates,target,index+1);
-     
+           cal(candidates,tar,i+1,temp,ans);
+
      }
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        vector<vector<int>>ans;
-        vector<int>v;
-        int index=0;
         sort(candidates.begin(),candidates.end());
-        recursion(ans,v,candidates,target,index);
-        
-       return ans;
-
+        vector<vector<int>>ans;
+        vector<int>temp;
+        cal(candidates,target,0,temp,ans);
+        return ans;
     }
 };
