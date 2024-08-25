@@ -188,23 +188,50 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
-
+bool check(int x, vi &temp, int n){
+   long long ex=0;
+   long long cover=0;
+   for(int i=1;i<=n;i++){
+    int a=temp[i];
+    if(a>x){
+        ex+=a-x;
+    }
+    else {
+        cover+=((x-a)/2);
+    }
+   }
+   if(cover>=ex){
+    return true;
+   }
+   return false;
+}
  void solve(){
 // vector<int>Seg_tree(4*n,0);
-  inint(n);
-  vector<ll>dp(1e6+1,0);
-  dp[1]=1;dp[2]=1;dp[3]=1;dp[4]=1;dp[5]=1;dp[6]=1;
-   for(int i=2;i<=n;i++){
-     for(int j=1;j<=6;j++){
-        if(i-j>0){
-        dp[i]=(dp[i]+dp[i-j])%M;
-        }
-     }
-   }
-//    for(int i=1;i<=3;i++)cout<<dp[i]<<" ";
-   cout<<dp[n]<<" ";
-   cout<<endl;
-   
+inint(n);inint(m);
+vl v(m);rep(i,m,0)cin>>v[i];
+int ans=m;
+int l=1;int h=2*m;
+// map<int,int>mp;
+vector<int>temp(n+1,0);
+rep(i,m,0){
+    temp[v[i]]++;
+}
+// for(int i=1;i<=n;i++){
+//     cout<<temp[i]<<" ";
+// }
+// cout<<endl;
+while(l<=h){
+    int mid=l+(h-l)/2;
+    if(check(mid,temp,n)){
+       ans=mid;
+       h=mid-1;
+    }
+    else l=mid+1;
+}
+cout<<ans<<endl;
+return;
+
+
 }
 
 int32_t main()
@@ -215,9 +242,12 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-   
+    int t;
+    cin>>t;
+    while(t--)
+    {
      
      solve();
-    
+    }
     return 0;
 }

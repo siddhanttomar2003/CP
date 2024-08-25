@@ -191,20 +191,66 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 
  void solve(){
 // vector<int>Seg_tree(4*n,0);
-  inint(n);
-  vector<ll>dp(1e6+1,0);
-  dp[1]=1;dp[2]=1;dp[3]=1;dp[4]=1;dp[5]=1;dp[6]=1;
-   for(int i=2;i<=n;i++){
-     for(int j=1;j<=6;j++){
-        if(i-j>0){
-        dp[i]=(dp[i]+dp[i-j])%M;
-        }
-     }
-   }
-//    for(int i=1;i<=3;i++)cout<<dp[i]<<" ";
-   cout<<dp[n]<<" ";
-   cout<<endl;
-   
+inint(n);
+inint(m);
+vector<vector<int>>v(n,vector<int>(m));
+for(int i=0;i<n;i++){
+    for(int j=0;j<m;j++){
+        cin>>v[i][j];
+        // cout<<v[i][j]<<" ";
+    }
+    // pe;
+}
+map<int,vector<ll>>mp1;
+map<int,vector<ll>>mp2;
+for(int i=0;i<n;i++){
+    for(int j=0;j<m;j++){
+        mp1[v[i][j]].push_back(i+1);
+        mp2[v[i][j]].push_back(j+1);
+    }
+}
+ll ans=0;
+// for(auto it:mp1){
+//     cout<<it.first<<"->";
+//     for(int i=0;i<it.second.size();i++){
+//         cout<<it.second[i]<<" ";
+//     }
+//     pe;
+// }
+// for(auto it:mp2){
+//     cout<<it.first<<"->";
+//     for(int i=0;i<it.second.size();i++){
+//         cout<<it.second[i]<<" ";
+//     }
+//     pe;
+// }
+for(auto it:mp1){
+    ll curr=0;
+    ll sum=0;
+    vector<ll>temp=it.second;
+    sum=add(sum,temp);
+    sort(temp);
+    ll nn=temp.size();
+    for(ll i=0;i<nn-1;i++){
+        ans+=(sum-curr-(temp[i]*(nn-i)));
+        curr+=temp[i];
+    }
+}
+for(auto it:mp2){
+    ll curr=0;
+    ll sum=0;
+    vector<ll>temp=it.second;
+    sum=add(sum,temp);
+    ll nn=temp.size();
+    sort(temp);
+    for(ll i=0;i<nn-1;i++){
+        ans+=(sum-curr-(temp[i]*(nn-i)));
+        curr+=temp[i];
+    }
+}
+cout<<ans<<endl;
+
+
 }
 
 int32_t main()

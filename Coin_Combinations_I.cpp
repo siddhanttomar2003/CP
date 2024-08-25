@@ -112,7 +112,38 @@ ll count_one(int n) { ll count=0; while(n) {  n = n&(n-1); count++; } return cou
 bool isPowerOfFour(int n) { return !(n&(n-1)) && (n&0x55555555);//check the 1-bit location;
 }
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
-
+class Disjoint{
+vector<int>parent;
+vector<int>rank;
+public:
+Disjoint(int n){
+    parent.resize(n+1);
+    rank.resize(n+1,0);
+    for(int i=0;i<n+1;i++){
+        parent[i]=i;
+    }
+}
+int findpar(int node){
+    if(parent[node]==node)return node;
+    else return parent[node]=findpar(parent[node]);
+}
+public:
+void unions(int u, int v){
+      u=findpar(u);
+      v=findpar(v);
+      if(u==v)return;
+      else if(rank[u]<rank[v]){
+        parent[u]=v;
+      }
+      else if(rank[v]<rank[u]){
+        parent[v]=u;
+      }
+      else{
+        parent[u]=v;
+        rank[v]++;
+      }
+}
+};
 ll binomial_expo (ll a, ll b){
     ll ans=1;
     while(b){
@@ -125,16 +156,57 @@ ll binomial_expo (ll a, ll b){
     }
     return ans;
 }
-int recur(int i, vi &v, vi &dp, int tar){
-    if(tar==1)return 1;
-   if(tar<0)return 0;
-   
-   int curr=0;
-   rep(i,n,0){
-    if(v[i]<=tar)curr+=recur(i,v,dp,tar-v[i]);
-   }
 
+ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
+ if(l==r){
+   Seg_tree[i]=v[l];
+   return Seg_tree[i];
+ }
+ ll mid=(l+r)/2;
+ ll build_left=buildTree(2*i+1,l,mid,v,Seg_tree);
+ ll build_right=buildTree(2*i+2,mid+1,r,v,Seg_tree);
+ Seg_tree[i]=build_left+build_right;
+ return Seg_tree[i];
+}
+ ll updateTree(ll i,ll l ,ll r , ll a, vl &Seg_tree,ll value){
+    if(l==r &&r==a){
+        Seg_tree[i]=value;
+        return Seg_tree[i];
+    }
+     if(r<a || l>a)return Seg_tree[i];
+     ll mid=(l+r)/2;
+    ll left= updateTree(2*i+1,l,mid,a,Seg_tree,value);
+      ll right= updateTree(2*i+2,mid+1,r,a,Seg_tree,value);
+      return Seg_tree[i]=left+right ;
+ }
+  ll travel(ll i, ll a, ll b, ll l , ll r , vl &Seg_tree ){
+    if(l>=a && r<=b)return Seg_tree[i];
+    if(l>b || r<a)return 0;// outofbounds
+    if(l==r)return 0;
+    ll mid=(l+r)/2;
+    ll left=travel(2*i+1,a,b,l,mid,Seg_tree);
+    ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
+    return left+right;
+ }
 
+ void solve(){
+// vector<int>Seg_tree(4*n,0);
+  inint(n);
+  inint(k);
+  vl v(n);inv;sort(v);
+  vector<ll>dp(1e6+1,0);
+  for(int i=0;i<n;i++){
+    dp[v[i]]=1;
+  }
+  for(int i=1;i<=k;i++){
+    for(int j=0;j<n;j++){
+         if(i-v[j]>0){
+            dp[i]=(dp[i]+dp[i-v[j]])%M;
+         }
+    }
+  }
+  cout<<dp[k]<<" ";
+  cout<<endl;
 }
 
 int32_t main()
@@ -145,12 +217,9 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-   inint(n);
-   inint(tar);
-   vi v(n);
-   inv;
-   // at any target we can choose any one 
-   vi dp(tar+1,-1);
-   return recur(0,v,dp,tar);
+ 
+     
+     solve();
+    
     return 0;
 }

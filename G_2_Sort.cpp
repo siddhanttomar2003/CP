@@ -375,65 +375,38 @@ ll travel(ll i, ll a, ll b, ll l, ll r, vl &Seg_tree)
 void solve()
 {
     // vector<int>Seg_tree(4*n,0);
-    inint(n);
+    inll(n);
     inll(k);
     vl v(n);
     inv;
-    priority_queue<ll, vector<ll>, greater<ll>> pq;
-    ll maxi = -1e9;
-    for (int i = 0; i < n; i++)
-    {
-        pq.push(v[i]);
-        maxi = max(maxi, v[i]);
-    }
-    while (pq.size() > 0 && pq.top() * 2 <= maxi && k > 0)
-    {
-        ll num1 = pq.top();
-        pq.pop();
-        ll num2 = (num1 * 2);
-        pq.push(num2);
-        k--;
-    }
-    if (k > 0)
-    {
-        ll div = k / n;
-        ll rem = k % n;
-        priority_queue<ll, vector<ll>, greater<ll>> pq1;
-        while (pq.size() > 0)
-        {
-            ll num = pq.top();
-            num = (num * binomial_expo(2, div));
-            pq1.push(num);
-            pq.pop();
+   
+
+    queue<int> q;
+    int i=0;int j=0;
+    int len=k+1;
+    int ans=0;
+    for(j;j<k;j++){
+        if(v[j+1]*2<=v[j]){
+            q.push(j);
         }
-        while (rem > 0)
-        {
-            ll num = pq1.top();
-            pq1.pop();
-            num = (num * 2);
-            pq1.push(num);
-            rem--;
-        }
-        ll ans = 0;
-        while (pq1.size() > 0)
-        {
-            ll num = pq1.top();
-            ans = (ans + num) % M;
-            pq1.pop();
-        }
-        cout << ans << endl;
     }
-    else
-    {
-        ll sum = 0;
-        while (pq.size() > 0)
-        {
-            ll num = pq.top();
-            pq.pop();
-            sum = (sum + num) % M;
+    if(q.size()==0)ans++;
+    while(j+1<n){
+        i++;
+        if(q.size()>0 && q.front()<i){
+            q.pop();
         }
-        cout << sum << endl;
+       if(v[j+1]*2 > v[j]){
+        if(q.size()==0){
+            ans++;
+        }
+       }
+       else {
+        q.push(j);
+       }
+       j++;
     }
+    cout<<ans<<endl;
 }
 
 int32_t main()
