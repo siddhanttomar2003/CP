@@ -11,15 +11,18 @@
  */
 class Solution {
 public:
-     void post_order(TreeNode *root, vector<int>&v){
-         if(root==NULL)return ;
-         post_order(root->left,v);
-         post_order(root->right,v);
-         v.push_back(root->val);
+
+     void cal(vector<int> &ans , TreeNode *root)
+     {
+        if(root==NULL)return;
+        cal(ans,root->left);
+        cal(ans,root->right);
+        ans.push_back(root->val);
+        return;
      }
     vector<int> postorderTraversal(TreeNode* root) {
-        vector<int>v;
-        post_order(root,v);
-        return v;
+        vector<int>ans;
+        cal(ans,root);
+        return ans;
     }
 };
