@@ -134,6 +134,7 @@ void unions(int u, int v){
       if(u==v)return;
       else if(rank[u]<rank[v]){
         parent[u]=v;
+
       }
       else if(rank[v]<rank[u]){
         parent[v]=u;
@@ -143,6 +144,7 @@ void unions(int u, int v){
         rank[v]++;
       }
 }
+
 };
 ll binomial_expo (ll a, ll b){
     ll ans=1;
@@ -156,6 +158,35 @@ ll binomial_expo (ll a, ll b){
     }
     return ans;
 }
+class Dsu{
+    public:
+   vector<int>parent;
+   vector<int>size;
+   Dsu(int n){
+    size.resize(n+1,1);
+    parent.resize(n+1);
+    for(int i=0;i<n+1;i++){
+        parent[i]=i;
+    }
+   }
+   int findparent(int node){
+    if(parent[node]==node)return node;
+    else return parent[node]=findparent(parent[node]);
+   }
+   void unions(int u, int v){
+    u=findparent(u);
+    v=findparent(v);
+    if(u==v)return ;
+    else if(size[u]<size[v]){
+         parent[u]=v;
+         size[v]+=size[u];
+    }
+    else {
+     parent[v]=u;
+     size[u]+=size[v];
+    }
+   }
+};
 
 ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  if(l==r){
@@ -191,26 +222,31 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 
  void solve(){
 // vector<int>Seg_tree(4*n,0);
-inint(n);
-inll(m);
-inint(k);
-vl v(n);inv;
-// there will be k-1 gaps between tapes and we have to minimize that gap
-vector<int>arr;
-for(int i=0;i<n-1;i++){
- arr.push_back(v[i+1]-v[i]-1);
-}
-sort(arr);
-ll ans=v[n-1]-v[0]+1;
-int i=arr.size()-1;
-while(k>1){
- ans-=arr[i];
- i--;k--;
-}
-cout<<ans<<endl;
-
-
-
+  inint(n);inint(m);
+  Dsu d(n);
+  while(m--){
+    inint(s);
+    int par=0;
+    int max_size=0;
+    vector<int>temp(s);
+    for(int i=0;i<s;i++){
+        inint(u);
+        temp[i]=u;
+        // cout<<temp[i]<<" ";
+       if(d.size[u]>max_size){
+        par=u;
+        max_size=d.size[u];
+       }
+    }
+    for(int i=0;i<s;i++){
+        d.unions(temp[i],par);
+    }
+  }
+  for(int i=1;i<=n;i++){
+     int par=d.findparent(i);
+     cout<<d.size[par]<<" ";
+  }
+  return;
 }
 
 int32_t main()

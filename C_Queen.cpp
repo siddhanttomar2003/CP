@@ -188,26 +188,67 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
+ bool dfs(vector<vector<int>>&adj, map<int,int>&mp, int start,map<int,int>&ind){
+    bool check=true;
+    for(int i=0;i<adj[start].size();i++){
+      check&=dfs(adj,mp,adj[start][i],ind);
+    }
+    if(check){
+        if(ind[start]){
+            mp[start]=1;
+        }
+    }
+    if(ind[start])return true;
+    else return false;
+ }
+ class Compare {
+public:
+    bool operator()(pair<int,int> above, pair<int,int> below)
+    {
+        if (below.first > above.first) {
+            return true;
+        }
+        else if (below.first == above.first
+                 && below.second < above.second) {
+            return true;
+        }
 
+        return false;
+    }
+};
  void solve(){
 // vector<int>Seg_tree(4*n,0);
 inint(n);
-inll(m);
-inint(k);
-vl v(n);inv;
-// there will be k-1 gaps between tapes and we have to minimize that gap
-vector<int>arr;
-for(int i=0;i<n-1;i++){
- arr.push_back(v[i+1]-v[i]-1);
+vector<vector<int>>adj(n+1);
+int start=0;
+map<int,int>ind;
+rep(i,n,0){
+    inint(a);inint(b);
+    int child=i+1;
+    int par=a;
+    int wt=b;
+    if(par==-1)start=i+1;
+    else {
+    adj[par].push_back(child);
+    }
+    ind[i+1]=wt;
 }
-sort(arr);
-ll ans=v[n-1]-v[0]+1;
-int i=arr.size()-1;
-while(k>1){
- ans-=arr[i];
- i--;k--;
+map<int,int>mp;
+// cout<<start<<endl;
+dfs(adj,mp,start,ind);
+priority_queue<pair<int,int>,vector<pair<int,int>>,Compare>pq;
+for(auto it:mp){
+    pq.push({it.second,it.first});
 }
-cout<<ans<<endl;
+if(pq.size()==0)cout<<-1<<endl;
+// pq.push({3,2});
+// pq.push({3,1});
+// pq.push({3,3});
+// pq.push({3,4});
+while(pq.size()>0){
+   cout<<pq.top().second<<" ";
+   pq.pop();
+}
 
 
 
