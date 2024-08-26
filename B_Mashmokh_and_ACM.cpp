@@ -188,38 +188,24 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
-int cal(vvi &dp, vl &v, int i, int tar ){
-    if(tar<0)return 0;
-    if(tar==0)return 1;
-    if(i==v.size())return 0;
-    if(dp[i][tar]!=-1)return dp[i][tar];
-    int take1=0;int nottake=0;int take2=0;
-    take1=cal(dp,v,i,tar-v[i]);
-    // take2=cal(dp,v,i+1,tar-v[i]);
-    nottake=cal(dp,v,i+1,tar);
-    return dp[i][tar]=(take1+nottake)%M;
-}
+ ll cal(vvl &dp, int last, int i, int m, int n){
+  if(i==m){
+    return 1;
+  }
+  if(dp[i][last]!=-1)return dp[i][last];
+  ll c=0;
+  for(int j=last;j<=n;j+=last){
+    c=(c+cal(dp,j,i+1,m,n))%M;
+  }
+  return dp[i][last]=c;
+ }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
-inint(n);
-inint(tar);
-vl v(n);inv;
-vvi dp(n,vi(tar+1,0));
-// vi dp(1e6+1,0);
- for(int i=0;i<n;i++){
-    dp[i][0]=1;
- }
- sort(v);
-//  cout<< cal(dp,v,0,tar);
-  for(int i=n-1;i>=0;i--){
-    for(int sum=1;sum<=tar;sum++){
-        if(sum>=v[i])
-          dp[i][sum]=(dp[i][sum]+dp[i][sum-v[i]])%M;
-             if(i+1<n)
-          dp[i][sum]=(dp[i][sum]+dp[i+1][sum])%M;
-    }
-}
-cout<<dp[0][tar]<<endl;
+inint(n);inint(m);
+ll ways=0;
+vector<vector<ll>>dp(m,vector<ll>(n+1,-1));
+
+cout<<ways<<" "<<endl;
 
 }
 

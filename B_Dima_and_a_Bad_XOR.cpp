@@ -188,38 +188,26 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
-int cal(vvi &dp, vl &v, int i, int tar ){
-    if(tar<0)return 0;
-    if(tar==0)return 1;
-    if(i==v.size())return 0;
-    if(dp[i][tar]!=-1)return dp[i][tar];
-    int take1=0;int nottake=0;int take2=0;
-    take1=cal(dp,v,i,tar-v[i]);
-    // take2=cal(dp,v,i+1,tar-v[i]);
-    nottake=cal(dp,v,i+1,tar);
-    return dp[i][tar]=(take1+nottake)%M;
-}
+
  void solve(){
 // vector<int>Seg_tree(4*n,0);
 inint(n);
-inint(tar);
-vl v(n);inv;
-vvi dp(n,vi(tar+1,0));
-// vi dp(1e6+1,0);
- for(int i=0;i<n;i++){
-    dp[i][0]=1;
- }
- sort(v);
-//  cout<< cal(dp,v,0,tar);
-  for(int i=n-1;i>=0;i--){
-    for(int sum=1;sum<=tar;sum++){
-        if(sum>=v[i])
-          dp[i][sum]=(dp[i][sum]+dp[i][sum-v[i]])%M;
-             if(i+1<n)
-          dp[i][sum]=(dp[i][sum]+dp[i+1][sum])%M;
-    }
+inint(m);
+vvi v(n,vi(m));
+rep(i,n,0){
+    rep(j,m,0)cin>>v[i][j];
 }
-cout<<dp[0][tar]<<endl;
+vector<vector<int>>dp(n,vector<int>(1024,0));
+for(int j=0;j<m;j++){
+  dp[0][v[0][j]]=1;
+}
+for(int i=1;i<n;i++){
+ for(int j=0;j<m;j++){
+    for(int x=0;x<=1023;x++){
+        
+    }
+ }
+}
 
 }
 
@@ -231,9 +219,12 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-   
+    int t;
+    cin>>t;
+    while(t--)
+    {
      
      solve();
-    
+    }
     return 0;
 }
