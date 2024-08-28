@@ -1,62 +1,44 @@
-#include <vector>
-#include <queue>
-#include <limits.h>
-using namespace std;
-
 class Solution {
 public:
     int snakesAndLadders(vector<vector<int>>& board) {
-        int n = board.size();
-        vector<int> temp(n * n + 1, -1);  // Initialize 1D board with -1
-        
-        // Flatten the board into 1D with handling of snaking left and right
-        int idx = 1;  // Start at position 1
-        bool leftToRight = true;  // Track direction of traversal
-        for (int i = n - 1; i >= 0; i--) {
-            if (leftToRight) {
-                for (int j = 0; j < n; j++) {
-                    temp[idx++] = board[i][j];
-                }
-            } else {
-                for (int j = n - 1; j >= 0; j--) {
-                    temp[idx++] = board[i][j];
-                }
+        map<int,int>mp;
+        int n=board.size();
+        vector<int>temp(n*n+1);
+        int m=board[0].size();
+        for(int i=n-1;i>=0;i--){
+            for(int j=0;j<m;j++){
+                  if((n-1-i)%2==0){
+                       temp[(n-1-i)*n+(j+1)]=board[i][j];
+                  }
+                  else {
+                    temp[(n-1-i)*n+(m-j)]=board[i][j];
+                  }
+                 
             }
-            leftToRight = !leftToRight;  // Toggle direction
         }
-        
-        // Use BFS to find the shortest path to the end
-        queue<pair<int, int>> q;  // {position, steps}
-        vector<int> dist(n * n + 1, INT_MAX);
-        dist[1] = 0;  // Start at square 1
-        q.push({1, 0});
-        
-        while (!q.empty()) {
-            int pos = q.front().first;
-            int steps = q.front().second;
+
+        queue<pair<int,int>>q;
+        vector<int>dis(n*n+1,INT_MAX);
+        dis[1]=0;
+        q.push({1,0});
+        while(q.size()>0){
+            int par=q.front().first;
+            int times=q.front().second;
             q.pop();
-            
-            // Check if reached the last square
-            if (pos == n * n) return steps;
-            
-            // Explore the next 6 positions (dice roll)
-            for (int i = 1; i <= 6; i++) {
-                int nextPos = pos + i;
-                if (nextPos > n * n) continue;  // Out of bounds
-                
-                // If there's a ladder or snake, move to that position
-                if (temp[nextPos] != -1) {
-                    nextPos = temp[nextPos];
-                }
-                
-                // If this position hasn't been visited in fewer steps
-                if (dist[nextPos] == INT_MAX) {
-                    dist[nextPos] = steps + 1;
-                    q.push({nextPos, steps + 1});
+            for(int i=0;i<=6;i++){
+                if(par+i<=n*n && dis[par+i]>times+1){
+                    dis[par+i]=times+1;
+                    if(temp[par+i]!=-1){
+                        dis[temp[par+i]]=times+1;
+                        q.push({temp[par+i],times+1});
+                    }
+                    else {
+                    q.push({par+i,times+1});
+                    }
                 }
             }
         }
-        
-        return -1;  // No way to reach the last square
+        if(dis[n*n]==INT_MAX)return -1;
+        return dis[n*n];
     }
 };
