@@ -1,54 +1,52 @@
 class Solution {
 public:
+    bool check(map<char,int>&mp1, map<char,int>&mp2){
+        for(auto it:mp1){
+            if(mp2.find(it.first)!=mp2.end()){
+                if(mp2[it.first]>=mp1[it.first])continue;
+                else return false;
+            }
+            else return false;
+        }
+        return true;
+    }
     string minWindow(string s, string t) {
-        int n = s.size();
-        int m = t.size();
-
-        // This is the common sliding window problem
-
-        unordered_map<char,int> mp2;            // Storing values of string 't'
-        string ans;
-        for(auto x:t)
-        {
-            mp2[x]++;
+        if(t.size()>s.size())return "";
+        map<char,int>mp1;
+        map<char,int>mp2;
+        int j; int i=0;
+        for( j=0;j<t.size();j++){
+         mp1[t[j]]++;
+         mp2[s[j]]++;
         }
-
-        unordered_map<char,int> mp;
-        int mini = INT_MAX;
-
-        int i=0,j=0;
-        while(j<n)
-        {
-            mp[s[j]]++;
-            
-            int flag = 0;
-            for(auto x:mp2)             // Checking if all values of mp2 are in mp1.
-            {
-                if(mp2[x.first]>mp[x.first])
-                {
-                    flag = 1;
-                    break;
-                }
-            }
-
-            if(flag==0)                 // If matches, then find min by decreasing the string 's'
-            {
-                while(mp[s[i]]>mp2[s[i]])
-                {
-                    mp[s[i]]--;
-
-                    if(mp[s[i]]==0) mp.erase(s[i]);
-                    i++;
-                }
-                if(mini>j-i+1)
-                {
-                    mini = min(mini,j-i+1);
-                    ans = s.substr(i,j-i+1);
-                }
-            }
-
-            j++;
+        string ans="";
+        int len=INT_MAX;
+        int pos_start= -1;
+        int pos_end= -1;
+        int n=s.size();
+        j--;
+        if(check(mp1,mp2)){
+            len=t.size();
+            pos_start=0;
+            pos_end=len-1;
         }
+        while(j+1<n){
+          j++;
+          mp2[s[j]]++;
+          while(check(mp1,mp2) && j>=i){
+            if(j-i+1<len){
+                pos_start=i;
+                pos_end=j;
+                len=j-i+1;
+            }
+            mp2[s[i]]--;
+            if(mp2[s[i]]==0)mp2.erase(s[i]);
+            i++;
+          }
+        }
+        
+        if(pos_start==-1)return "";
+        for(int i=pos_start;i<=pos_end;i++){ans+=s[i];}
         return ans;
     }
 };
