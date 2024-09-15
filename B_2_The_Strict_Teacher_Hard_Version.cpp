@@ -191,27 +191,44 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 
  void solve(){
 // vector<int>Seg_tree(4*n,0);
-inint(a);
-inint(n);
-inint(y);
-vl v(n);inv;
-ll ans=0;ans+=(n-2);
-set<int>st;
-rep(i,n,0)st.insert(v[i]);
-rep(i,n,0){
-    int curr=v[i];
-       if(curr==a){
-        if(st.find(1)!=st.end() && st.find(curr-1)!=st.end())ans++;
-       }
-       else if(curr-1==0){
-        if(st.find(a)!=st.end() && st.find(curr+1)!=st.end())ans++;
-       }
-       else {
-        if(st.find(curr+1)!=st.end() && st.find(curr-1)!=st.end())ans++;
-       }
-    
-}
-cout<<ans<<endl;
+ inll(n);
+ inll(a);
+ inll(b);
+ vector<ll>t_pos(a);
+ rep(i,a,0)cin>>t_pos[i];
+ sort(t_pos);
+//  rep(i,a,0)cout<<t_pos[i]<<" ";
+//  pe;
+ while(b--){
+    inll(c_pos);
+    auto it=lower_bound(t_pos.begin(),t_pos.end(),c_pos);
+    auto it2=prev(it);
+    // if(it==t_pos.end())cout<<*it2<<endl;
+    // else
+    // cout<<*it<<endl;
+    ll time=0;
+    if(it==t_pos.begin()){
+        // cout<<"1st statement"<<" ";
+     time+=(c_pos-1);
+     time+=((*it)-c_pos);
+    }
+    else if(it==t_pos.end()){
+        // cout<<"2nd statement"<<" ";
+        time+=(n-c_pos);
+        time+=(c_pos-(*it2));
+    }
+    else {
+        // cout<<"3rd statement"<<" ";
+       
+        ll maxi=max((*it)-c_pos,c_pos-(*it2));
+        ll mini=min((*it)-c_pos,c_pos-(*it2));
+        ll ex=maxi-mini;
+        time+=(ex/2);
+        time+=mini;
+    }
+    cout<<time<<endl;
+ }
+
 }
 
 int32_t main()

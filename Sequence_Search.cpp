@@ -188,30 +188,41 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
+ bool check(ll mid, int a, int b){
+    ll count=0;
+    ll c_b=0;
+    if(mid%b==0){
+        c_b=mid/b-1;
+    }
+    else c_b=mid/b;
+    ll rem=mid-a;
+    ll c_a=0;
+    c_a=rem%b==0?rem/b-1:rem/b;
+    count=c_a+c_b+2;
 
+
+ }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
-inint(a);
-inint(n);
-inint(y);
-vl v(n);inv;
-ll ans=0;ans+=(n-2);
-set<int>st;
-rep(i,n,0)st.insert(v[i]);
-rep(i,n,0){
-    int curr=v[i];
-       if(curr==a){
-        if(st.find(1)!=st.end() && st.find(curr-1)!=st.end())ans++;
-       }
-       else if(curr-1==0){
-        if(st.find(a)!=st.end() && st.find(curr+1)!=st.end())ans++;
-       }
-       else {
-        if(st.find(curr+1)!=st.end() && st.find(curr-1)!=st.end())ans++;
-       }
-    
-}
-cout<<ans<<endl;
+ inint(b);
+ inint(a);
+ inint(k);
+ if(k==1){
+    cout<<0<<endl;
+    return;
+ }
+ ll low=a;
+ ll high=1e18;
+ ll ans=high;
+ while(low<=high){
+    ll mid=low+(high-low)/2;
+    if(check(mid,a,b,k)){
+        if(part(mid,a,b))ans=mid;
+        high=mid-1;
+    }
+    else low=mid+1;
+ }
+ cout<<ans<<endl;
 }
 
 int32_t main()
