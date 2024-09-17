@@ -1,0 +1,1 @@
+{"name":"Local: amazonoa4","url":"c:\\Users\\HP\\Desktop\\CP\\amazonoa4.cpp","tests":[{"id":1726508124109,"input":"2\n6\n25 46 15 96 24 10\n3\n2 2 2\n","output":"3\n1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\HP\\Desktop\\CP\\amazonoa4.cpp","group":"local","local":true}

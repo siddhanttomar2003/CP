@@ -191,29 +191,51 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 
  void solve(){
 // vector<int>Seg_tree(4*n,0);
- inll(n);
- inll(k);
- vl v(n);inv;
- ll maxi=*max_element(v.begin(),v.end());
- for(int i=0;i<n;i++){
-  if(v[i]!=maxi){
-    ll diff=maxi-v[i];
-    ll req=diff/k;
-    if(req&1){
-         v[i]+=(req*k+k);
-    }
-    else {
-      v[i]+=(req*k);
-    }
+  inint(n);
+  vector<int>fi(n);
+  vector<int>si(n);
+  for(int i=0;i<n;i++){
+    cin>>fi[i];
   }
- }
-//  sort(v);
- ll mini=*min_element(v.begin(),v.end());
- ll m=*max_element(v.begin(),v.end());
- if(m-mini>=k)cout<<-1<<endl;
- else
- cout<<*max_element(v.begin(),v.end())<<endl;
- 
+   for(int i=0;i<n;i++){
+    cin>>si[i];
+  }
+  ll c1=0;
+  ll c2=0;
+  ll c=0;
+  ll c_p=0;
+  rep(i,n,0){
+    if(fi[i]==1 && si[i]!=1)c1++;
+    else if(si[i]==1 && fi[i]!=1)c2++;
+    if(si[i]==-1 && fi[i]== -1)c++;
+    if(si[i]==1 && fi[i]==1)c_p++;
+  }
+  priority_queue<ll>pq;
+//   cout<<c1<<" "<<c2<<endl;
+  pq.push(c1);pq.push(c2);
+  while(c--){
+    ll curr=pq.top();
+    pq.pop();
+     curr--;
+     pq.push(curr);
+  }
+  priority_queue<ll,vector<ll>,greater<ll>>pq2;
+  pq2.push(pq.top());
+  pq.pop();
+  pq2.push(pq.top());
+  while(c_p--){
+    ll curr=pq2.top();
+    pq2.pop();
+    curr++;
+    pq2.push(curr);
+  }
+  cout<<pq2.top()<<endl;
+
+
+
+
+//   cout<<min(m1,m2)<<endl;
+
 
 }
 

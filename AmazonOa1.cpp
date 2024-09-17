@@ -191,29 +191,38 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 
  void solve(){
 // vector<int>Seg_tree(4*n,0);
- inll(n);
- inll(k);
- vl v(n);inv;
- ll maxi=*max_element(v.begin(),v.end());
- for(int i=0;i<n;i++){
-  if(v[i]!=maxi){
-    ll diff=maxi-v[i];
-    ll req=diff/k;
-    if(req&1){
-         v[i]+=(req*k+k);
+  inint(n);
+  vl v(n);
+  inv;
+  inint(ex);
+  sort(v);
+  int maxi=v[n-1];
+  for(int i=0;i<n-1;i++){
+    int req=maxi-v[i];
+    if(req<=ex){
+        ex-=req;
+        v[i]=maxi;
     }
     else {
-      v[i]+=(req*k);
+        v[i]+=ex;
+        ex=0; 
     }
+    if(ex==0)break;
   }
- }
-//  sort(v);
- ll mini=*min_element(v.begin(),v.end());
- ll m=*max_element(v.begin(),v.end());
- if(m-mini>=k)cout<<-1<<endl;
- else
- cout<<*max_element(v.begin(),v.end())<<endl;
- 
+  if(ex>0){
+    int div=ex/n;
+    int rem=ex%n;
+    for(int i=0;i<n;i++){
+        v[i]+=div;
+    }
+    cout<<*max_element(v.begin(),v.end())+(ex%n==0?0:1)<<endl;
+  }
+  else {
+    cout<<v[n-1]<<endl;
+    return;
+  }
+  
+
 
 }
 

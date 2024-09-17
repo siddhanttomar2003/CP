@@ -191,29 +191,40 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 
  void solve(){
 // vector<int>Seg_tree(4*n,0);
- inll(n);
- inll(k);
- vl v(n);inv;
- ll maxi=*max_element(v.begin(),v.end());
- for(int i=0;i<n;i++){
-  if(v[i]!=maxi){
-    ll diff=maxi-v[i];
-    ll req=diff/k;
-    if(req&1){
-         v[i]+=(req*k+k);
-    }
-    else {
-      v[i]+=(req*k);
-    }
-  }
+ inint(n);
+ vector<int>a(n);
+ vector<int>b(n);
+ vector<int>c(n);
+ rep(i,n,0){
+    cin>>a[i];
  }
-//  sort(v);
- ll mini=*min_element(v.begin(),v.end());
- ll m=*max_element(v.begin(),v.end());
- if(m-mini>=k)cout<<-1<<endl;
- else
- cout<<*max_element(v.begin(),v.end())<<endl;
- 
+ rep(i,n,0){
+    cin>>b[i];
+ }
+ rep(i,n,0){
+    cin>>c[i];
+ }
+ vector<pair<int,int>>v;
+ vector<pair<int,int>>g;
+ for(int i=0;i<n;i++){
+    vector<int>temp;
+    temp.pb(a[i]);
+    temp.pb(b[i]);
+    temp.pb(c[i]);
+    sort(temp);
+    v.push_back({temp[0],temp[1]});
+    g.push_back({temp[1],temp[2]});
+ }
+ sort(v);
+ int l1=v[n-1].first;
+ int l2=v[n-1].second;
+ ll count=0;
+ for(int i=0;i<n;i++){
+    if(g[i].first>l1 && g[i].second>l2)count++;
+ }
+ cout<<count<<endl;
+
+
 
 }
 

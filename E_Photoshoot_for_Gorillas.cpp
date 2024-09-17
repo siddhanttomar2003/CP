@@ -47,7 +47,7 @@ using namespace std;
 #define inv2 rep(i,n){cin>>v2[i];}
 #define inv3 rep(i,n){cin>>v3[i];}
 #define inv4 rep(i,n){cin>>v4[i];}
-#define sort(v) sort(v.begin(),v.end());
+// #define sort(v) sort(v.begin(),v.end());
 #define add(sum,v) accumulate(v.begin(),v.end(),sum);
 #define repa(it)      for(auto it:mp)
 
@@ -189,33 +189,36 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     return left+right;
  }
 
- void solve(){
-// vector<int>Seg_tree(4*n,0);
- inll(n);
- inll(k);
- vl v(n);inv;
- ll maxi=*max_element(v.begin(),v.end());
- for(int i=0;i<n;i++){
-  if(v[i]!=maxi){
-    ll diff=maxi-v[i];
-    ll req=diff/k;
-    if(req&1){
-         v[i]+=(req*k+k);
+ void solve() {
+            int n,m,k;
+            cin>>n>>m>>k;
+            priority_queue<int> pq;
+            vector<vector<int>> o(n, vector<int>(m, 0));
+            for (int i = 0; i < n; ++i) {
+                for (int j = 0; j < m; ++j) {
+                    int startRow = max(0, i - k + 1);
+                    int endRow = min(i, n - k);
+                    int startCol = max(0, j - k + 1);
+                    int endCol = min(j, m - k);
+                    o[i][j] = (endRow - startRow + 1) * (endCol - startCol + 1);
+                    pq.push(o[i][j]);
+                }
+            }
+            int w;
+            cin>>w;
+            ll arr[w];
+            for(int i=0;i<w;i++){
+                cin>>arr[i];
+            }
+            sort(arr,arr+w);
+            ll ans = 0;
+            for(int i=w-1;i>=0;i--){
+                ans += pq.top()*arr[i];
+                pq.pop();
+            }
+            cout<<ans<<endl;
     }
-    else {
-      v[i]+=(req*k);
-    }
-  }
- }
-//  sort(v);
- ll mini=*min_element(v.begin(),v.end());
- ll m=*max_element(v.begin(),v.end());
- if(m-mini>=k)cout<<-1<<endl;
- else
- cout<<*max_element(v.begin(),v.end())<<endl;
- 
 
-}
 
 int32_t main()
 {

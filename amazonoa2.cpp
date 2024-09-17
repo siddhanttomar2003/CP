@@ -191,29 +191,27 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 
  void solve(){
 // vector<int>Seg_tree(4*n,0);
- inll(n);
- inll(k);
+ inint(n);
  vl v(n);inv;
- ll maxi=*max_element(v.begin(),v.end());
+ map<int,vector<int>>mp;
  for(int i=0;i<n;i++){
-  if(v[i]!=maxi){
-    ll diff=maxi-v[i];
-    ll req=diff/k;
-    if(req&1){
-         v[i]+=(req*k+k);
-    }
-    else {
-      v[i]+=(req*k);
+    mp[v[i]].push_back(i);
+ }
+  ll till=n-1;
+  ll ans=0;
+  for(auto it:mp){
+    vector<int>temp=it.second;
+    int s=temp.size();
+    for(int i=s-1;i>=0;i--){
+        if(temp[i]<=till){
+            ans+=(i+1);
+            till=temp[0];
+            break;
+        }
     }
   }
- }
-//  sort(v);
- ll mini=*min_element(v.begin(),v.end());
- ll m=*max_element(v.begin(),v.end());
- if(m-mini>=k)cout<<-1<<endl;
- else
- cout<<*max_element(v.begin(),v.end())<<endl;
- 
+  cout<<ans<<endl;
+
 
 }
 

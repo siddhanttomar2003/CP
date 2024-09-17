@@ -191,29 +191,39 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 
  void solve(){
 // vector<int>Seg_tree(4*n,0);
- inll(n);
- inll(k);
- vl v(n);inv;
- ll maxi=*max_element(v.begin(),v.end());
- for(int i=0;i<n;i++){
-  if(v[i]!=maxi){
-    ll diff=maxi-v[i];
-    ll req=diff/k;
-    if(req&1){
-         v[i]+=(req*k+k);
-    }
-    else {
-      v[i]+=(req*k);
-    }
+  int n;cin>>n;
+  vector<int>v(n);
+  for(int i=0;i<n;i++){
+    cin>>v[i];
   }
- }
-//  sort(v);
- ll mini=*min_element(v.begin(),v.end());
- ll m=*max_element(v.begin(),v.end());
- if(m-mini>=k)cout<<-1<<endl;
- else
- cout<<*max_element(v.begin(),v.end())<<endl;
- 
+  // increasing 
+  long long len1=0;
+  long long curr=1;
+  for(int i=1;i<n;i++){
+    bool flag=false;
+    while( i<n && v[i-1]<v[i]){
+        flag=true;
+    curr++;i++;
+    }
+    len1=max(len1,curr);
+    curr=1;
+    if(flag)i--;
+  }
+  long long len2=0;
+  long long curr2=1;
+   for(int i=1;i<n;i++){
+    bool flag=false;
+    while( i<n && v[i-1]>v[i]){
+        flag=true;
+    curr2++;i++;
+    }
+    len2=max(len2,curr2);
+    curr2=1;
+    if(flag)i--;
+    
+  }
+  cout<<max(len1,len2)<<endl;
+
 
 }
 
