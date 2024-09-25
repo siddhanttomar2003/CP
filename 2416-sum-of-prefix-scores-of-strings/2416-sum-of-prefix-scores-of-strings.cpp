@@ -1,63 +1,57 @@
 class TrieNode {
-public:
-    TrieNode *child[26];
-    int prefixScore;  // Stores the score of all prefixes ending at this node
-    bool isExist;
-
+    public:
+    TrieNode* child[26];
+     int times;
     TrieNode() {
         for (int i = 0; i < 26; i++) {
             child[i] = NULL;
         }
-        isExist = false;
-        prefixScore = 0;
+        times=0;
     }
 };
-
 class Trie {
-public:
-    TrieNode *root;
-
-    Trie() {
-        root = new TrieNode();
+ public:
+ TrieNode *root;
+ Trie(){
+    root=new TrieNode();
+ }
+ void insert(string s){
+    TrieNode * curr=root;
+    for(int i=0;i<s.size();i++){
+        int ind=s[i]-97;
+        if(curr->child[ind]==NULL){
+            curr->child[ind]=new TrieNode ();
+        }
+        curr=curr->child[ind];
+        curr->times++;
     }
-
-    void insert(string word) {
-        TrieNode *curr = root;
-        for (int i = 0; i < word.size(); i++) {
-            int index = word[i] - 'a';
-            if (curr->child[index] == NULL) {
-                curr->child[index] = new TrieNode();
+ }
+    int cal(string t){
+        int ans=0;
+        TrieNode *curr=root;
+        for(int i=0;i<t.size();i++){
+            int ind=t[i]-97;
+            if(curr->child[ind]!=NULL){
+                curr=curr->child[ind];
+                ans+=curr->times;
             }
-            curr = curr->child[index];
-            curr->prefixScore++;
+            else break;
         }
-        curr->isExist = true;
+        return ans;
     }
-
-    int getPrefixScore(string prefix) {
-        TrieNode *curr = root;
-        for (int i = 0; i < prefix.size(); i++) {
-            int index = prefix[i] - 'a';
-            if (curr->child[index] == NULL) return 0;
-            curr = curr->child[index];
-        }
-        return curr->prefixScore;
-    }
+ 
 };
-
 class Solution {
 public:
     vector<int> sumPrefixScores(vector<string>& words) {
-        vector<int> ans;
-        Trie trie;
-        for (int i = 0; i < words.size(); i++) {
-            trie.insert(words[i]);
+        Trie t;
+        for(int i=0;i<words.size();i++){
+            t.insert(words[i]);
         }
-        for (int i = 0; i < words.size(); i++) {
-            int curr = 0;
-            for (int j = 1; j <= words[i].size(); j++) {
-                curr += trie.getPrefixScore(words[i].substr(0, j));
-            }
+        vector<int>ans;
+        for(int i=0;i<words.size();i++){
+            int curr=0;
+            curr=t.cal(words[i]);
             ans.push_back(curr);
         }
         return ans;
