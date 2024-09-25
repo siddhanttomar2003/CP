@@ -1,0 +1,1 @@
+{"name":"Local: visaoa6","url":"c:\\Users\\HP\\Desktop\\CP\\visaoa6.py","tests":[{"id":1726810768141,"input":"4 5\n1 1 1 4 3\n4 1 2 3 3\n1 5 1 1 2\n4 3 2 2 4\n4\n1 1\n3 3 \n2 2 \n3 0","output":"0 0 0 0 0\n0 1 0 4 3\n0 5 0 3 3\n4 3 2 1 4\n\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\HP\\Desktop\\CP\\visaoa6.py","group":"local","local":true}

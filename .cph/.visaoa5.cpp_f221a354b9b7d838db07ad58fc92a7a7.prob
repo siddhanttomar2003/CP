@@ -1,0 +1,1 @@
+{"name":"Local: visaoa5","url":"c:\\Users\\HP\\Desktop\\CP\\visaoa5.cpp","tests":[{"id":1726777768488,"input":"2\n11\n1\n9","output":"110"},{"id":1726778206600,"input":"2\n99\n2\n99","output":"1818"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\HP\\Desktop\\CP\\visaoa5.cpp","group":"local","local":true}
