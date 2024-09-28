@@ -192,40 +192,43 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  void solve(){
 // vector<int>Seg_tree(4*n,0);
   inint(n);
-  inint(m);
-  inint(k);
-  vl v(n);
-  inv;
-  vector<int>temp(m);
-  rep(i,m,0)cin>>temp[i];
-  map<int,int>mp;
-  int ans=0;
-  rep(i,m,0)mp[temp[i]]++;
-   map<int,int>cmp;
-  int i=0;int j=0;
-  int curr=0;
-  for(j;j<m;j++){
-    if(mp.find(v[j])!=mp.end()){
-       cmp[v[j]]++;
-       if(cmp[v[j]]<=mp[v[j]])curr++;
-    }
+  inll(m);
+  inll(req);
+  vl v(n);inv;
+  vector<pair<ll,ll>>temp;
+  for(int i=0;i<n;i++){
+    temp.push_back({v[i],i});
   }
-  j--;
-  if(curr>=k)ans++;
-  while(j+1<n){
-    if(mp.find(v[j+1])!=mp.end()){
-         cmp[v[j+1]]++;
-         if(cmp[v[j+1]]<=mp[v[j+1]])curr++;
-    }
-    if(mp.find(v[i])!=mp.end()){
-      cmp[v[i]]--;
-      if(cmp[v[i]]<mp[v[i]])curr--;
-    }
-    if(curr>=k)ans++;
-    i++;j++;
+   bool check=false;
+   if(req%m!=0)check=true;
+  sort(temp);
+  ll till=req/m;
+  if(check)till++;
+  vector<ll>f_temp;
+  for(int i=0;i<till;i++){
+    f_temp.push_back(temp[i].first);
+  }
+  sort(f_temp);
+  reverse(f_temp.begin(),f_temp.end());
+  ll curr=0;
+  ll ans=0;
+  for(int i=0;i<f_temp.size();i++){
+     if(i==0){
+        if(req%m!=0){
+        ans+=((req%m)*(f_temp[i]));
+        curr+=(req%m);
+        }
+        else {
+            ans+=(m*f_temp[i]);
+            curr+=m;
+        }
+     }
+     else {
+        ans+=(m*(f_temp[i]+curr));
+        curr+=m;
+     }
   }
   cout<<ans<<endl;
-
 }
 
 int32_t main()

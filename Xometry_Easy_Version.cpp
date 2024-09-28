@@ -191,40 +191,16 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 
  void solve(){
 // vector<int>Seg_tree(4*n,0);
-  inint(n);
-  inint(m);
-  inint(k);
-  vl v(n);
-  inv;
-  vector<int>temp(m);
-  rep(i,m,0)cin>>temp[i];
-  map<int,int>mp;
-  int ans=0;
-  rep(i,m,0)mp[temp[i]]++;
-   map<int,int>cmp;
-  int i=0;int j=0;
-  int curr=0;
-  for(j;j<m;j++){
-    if(mp.find(v[j])!=mp.end()){
-       cmp[v[j]]++;
-       if(cmp[v[j]]<=mp[v[j]])curr++;
-    }
+inint(n);
+vl v(n);
+inv;
+map<int,int>mp;
+for(int i=0;i<n-1;i++){
+  for(int j=i+1;j<n;j++){
+    mp[v[i]^v[j]]++;
   }
-  j--;
-  if(curr>=k)ans++;
-  while(j+1<n){
-    if(mp.find(v[j+1])!=mp.end()){
-         cmp[v[j+1]]++;
-         if(cmp[v[j+1]]<=mp[v[j+1]])curr++;
-    }
-    if(mp.find(v[i])!=mp.end()){
-      cmp[v[i]]--;
-      if(cmp[v[i]]<mp[v[i]])curr--;
-    }
-    if(curr>=k)ans++;
-    i++;j++;
-  }
-  cout<<ans<<endl;
+}
+
 
 }
 

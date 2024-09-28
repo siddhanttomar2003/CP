@@ -191,41 +191,58 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 
  void solve(){
 // vector<int>Seg_tree(4*n,0);
-  inint(n);
-  inint(m);
-  inint(k);
-  vl v(n);
-  inv;
-  vector<int>temp(m);
-  rep(i,m,0)cin>>temp[i];
-  map<int,int>mp;
-  int ans=0;
-  rep(i,m,0)mp[temp[i]]++;
-   map<int,int>cmp;
-  int i=0;int j=0;
-  int curr=0;
-  for(j;j<m;j++){
-    if(mp.find(v[j])!=mp.end()){
-       cmp[v[j]]++;
-       if(cmp[v[j]]<=mp[v[j]])curr++;
-    }
-  }
-  j--;
-  if(curr>=k)ans++;
-  while(j+1<n){
-    if(mp.find(v[j+1])!=mp.end()){
-         cmp[v[j+1]]++;
-         if(cmp[v[j+1]]<=mp[v[j+1]])curr++;
-    }
-    if(mp.find(v[i])!=mp.end()){
-      cmp[v[i]]--;
-      if(cmp[v[i]]<mp[v[i]])curr--;
-    }
-    if(curr>=k)ans++;
-    i++;j++;
-  }
-  cout<<ans<<endl;
+ inll(n);
+ ll size=2*n;
+ char trump;cin>>trump;
+ vector<string>v(size);
+ map<char,vector<string>>mp;
+ rep(i,size,0){
+    instr(x);
+    v[i]=x;
+    mp[x[1]].push_back(x);
+ }
 
+ ll t_cards;
+ vector<pair<string,string>>ans;
+ vector<string>ex;
+ if(mp.find(trump)!=mp.end())t_cards=mp[trump].size();
+ else t_cards=0;
+ ll ex_cards=0;
+ for(auto it:mp){
+    if(it.first!=trump){
+        ex_cards+=(it.second.size()%2);
+    
+    vector<string>temp=it.second;
+    int i=0;
+    sort(temp);
+    while(i+1<temp.size()){
+        ans.push_back({temp[i],temp[i+1]});
+        i+=2;
+    }
+    if(temp.size()&1){
+        ex.push_back(temp[i]);
+    }
+    }
+ }
+  if(t_cards<ex_cards){
+    cout<<"IMPOSSIBLE"<<endl;
+    return;
+  }
+  vector<string>t_vec=mp[trump];
+  sort(t_vec);
+  int j=0;
+  for(int i=0;i<ex_cards;i++){
+    ans.push_back({ex[i],t_vec[j]});
+    j++;
+  }
+  int k=t_vec.size()-1;
+  for(k;k>=j;k--){
+    ans.push_back({t_vec[k-1],t_vec[k]});
+    k--;
+  }
+  for(int i=0;i<ans.size();i++){
+    cout<<ans[i].first<<" "<<ans[i].second<<endl;
+  }
 }
 
 int32_t main()
