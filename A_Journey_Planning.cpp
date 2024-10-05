@@ -191,61 +191,16 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 
  void solve(){
 // vector<int>Seg_tree(4*n,0);
- inint(n); vl v(n);inv;
- // first for neg;
- ll neg=0;
- ll pos=0;
- ll odd_sum=0;
- ll even_sum=0;
- ll curr_sum=0;
- ll c=0;
- ll curr=0;
- ll p=0;
- for(int i=n-1;i>=0;i--){
-    if(v[i]<0){
-        if(curr&1){
-            even_sum+=(c+1);
-            c=0;
-        }
-        else {
-            odd_sum+=(c+1);
-            c=0;
-        }
-        curr++;
-    }
-    else {
-        c++;
-        p++;
-    }
-    if(curr>0){
-        if(curr&1){
-            neg+=(odd_sum);
-           
-        }
-        else {
-            neg+=(even_sum);
-            
-        }
-    }
-    if(v[i]>0){
-         if(curr&1){
-             pos+=(c-1+even_sum);
-         }
-         else {
-            pos+=(c-1+odd_sum);
-         }
-    }
-    else {
-       if(curr&1){
-            pos+=(even_sum);
-       }
-       else pos+=(odd_sum);
-    }
-
-   
-
+ inint(n);
+ vl v(n);inv;
+ ll ans=0;
+ map<ll,ll>mp;
+ rep(i,n,0){
+    mp[v[i]-(i+1)]+=(v[i]);
+    ans=max(ans,mp[v[i]-(i+1)]);
  }
- cout<<neg<<" "<<pos+p<<endl;
+ cout<<ans<<endl;
+
 }
 
 int32_t main()
@@ -255,7 +210,7 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-  
+
      
      solve();
     
