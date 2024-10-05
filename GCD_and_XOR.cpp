@@ -191,6 +191,40 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 
  void solve(){
 // vector<int>Seg_tree(4*n,0);
+inll(n);
+inll(k);
+vl v(n);inv;
+// bool check=false;
+set<ll>st;
+for(int i=0;i<n;i++)st.insert(v[i]);
+if(st.size()==1 && v[0]==k)cout<<0<<endl;
+else if(st.size()==1){
+    int c=0;
+    for(int i=0;i<n;i++){
+        if(v[i]!=k){
+        while(i<n && v[i]!=k){
+            i++;
+        }
+        i--;
+        c++;
+        }
+    }
+    if(c>1)cout<<2<<endl;
+    else cout<<1<<endl;
+    
+}
+
+else {
+    ll cal=k;
+    for(int i=0;i<n;i++){
+        cal=__gcd(cal,v[i]);
+    }
+    if(cal==k)cout<<1<<endl;
+    else cout<<2<<endl;
+
+}
+
+
 
 }
 

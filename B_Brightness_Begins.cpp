@@ -191,6 +191,20 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 
  void solve(){
 // vector<int>Seg_tree(4*n,0);
+ inll(k);
+ ll l=1;ll h=4e18;
+ ll ans=h;
+ while(l<=h){
+    ll mid=l+(h-l)/2;
+    if(mid-(int)sqrtl(mid)>=k){
+        ans=mid;
+        h=mid-1;
+    }
+    else {
+        l=mid+1;
+    }
+ }
+ cout<<ans<<endl;
 
 }
 

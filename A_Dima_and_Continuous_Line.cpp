@@ -191,7 +191,32 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 
  void solve(){
 // vector<int>Seg_tree(4*n,0);
+inint(n);vl v(n);inv;
+  map<int,vector<int>>mp;
+   rep(i,n-1,0){
+     int s=min(v[i],v[i+1]);
+     int e=max(v[i],v[i+1]);
+     for(int j=0;j<n-1;j++){
+        if(i!=j && i!=j+1 && j!=i+1){
+            int s2=min(v[j],v[j+1]);
+            int e2=max(v[j],v[j+1]);
+            if(s2<s && e>e2){
+                // cout<<i<<endl;
+                // cout<<j<<endl;
+                             cout<<"yes"<<endl;return;
 
+            }
+            else if(s2>s && e2>e){
+                // cout<<i<<endl;
+                // cout<<j<<endl;
+                cout<<"yes"<<endl;return;
+            }
+        }
+     }
+   }
+                cout<<"no"<<endl;return;
+  
+   
 }
 
 int32_t main()
@@ -202,12 +227,9 @@ int32_t main()
     #endif
     //Rating? Neh. In love with experience.
     //Code Karlo, Coz KHNH :)
-    int t;
-    cin>>t;
-    while(t--)
-    {
+  
      
      solve();
-    }
+    
     return 0;
 }

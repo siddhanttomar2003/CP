@@ -191,6 +191,30 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
 
  void solve(){
 // vector<int>Seg_tree(4*n,0);
+  inll(n);
+  inll(k);
+  if(k>n  || k==1){
+    cout<<n<<endl;return;
+  }
+  if(k==n){
+    cout<<1<<endl;
+    return;
+  }
+  ll ans=0;
+  while(n>0){
+    ll temp=k;
+    while(temp*k<=n){
+        temp*=k;
+    }
+    n-=temp;
+    ans++;
+     if(k>n){
+        ans+=n;
+        cout<<ans<<endl;
+        return;
+    }
+  }
+
 
 }
 
