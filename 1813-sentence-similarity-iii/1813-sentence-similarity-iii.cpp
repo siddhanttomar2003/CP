@@ -1,44 +1,40 @@
 class Solution {
 public:
     bool areSentencesSimilar(string sentence1, string sentence2) {
-        int f_pos= -1;
-        int n=sentence1.size(); int m=sentence2.size();
-        for(int i=0;i<min(n,m);i++){
-            if(sentence1[i]!=sentence2[i] ){
-                if(i>0 && sentence1[i-1]!=' ')return false;
-                if(f_pos == -1)f_pos=i;
-                break;
+        vector<string>words1;
+        vector<string>words2;
+        int n=sentence1.size();
+        int m=sentence2.size();
+        if(m<n)return areSentencesSimilar(sentence2,sentence1);
+        for(int i=0;i<n;i++){
+            string temp="";
+            while(i<n && sentence1[i]!=' '){
+                 temp+=sentence1[i];
+                 i++;
             }
+            words1.push_back(temp);
         }
-        if(f_pos == -1)return true;
-        // find first in second
-        cout<<f_pos<<endl;
-        int rem_size1=n-f_pos;
-        int rem_size2=m-f_pos;
-        if(rem_size2>=rem_size1){
-            string fir=sentence1.substr(f_pos,rem_size1);
-            string sec="";
-             int i=m-1;
-             int c=0;
-             while(c<rem_size1){
-                sec+=sentence2[i];i--;c++;
-             }
-             reverse(sec.begin(),sec.end());
+           for(int i=0;i<m;i++){
+            string temp="";
+            while(i<m && sentence2[i]!=' '){
+                 temp+=sentence2[i];
+                 i++;
+            }
+            words2.push_back(temp);
+        }
+        int i=0;
+        while(i<words1.size() && words1[i]==words2[i]){
+            i++;
+        }
+        int rem=words1.size()-i;
+        if(rem==0)return true;
+        int n1=words1.size(); int n2=words2.size();int j=n2-rem; 
+        if(j<=i)return false;
+        while(j<n2 && i<n1 && words1[i]==words2[j]){
+            i++;j++;
+        }
+        return j==n2;
 
-            if(fir==sec)return true;
-        }
-        // find second in first
-        if(rem_size1>=rem_size2){
-          string sec=sentence2.substr(f_pos,rem_size2);
-          string fir="";
-            int i=n-1;
-             int c=0;
-             while(c<rem_size2){
-                fir+=sentence1[i];i--;c++;
-             }
-             reverse(fir.begin(),fir.end());
-            if(fir==sec)return true;
-        }
-        return false;
+
     }
 };
