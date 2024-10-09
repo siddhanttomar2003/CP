@@ -188,68 +188,57 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
- ll cal(int pos, string &x){
-    ll curr=0;
-    ll ans=0;
-    for(int i=0;i<pos;i++){
-        if(x[i]=='*'){
-            ans+=(pos-i-1-curr);
-            curr++;
-        }
-    }
-    curr=0;
-    for(int i=pos+1;i<x.size();i++){
-        if(x[i]=='*'){
-            ans+=(i-pos-1-curr);
-            curr++;
-        }
-    }
-    return ans;
- }
+
  void solve(){
 // vector<int>Seg_tree(4*n,0);
- inint(n);
- instr(x);
- int cs=0;
- rep(i,n,0){
-    if(x[i]=='*')cs++;
- }
- if(cs&1){
-    int pos= -1;
-    int tar=cs/2+1;
-    rep(i,n,0){
-      if(x[i]=='*'){
-        tar--;
-        if(tar==0){
-            pos=i;break;
-        }
-      }
+inint(n);
+inint(e);
+vl v(n);inv;
+vector<int>dp1(n,0);
+vector<int>l(n,0),r(n,0);
+for(int i=n-1;i>=n-e;i--){
+    if(v[i]==1){
+        dp1[i]=1;
     }
-   cout<< cal(pos,x) <<endl;
- }
- else {
-    if(cs==0){
-        cout<<0<<endl;
-        return;
+}
+for(int i=n-e-1;i>=0;i--){
+    if(v[i]==1)dp1[i]=1+dp1[i+e];
+    else {
+        r[i]=dp1[i+e];
     }
-      int pos1= -1;
-      int pos2= -1;
-      int tar1=cs/2+1;
-      int tar2=cs/2;
-    rep(i,n,0){
-      if(x[i]=='*'){
-        tar1--;
-        tar2--;
-        if(tar1==0){
-            pos1=i;
-        }
-        if(tar2==0){
-            pos2=i;
-        }
-      }
+}
+vector<int>dp2(n,0);
+for(int i=0;i<e;i++){
+  if(v[i]==1)dp2[i]=1;
+}
+for(int i=e;i<n;i++){
+    if(v[i]==1){
+        dp2[i]+=(1+dp2[i-e]);
     }
-    cout<<min(cal(pos1,x),cal(pos2,x))<<endl;
- }
+    else {
+        l[i]=dp2[i-e];
+    }
+}
+// rep(i,n,0){
+//     cout<<dp1[i]<<" ";
+// }
+// pe;
+// rep(i,n,0){
+//     cout<<dp2[i]<<" ";
+// }
+// pe;
+ll ans=0;
+for(int i=0;i<n;i++){
+    if(is_prime[v[i]]){
+        ll left=l[i];
+        ll right=r[i];
+        ans+=(left*(right));
+        ans+=left;ans+=right;
+        
+    }
+}
+cout<<ans<<endl;
+
 
 }
 
@@ -262,6 +251,7 @@ int32_t main()
    // Jai Bajrang Bali 
     int t;
     cin>>t;
+    Sieve(1e6);
     while(t--)
     {
      
