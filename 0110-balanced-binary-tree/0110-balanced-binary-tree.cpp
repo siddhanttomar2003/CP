@@ -11,19 +11,18 @@
  */
 class Solution {
 public:
-   int recur(TreeNode*root,bool &ans){
- if(root==NULL)return 0;
-   int height_left=recur(root->left,ans);
-   int height_right=recur(root->right,ans);
-   if(abs(height_left-height_right)>1){
-	   ans=false;
-   }
-   return 1+max(height_right,height_left);
-
- }
+    int check(TreeNode *root, bool &ans){
+        if(root==NULL)return 0;
+        int left=check(root->left,ans);
+        int right=check(root->right,ans);
+        if(abs(left-right)>1){
+            ans=false;
+        }
+        return 1+max(left,right);
+    }
     bool isBalanced(TreeNode* root) {
-        bool ans=true; 
-	 int sum=recur(root,ans);
-	return ans;
+        bool ans=true;
+        check(root,ans);
+        return ans;
     }
 };
