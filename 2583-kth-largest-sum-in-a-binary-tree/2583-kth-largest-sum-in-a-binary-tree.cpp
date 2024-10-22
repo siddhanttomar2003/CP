@@ -9,26 +9,32 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
- #define ll long long
 class Solution {
 public:
     long long kthLargestLevelSum(TreeNode* root, int k) {
-        vector<ll>sum;
+        priority_queue<long long ,vector<long long>,greater<long long>>pq;
         queue<TreeNode *>q;
         q.push(root);
-        while(!q.empty()){
-            int size=q.size();
-            ll curr_sum=0;
-            for(int i=0;i<size;i++){
-                TreeNode *temp=q.front();q.pop();
-                curr_sum+=temp->val;
-                if(temp->left!=NULL)q.push(temp->left);
-                if(temp->right!=NULL)q.push(temp->right);
-            }
-            sum.push_back(curr_sum);
+        while(q.size()>0){
+           int size=q.size();
+           long long c_sum=0;
+           for(int i=0;i<size;i++){
+               TreeNode *curr=q.front();
+               q.pop();
+               c_sum+=curr->val;
+               if(curr->left!=NULL){
+                q.push(curr->left);
+               }
+               if(curr->right!=NULL){
+                q.push(curr->right);
+               }
+           }
+           pq.push(c_sum);
+           if(pq.size()>k){
+            pq.pop();
+           }
         }
-         if(sum.size()<k)return -1;
-         sort(sum.rbegin(),sum.rend());
-         return sum[k-1];
+        if(pq.size()<k)return -1;
+        return pq.top();
     }
 };
