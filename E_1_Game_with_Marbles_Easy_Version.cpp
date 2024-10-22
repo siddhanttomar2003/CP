@@ -1,9 +1,18 @@
 //author:-Siddhant Tomar
 //linked in :-https://www.linkedin.com/in/siddhant-tomar-9b3aab261/
 
-
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 #include <bits/stdc++.h>
 using namespace std;
+ using namespace __gnu_pbds;
+   typedef tree<
+       int, 
+       null_type, 
+       less<int>, 
+       rb_tree_tag, 
+       tree_order_statistics_node_update> 
+       ordered_set;
 
 //Speed
 #define fastio() ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
@@ -156,6 +165,7 @@ ll binomial_expo (ll a, ll b){
     }
     return ans;
 }
+
 ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  if(l==r){
    Seg_tree[i]=v[l];
@@ -187,32 +197,31 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
+
  void solve(){
 // vector<int>Seg_tree(4*n,0);
-   inint(n);
-   vector<string>v(n);
-   for(int i=0;i<n;i++){
-    instr(x);
-    v[i]=x;
-    // cout<<v[i]<<endl;/
-   }
-   
-   ll ans=0;
-  for(int i=0;i<n/2;i++){
-    for(int j=0;j<n/2;j++){
-      int first=v[i][j];
-      int second=v[n-j-1][i];
-      int third=v[n-i-1][n-j-1];
-      int fourth=v[j][n-i-1];
-      int maxi=max({first,second,third,fourth});
-      ans+=(-(fourth-maxi+(third-maxi)+(second-maxi)+(first-maxi)));
+ inint(n);
+ vi a(n);vi b(n);
+ rep(i,n,0)cin>>a[i];
+ rep(i,n,0)cin>>b[i];
+ priority_queue<pair<ll,int>>pq;
+ rep(i,n,0){
+    ll sum=a[i]+b[i];
+    pq.push({sum,i});
+ }
+ ll score=0;
+ rep(i,n,0){
+        ll ind=pq.top().second;
+    if(i%2==0){
+        score+=(a[ind]-1);
     }
-  }
-  
-   
-   
-   
-   cout<<ans<<endl;
+    else {
+        score-=(b[ind]-1);
+    }
+    pq.pop();
+ }
+ cout<<score<<endl;
+
 
 
 }
@@ -223,8 +232,7 @@ int32_t main()
     #ifndef ONLINE_JUDGE
         freopen("Error.txt","w",stderr);
     #endif
-    //Rating? Neh. In love with experience.
-    //Code Karlo, Coz KHNH :)
+   // Jai Bajrang Bali 
     int t;
     cin>>t;
     while(t--)
