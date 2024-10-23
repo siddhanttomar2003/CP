@@ -12,60 +12,45 @@
 class Solution {
 public:
     TreeNode* replaceValueInTree(TreeNode* root) {
-      queue<TreeNode *>q;
-      q.push(root);
-      unordered_map<int,int>mp;
-      int level=0;
-      while(q.size()>0){
-        int size=q.size();
-        int level_sum=0;
-        for(int i=0;i<size;i++){
-           TreeNode *temp=q.front();
-           q.pop();
-           level_sum+=temp->val;
-           if(temp->left!=NULL){
-            q.push(temp->left);
-           }
-            if(temp->right!=NULL){
-                q.push(temp->right);
-            }
-           
-        }
-               mp[level]=level_sum;
-               level++;
-      }
-      queue<TreeNode *>qu;
-      qu.push(root);
-      root->val=0;
-      int level1=0;
-      while(qu.size()>0){
-        int size=qu.size();
-        for(int i=0;i<size;i++){
-            TreeNode *temp=qu.front();
-            qu.pop();
-            int curr=0;
-            if(temp->left!=NULL){
-                 qu.push(temp->left);
-                 curr+=temp->left->val;
-            }
-            if(temp->right!=NULL){
-                qu.push(temp->right);
-                curr+=temp->right->val;
-            }
-            if(mp.find(level1+1)!=mp.end() && curr<mp[level1+1]){
-                if(temp->left!=NULL)temp->left->val=mp[level1+1]-curr;
-                if(temp->right!=NULL)temp->right->val=mp[level1+1]-curr;
-            }
-            else {
-                if(temp->left!=NULL)temp->left->val=0;
-                if(temp->right!=NULL)temp->right->val=0;
-            }
-           
-        }
-        level1++;
-      }
-   return root;
+        queue<TreeNode *>q1;
+        queue<TreeNode *>q2;
+        if(!root)return nullptr;
+        q1.push(root);
+        q2.push(root);
+        root->val=0;
 
-
+        while(q1.size()>0){
+            int size=q1.size();
+            int sum=0;
+            for(int i=0;i<size;i++){
+              TreeNode *curr=q1.front();q1.pop();
+                 if(curr->left!=NULL){
+                    sum+=curr->left->val;
+                    q1.push(curr->left);
+                 }
+                 if(curr->right!=NULL){
+                    sum+=(curr->right->val);
+                    q1.push(curr->right);
+                 }
+            }
+            int size2=q2.size();
+            for(int i=0;i<size2;i++){
+                TreeNode * curr=q2.front();q2.pop();
+                int curr_sum=0;
+                if(curr->left!=NULL){
+                    curr_sum+=curr->left->val;
+                    q2.push(curr->left);
+                }
+                if(curr->right!=NULL){
+                    curr_sum+=curr->right->val;
+                    q2.push(curr->right);
+                }
+                if(curr->left!=NULL)
+                curr->left->val=(sum-curr_sum);
+                if(curr->right!=NULL)
+                curr->right->val=(sum-curr_sum);
+            }
+        }
+        return root;
     }
 };
