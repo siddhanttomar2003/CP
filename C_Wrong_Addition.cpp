@@ -197,68 +197,58 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
-  void dfs2(int start, vi &visited,vvi &adj,int num, vi&ans ){
-    visited[start]=1;
-    ans[start]=num;
-    rep(i,adj[start].size(),0){
-        int child=adj[start][i];
-        if(!visited[child]){
-        dfs2(child,visited,adj,num,ans);
-        }
-    }
 
-  }
- int dfs(int start, vvi &adj, vi &visited,map<int,char>&mp){
-    visited[start]=1;
-    int curr=0;
-    if(mp[start]=='0')curr=1;
-    rep(i,adj[start].size(),0){
-        int child=adj[start][i];
-        if(!visited[child]){
-            curr+=(dfs(child,adj,visited,mp));
-        }
-    }
-    return curr;
- }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
- inint(n);
- vl v(n);inv;
- instr(x);
-//  cout<<v<<endl;
-//  cout<<x<<endl;
- map<int,char>mp;
- rep(i,n,0){
-    mp[i+1]=x[i];
+ inll(n);
+ inll(s);
+ string temp1=to_string(n);
+ string temp2=to_string(s);
+  vector<int>ans;
+ int s1=0;int e1=temp1.size()-1;
+ int s2=0;int e2=temp2.size()-1;
+ while(e1>=0 && e2>=0){
+     int numa=temp1[e1]-48;
+     int nums=temp2[e2]-48;
+     if(nums>=numa){
+       ans.push_back((nums-numa));
+       e2--;e1--;
+     }
+     else{
+        if(e2-1<0){
+            cout<<-1<<endl;
+            return;
+        }
+        int nums2=temp2[e2-1]-48;
+        if(nums2!=1){
+            cout<<-1<<endl;
+            return;
+        }
+        int newnum=10+nums;
+         ans.push_back((newnum-numa));
+         e2-=2;e1--;
+     }
  }
- vvi adj(n+1);vi visited(n+1,0);vi visited2(n+1,0);
- rep(i,n,0){
-     int a=v[i];
-    int b=i+1;
-    if(a!=b){
-        adj[b].pb(a);
-    }
+ if(e1>=0){
+    cout<<-1<<endl;
  }
-//   rep(i,n,0){
-//     cout<<i+1<<" ";
-//     rep(j,adj[i+1].size(),0){
-//         cout<<adj[i+1][j]<<" ";
-//     }
-//     pe;
-//   }
-//   pe;
- vector<int>ans(n+1,0);
- rep(i,n,0){
-    int start=i+1;
-    int num=0;
-    if(!visited[start]){
-       int num=dfs(start,adj,visited,mp);
-       dfs2(start,visited2,adj,num,ans);
+ else {
+    while(e2>=0){
+        ans.push_back((temp2[e2]-48));
+        e2--;
     }
+    while( ans.size()>0  && ans.back()==0){
+        ans.pop_back();
+    }
+    if(ans.size()==0){
+        cout<<0<<endl;return;
+    }
+    reverse(all(ans));
+    rep(i,ans.size(),0)cout<<ans[i];
+    pe;
     
  }
- rep(i,n+1,1)cout<<ans[i]<<" ";
- pe;
+
 
 }
 

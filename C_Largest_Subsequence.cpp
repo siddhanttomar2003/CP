@@ -197,68 +197,70 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
-  void dfs2(int start, vi &visited,vvi &adj,int num, vi&ans ){
-    visited[start]=1;
-    ans[start]=num;
-    rep(i,adj[start].size(),0){
-        int child=adj[start][i];
-        if(!visited[child]){
-        dfs2(child,visited,adj,num,ans);
-        }
-    }
 
-  }
- int dfs(int start, vvi &adj, vi &visited,map<int,char>&mp){
-    visited[start]=1;
-    int curr=0;
-    if(mp[start]=='0')curr=1;
-    rep(i,adj[start].size(),0){
-        int child=adj[start][i];
-        if(!visited[child]){
-            curr+=(dfs(child,adj,visited,mp));
-        }
-    }
-    return curr;
- }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
- inint(n);
- vl v(n);inv;
- instr(x);
-//  cout<<v<<endl;
-//  cout<<x<<endl;
- map<int,char>mp;
- rep(i,n,0){
-    mp[i+1]=x[i];
+ inint(n);instr(x);
+ vector<int>last_greater(n,0);
+ bool alsorted=true;
+ rep(i,n-1,0){
+    if(x[i]>x[i+1])alsorted=false;
  }
- vvi adj(n+1);vi visited(n+1,0);vi visited2(n+1,0);
- rep(i,n,0){
-     int a=v[i];
-    int b=i+1;
-    if(a!=b){
-        adj[b].pb(a);
+ if(alsorted){
+    cout<<0<<endl;
+    return;
+ }
+ int last=0;
+ last_greater[n-1]=n-1;
+ last=x[n-1];
+ int last_ind=n-1;
+ int maxi=x[n-1];int maxi_pos=n-1;
+ for(int i=n-2;i>=0;i--){
+   int curr=x[i];
+    last_greater[i]=last_ind;
+    if(curr>=last){
+        maxi=curr;
+        maxi_pos=i;
+        last=curr;
+        last_ind=i;
     }
  }
-//   rep(i,n,0){
-//     cout<<i+1<<" ";
-//     rep(j,adj[i+1].size(),0){
-//         cout<<adj[i+1][j]<<" ";
-//     }
-//     pe;
-//   }
-//   pe;
- vector<int>ans(n+1,0);
- rep(i,n,0){
-    int start=i+1;
-    int num=0;
-    if(!visited[start]){
-       int num=dfs(start,adj,visited,mp);
-       dfs2(start,visited2,adj,num,ans);
-    }
-    
+//  cout<<maxi_pos<<endl;
+//  rep(i,n,0)cout<<last_greater[i]<<" ";
+//  pe;
+string alter="";
+ int temp=maxi_pos;
+ int ans=1;
+ while(last_greater[temp]!=temp){
+    ans++;
+    alter+=(x[temp]);
+    temp=last_greater[temp];
  }
- rep(i,n+1,1)cout<<ans[i]<<" ";
- pe;
+ alter+=(x[temp]);
+ int c=1;
+ rep(i,alter.size()-1,0){
+    if(alter[i]==alter[i+1])c++;
+    else break;
+ }
+ reverse(all(alter));
+ 
+
+ int i=0;
+ while(last_greater[maxi_pos]!=maxi_pos){
+    x[maxi_pos]=alter[i];i++;
+    maxi_pos=last_greater[maxi_pos];
+ }
+ x[maxi_pos]=alter[i];
+//  cout<<alter<<endl;
+bool check=true;
+  rep(i,n-1,0){
+     if(x[i]>x[i+1])check=false;
+  }
+
+if(!check)cout<<-1<<endl;
+else cout<<ans-c<<endl;
+
+
 
 }
 

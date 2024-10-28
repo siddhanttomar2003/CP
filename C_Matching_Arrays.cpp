@@ -197,70 +197,67 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
-  void dfs2(int start, vi &visited,vvi &adj,int num, vi&ans ){
-    visited[start]=1;
-    ans[start]=num;
-    rep(i,adj[start].size(),0){
-        int child=adj[start][i];
-        if(!visited[child]){
-        dfs2(child,visited,adj,num,ans);
-        }
-    }
 
-  }
- int dfs(int start, vvi &adj, vi &visited,map<int,char>&mp){
-    visited[start]=1;
-    int curr=0;
-    if(mp[start]=='0')curr=1;
-    rep(i,adj[start].size(),0){
-        int child=adj[start][i];
-        if(!visited[child]){
-            curr+=(dfs(child,adj,visited,mp));
-        }
-    }
-    return curr;
- }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
  inint(n);
- vl v(n);inv;
- instr(x);
-//  cout<<v<<endl;
-//  cout<<x<<endl;
- map<int,char>mp;
+ inint(x);
+  vpi a;vpi b;
+  rep(i,n,0){
+    inint(num);
+    a.push_back({num,i});
+  }
+  vector<int>ori;
+    rep(i,n,0){
+    inint(num);
+    ori.push_back(num);
+    b.push_back({num,i});
+  }
+//  rep(i,n,0)cout<<ori[i]<<" ";
+//  pe;
+  sort(b);
+ sort(a);
+ int count_check=0;
  rep(i,n,0){
-    mp[i+1]=x[i];
- }
- vvi adj(n+1);vi visited(n+1,0);vi visited2(n+1,0);
- rep(i,n,0){
-     int a=v[i];
-    int b=i+1;
-    if(a!=b){
-        adj[b].pb(a);
+    if(a[n-i-1].first>b[i].first){
+        count_check++;
     }
  }
-//   rep(i,n,0){
-//     cout<<i+1<<" ";
-//     rep(j,adj[i+1].size(),0){
-//         cout<<adj[i+1][j]<<" ";
-//     }
-//     pe;
-//   }
-//   pe;
- vector<int>ans(n+1,0);
- rep(i,n,0){
-    int start=i+1;
-    int num=0;
-    if(!visited[start]){
-       int num=dfs(start,adj,visited,mp);
-       dfs2(start,visited2,adj,num,ans);
-    }
-    
+ if(count_check<x){
+    pn;return;
  }
- rep(i,n+1,1)cout<<ans[i]<<" ";
- pe;
-
+ map<int,int>mp;
+ ll curr=0;
+ ll  rem=0;
+ ll pos=-1;
+ for(int i=0;i<n;i++){
+   if(curr==x){
+      pos=i;
+      rem=n-i;break;
+   }
+   if(a[n-i-1].first>b[i].first){
+      mp[a[n-i-1].second]=b[i].second;
+      curr++;
+   }
+ }
+bool c=true;
+ int i=0;int j=pos;
+ while(rem--){
+    if(a[i].first>b[j].first)c=false;
+    else {
+        mp[a[i].second]=b[j].second;
+    }
+    j++;i++;
+ }
+ if(!c)pn;
+ else {
+    py;
+    rep(i,n,0)cout<<ori[mp[i]]<<" ";
+    pe;
+ }
+ 
 }
+ 
 
 int32_t main()
 {

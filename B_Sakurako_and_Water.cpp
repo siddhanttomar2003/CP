@@ -197,68 +197,46 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
-  void dfs2(int start, vi &visited,vvi &adj,int num, vi&ans ){
-    visited[start]=1;
-    ans[start]=num;
-    rep(i,adj[start].size(),0){
-        int child=adj[start][i];
-        if(!visited[child]){
-        dfs2(child,visited,adj,num,ans);
-        }
+ int find_max(int i, int j, int n,vvi &v){
+    int max_side=min(n-(i+1),n-(j+1));
+    int maxi=INT_MAX;
+    while(i<n && j<n){
+        maxi=min(maxi,v[i][j]);
+        i++;j++;
     }
+    return maxi;
 
-  }
- int dfs(int start, vvi &adj, vi &visited,map<int,char>&mp){
-    visited[start]=1;
-    int curr=0;
-    if(mp[start]=='0')curr=1;
-    rep(i,adj[start].size(),0){
-        int child=adj[start][i];
-        if(!visited[child]){
-            curr+=(dfs(child,adj,visited,mp));
-        }
+ }
+ void update_mat(int num, vvi &v, int i, int j,int n){
+    while(i<n && j<n){
+        v[i][j]=num;
+        i++;j++;
     }
-    return curr;
  }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
  inint(n);
- vl v(n);inv;
- instr(x);
-//  cout<<v<<endl;
-//  cout<<x<<endl;
- map<int,char>mp;
+ vector<vector<int>>v(n,vector<int>(n));
  rep(i,n,0){
-    mp[i+1]=x[i];
+    rep(j,n,0){
+        cin>>v[i][j];
+        // cout<<v[i][j]<<" ";
+    }
+    // pe;
  }
- vvi adj(n+1);vi visited(n+1,0);vi visited2(n+1,0);
+ int ans=0;
  rep(i,n,0){
-     int a=v[i];
-    int b=i+1;
-    if(a!=b){
-        adj[b].pb(a);
+    rep(j,n,0){
+        if(v[i][j]<0){
+           int num= find_max(i,j,n,v);
+           num=abs(num);
+           ans+=(num);
+           update_mat(num,v,i,j,n);
+        }
     }
  }
-//   rep(i,n,0){
-//     cout<<i+1<<" ";
-//     rep(j,adj[i+1].size(),0){
-//         cout<<adj[i+1][j]<<" ";
-//     }
-//     pe;
-//   }
-//   pe;
- vector<int>ans(n+1,0);
- rep(i,n,0){
-    int start=i+1;
-    int num=0;
-    if(!visited[start]){
-       int num=dfs(start,adj,visited,mp);
-       dfs2(start,visited2,adj,num,ans);
-    }
-    
- }
- rep(i,n+1,1)cout<<ans[i]<<" ";
- pe;
+ cout<<ans<<endl;
+
 
 }
 
