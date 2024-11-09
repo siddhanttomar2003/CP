@@ -1,42 +1,29 @@
 class Solution {
 public:
-    string decToBinary(int n) {
-        string s = "";
-        int i = 0;
-        while (n > 0) {
-            s = to_string(n % 2) + s;
-            n = n / 2;
-            i++;
-        }
-        return s;
-    }
-
     long long minEnd(int n, int x) {
-        if (n == 1)
-            return x;
-            string c=decToBinary(n-1);
-           int  index=c.length()-1;
-           string ans="";
-           for(int i=0;i<64;i++){
-            ans+='0';
+        long long num=x;
+        long long times=n-1;
+        set<int>st;
+        long long ans=0;
+        vector<int>v1(64,0);
+        vector<int>v2(64,0);
+        for(long long i=0;i<64;i++){
+             if(num&(1LL<<i))v1[64-i-1]=1;
+             if(times&(1LL<<i))v2[64-i-1]=1;
+        }
+         int j=0;
+        for(long long i=0;i<64;i++){
+           if(!(v1[64-i-1])){
+               if(v2[64-j-1]){
+                 ans|=(1<<i);
+               }
+               j++;
            }
-           for(int i=0;i<64;i++){
-            if(  x>0 && x&1)ans[63-i]='1';
-            else {
-                if(index>=0){
-                ans[63-i]=c[index];
-                index--;
-                }
-                else ans[63-i]='0';
-            }
-            x>>=1;     
+           else {
+             ans|=(1<<i);
            }
-           long long a=0;
-           for(int i=63;i>=0;i--){
-            if(ans[i]=='1'){
-                a+=pow(2,63-i);
-            }
-           }
-           return a;
+        }
+         return ans;
+
     }
 };
