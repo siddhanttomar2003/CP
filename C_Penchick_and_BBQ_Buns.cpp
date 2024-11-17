@@ -56,7 +56,7 @@ using namespace std;
 #define inv2 rep(i,n){cin>>v2[i];}
 #define inv3 rep(i,n){cin>>v3[i];}
 #define inv4 rep(i,n){cin>>v4[i];}
-// #define sort(v) sort(v.begin(),v.end());
+#define sort(v) sort(v.begin(),v.end());
 #define add(sum,v) accumulate(v.begin(),v.end(),sum);
 #define repa(it)      for(auto it:mp)
 
@@ -120,13 +120,12 @@ bool isPowerOfFour(int n) { return !(n&(n-1)) && (n&0x55555555);//check the 1-bi
 }
 ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
 class Disjoint{
-    public:
 vector<int>parent;
-vector<int>size;
+vector<int>rank;
 public:
 Disjoint(int n){
     parent.resize(n+1);
-    size.resize(n+1,1);
+    rank.resize(n+1,0);
     for(int i=0;i<n+1;i++){
         parent[i]=i;
     }
@@ -140,15 +139,16 @@ void unions(int u, int v){
       u=findpar(u);
       v=findpar(v);
       if(u==v)return;
-      else if(size[u]<size[v]){
+      else if(rank[u]<rank[v]){
         parent[u]=v;
-        size[v]+=size[u];
       }
-      else {
+      else if(rank[v]<rank[u]){
         parent[v]=u;
-        size[u]+=size[v];
       }
-     
+      else{
+        parent[u]=v;
+        rank[v]++;
+      }
 }
 };
 ll binomial_expo (ll a, ll b){
@@ -194,51 +194,38 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
 }
-//  bool comp(vi &a, vi &b){
-//     int n1=a.size();
-//     int n2=b.size();
-//     int i=0;int j=0;
-//     while()
-//  }
+
  void solve(){
 // vector<int>Seg_tree(4*n,0);
-   inint(n);
-   inint(k);
-   vl v(n);
-    inv;
-    vi freq;
-    map<ll,ll>mp;
-    for(int i=0;i<n;i++){
-        int count=0;
-        for(int j=0;j<32;j++){
-            if(v[i]&(1<<j)){
-                   count++;
-            }
-        }
-        mp[i]=count;
-        freq.push_back(count);
+ inint(n);
+ if(n%2==0){
+    int curr=1;
+    for(int i=0;i<n;i+=2){
+        cout<<curr<<" "<<curr<<" ";
+        curr++;
     }
-    sort(all(freq));
-     ll count=0;
-      for(auto it:mp){
-        ll num1=it.second;
-        ll req=k-num1;
-        if(it.second>=k)count+=(n-1);
-        else {
-            int ind=lower_bound(all(freq),req)-freq.begin();
-            ll tot=n-ind;
-            if(req<=num1){
-                count+=tot-1;
-            }
+    pe;
+ }
+ else {
+     if(n<26)cout<<-1<<endl;
+     else {
+        int three=1;
+        int curr=2;
+        int f=0;
+        for(int i=0;i<n;i++){
+            if(i==0 || i==9 || i==25)cout<<three<<" ";
             else {
-                count+=tot;
+               cout<<curr<<" ";
+               f++;
+               if(f==2){
+                curr++;
+                f=0;
+               }
             }
         }
-      }
-      cout<<count/2<<endl;
-
- 
-
+        pe;
+     }
+ }
 }
 
 int32_t main()
@@ -248,9 +235,12 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-   
+    int t;
+    cin>>t;
+    while(t--)
+    {
      
      solve();
-    
+    }
     return 0;
 }
