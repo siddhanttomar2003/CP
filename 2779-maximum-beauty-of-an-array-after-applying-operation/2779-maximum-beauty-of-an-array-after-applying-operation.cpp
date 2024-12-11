@@ -1,7 +1,6 @@
 class Solution {
 public:
     int maximumBeauty(vector<int>& nums, int k) {
-        vector<int>freq(2e6+1,0);
         int n=nums.size();
         int maxi=1;
         map<int,int>mp;
