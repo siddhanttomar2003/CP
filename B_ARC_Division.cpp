@@ -186,6 +186,15 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
+ inint(n);
+ inint(curr);
+ rep(i,n,0){
+    inint(a);
+    inint(b);
+    if(a==1 && curr>=1600 && curr<=2799)curr+=b;
+    if(a==2 && curr>=1200 && curr<=2399)curr+=b;
+ }
+ cout<<curr<<endl;
 }
 int32_t main()
 {
@@ -194,13 +203,10 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-    int t;
-    cin>>t;
-    while(t--)
-    {
+   
      
      solve();
-    }
+    
     return 0;
 }
 /* 

@@ -186,6 +186,75 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
+    inint(n);
+    vl v(n);
+    inv;
+
+    vector<vector<int>> adj(n + 1);
+    rep(i, n, 0) {
+        adj[i + 1].push_back(v[i]);
+    }
+
+    vector<int> indegree(n + 1, 0);
+    for (int i = 0; i < n; i++) {
+        indegree[v[i]]++;
+    }
+
+    // Identify nodes that are part of a cycle before processing the queue
+    vector<bool> is_in_cycle(n + 1, true); // Assume all nodes are in cycles initially
+    queue<int> tempQueue;
+    rep(i, n + 1, 1) {
+        if (indegree[i] == 0) tempQueue.push(i);
+    }
+
+    while (!tempQueue.empty()) {
+        int num = tempQueue.front();
+        tempQueue.pop();
+        is_in_cycle[num] = false; // Mark this node as not being part of a cycle
+
+        for (int child : adj[num]) {
+            indegree[child]--;
+            if (indegree[child] == 0) {
+                tempQueue.push(child);
+            }
+        }
+    }
+
+    queue<pair<int, int>> q;
+    rep(i, n + 1, 1) {
+        if (indegree[i] == 0) q.push({i, 1});
+    }
+
+    vector<int> last_time(n + 1, 0);
+
+    // Process nodes with in-degree 0 (non-cycle nodes)
+    bool check=false;
+    rep(i,n+1,1){
+        if(is_in_cycle[i])check=true;
+    }
+    while (!q.empty()) {
+        int num = q.front().first;
+        int curr_time = q.front().second;
+        q.pop();
+
+        // Skip processing for nodes that are part of a cycle
+        if (is_in_cycle[num]) continue;
+
+        for (int i = 0; i < adj[num].size(); i++) {
+            int child = adj[num][i];
+            indegree[child]--;
+            if (indegree[child] == 0) {
+                last_time[child] = max(last_time[child], curr_time + 1);
+                q.push({child, curr_time + 1});
+            }
+        }
+    }
+    int ans=0;
+    if(check)ans++;
+    rep(i,n+1,1){
+     ans=max(ans,last_time[i]);
+    }
+    cout<<ans+1<<endl;
 }
 int32_t main()
 {

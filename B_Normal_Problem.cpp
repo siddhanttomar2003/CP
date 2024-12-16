@@ -185,7 +185,14 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     return left+right;
  }
  void solve(){
-// vector<int>Seg_tree(4*n,0);
+// vector<int>Seg_tree(4*n,0); 
+ instr(x);
+ rep(i,x.size(),0){
+    if(x[i]=='q')x[i]='p';
+    else if(x[i]=='p')x[i]='q';
+ }
+ reverse(all(x));
+ cout<<x<<endl;
 }
 int32_t main()
 {

@@ -53,7 +53,7 @@ using namespace std;
 #define inv2 rep(i,n){cin>>v2[i];}
 #define inv3 rep(i,n){cin>>v3[i];}
 #define inv4 rep(i,n){cin>>v4[i];}
-#define sort(v) sort(v.begin(),v.end());
+// #define sort(v) sort(v.begin(),v.end());
 #define add(sum,v) accumulate(v.begin(),v.end(),sum);
 #define repa(it)      for(auto it:mp)
 //Typedef
@@ -184,8 +184,34 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
+  void cal(string &x, vl &score, int i, vector<pair<ll,string>>&v,ll curr,string c){
+    if(i==5){
+        v.push_back({curr,c});
+        return;
+    }
+    //op1
+    cal(x,score,i+1,v,curr+score[i],c+x[i]);
+    cal(x,score,i+1,v,curr,c);
+  }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
+   vl score(5);
+   rep(i,5,0)cin>>score[i];
+   vector<pair<ll,string>>v;
+   string x="ABCDE";
+   cal(x,score,0,v,0,"");
+   sort(v.begin(),v.end(),[](pair<ll,string>p1,pair<ll,string>p2){
+            if(p1.first==p2.first){
+                return p1.second>p2.second;
+            }
+            return p1.first<p2.first;
+
+   });
+   reverse(all(v));
+   rep(i,31,0){
+    cout<<v[i].second<<endl;
+   }
+
 }
 int32_t main()
 {
@@ -194,13 +220,10 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-    int t;
-    cin>>t;
-    while(t--)
-    {
+   
      
      solve();
-    }
+    
     return 0;
 }
 /* 

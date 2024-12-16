@@ -184,8 +184,40 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
- void solve(){
+ 
 // vector<int>Seg_tree(4*n,0);
+void solve() {
+    inint(n);
+   vector<int>v(n);
+   inv;
+   int maxi = 0;
+   set<int>st;
+   for (int i = 0; i < n; i++) {
+       maxi = max(maxi, v[i]);
+       st.insert(v[i]);
+   }
+   vector<int> miss;
+   for (int value = 1; value <= n; value++) {
+       if (st.find(value) == st.end()) {
+           miss.push_back(value);
+       }
+   }
+   int m = 0;
+   set<int> vis;
+   vector<int> ans;
+   for (int i = 0; i < n; i++) {
+       if (vis.find(v[i]) == vis.end()) {
+           ans.push_back(v[i]);
+           vis.insert(v[i]);
+       } else {
+           ans.push_back(miss[m]);
+           m++;
+       }
+   }
+   for (int i = 0; i < n; i++) {
+       cout << ans[i] << " ";
+   }
+   cout << endl;
 }
 int32_t main()
 {

@@ -1,5 +1,6 @@
 //author:-Siddhant Tomar
 //linked in :-https://www.linkedin.com/in/siddhant-tomar-9b3aab261/
+
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 #include <bits/stdc++.h>
@@ -12,8 +13,10 @@ using namespace std;
        rb_tree_tag, 
        tree_order_statistics_node_update> 
        ordered_set;
+
 //Speed
 #define fastio() ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
+
 //Macros
 #define IOtext freopen("input.txt","r",stdin); freopen("output.txt","w",stdout);
 #define PI (3.141592653589)
@@ -56,6 +59,7 @@ using namespace std;
 #define sort(v) sort(v.begin(),v.end());
 #define add(sum,v) accumulate(v.begin(),v.end(),sum);
 #define repa(it)      for(auto it:mp)
+
 //Typedef
 typedef long long ll;
 typedef unordered_map<ll,ll> ull;
@@ -71,11 +75,13 @@ typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 typedef map<int,int> mii;
 typedef set<int> st;
+
 #ifndef ONLINE_JUDGE
 #define debug(x) cerr<<#x<<" ";_print(x); cerr<<endl;
 #else
 #define debug(x)
 #endif
+
 // Operator overloads
 template<typename T> // cin >> vector<T>
 istream& operator>>(istream &istream, vector<T> &v){for (auto &it : v)cin >> it;return istream;}
@@ -83,18 +89,23 @@ template<typename T> // cout << vector<T>
 ostream& operator<<(ostream &ostream, const vector<T> &c) { for (auto &it : c) cout << it << " "; return ostream; }
 template<typename T, typename V> // cout << map<T,T>
 ostream& operator<<(ostream &ostream, const map<T,V> &c) { for (auto &it : c) cout << it.first << " " << it.second<<endl; return ostream; }
+
 //Sorting
 bool sorta(const pair<int,int> &a,const pair<int,int> &b){return (a.second < b.second);}
+
 //Bits
 string decToBinary(int n){string s="";int i = 0;while (n > 0) {s =to_string(n % 2)+s;n = n / 2;i++;}return s;}
 ll binaryToDecimal(string n){string num = n;ll dec_value = 0;int base = 1;int len = num.length();for(int i = len - 1; i >= 0; i--){if (num[i] == '1')dec_value += base;base = base * 2;}return dec_value;}
+
 //Check
 bool isPrime(ll n){if(n<=1)return false;if(n<=3)return true;if(n%2==0||n%3==0)return false;for(int i=5;i*i<=n;i=i+6)if(n%i==0||n%(i+2)==0)return false;return true;}
 bool isPowerOfTwo(int n){if(n==0)return false;return (ceil(log2(n)) == floor(log2(n)));}
 bool isPerfectSquare(ll x){if (x >= 0) {ll sr = sqrt(x);return (sr * sr == x);}return false;}
+
 //Constants
 vector <ll> primes;
 vector <bool> is_prime;
+
 // Mathematical functions
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
@@ -102,7 +113,6 @@ ll mod_add(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a + b) % m) + m) %
 ll mod_sub(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a - b) % m) + m) % m;}
 ll gcd(ll a, ll b){if (b == 0)return a;return gcd(b, a % b);} //__gcd 
 ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
-
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 ll count_one(int n) { ll count=0; while(n) {  n = n&(n-1); count++; } return count;}
@@ -149,10 +159,10 @@ ll binomial_expo (ll a, ll b){
         }
         a=(a*a)%1000000007;
         b>>=1;
-        
     }
     return ans;
 }
+
 ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  if(l==r){
    Seg_tree[i]=v[l];
@@ -174,7 +184,7 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll left= updateTree(2*i+1,l,mid,a,Seg_tree,value);
       ll right= updateTree(2*i+2,mid+1,r,a,Seg_tree,value);
       return Seg_tree[i]=left+right ;
- }
+}
   ll travel(ll i, ll a, ll b, ll l , ll r , vl &Seg_tree ){
     if(l>=a && r<=b)return Seg_tree[i];
     if(l>b || r<a)return 0;// outofbounds
@@ -183,10 +193,31 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll left=travel(2*i+1,a,b,l,mid,Seg_tree);
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
- }
+}
+
  void solve(){
 // vector<int>Seg_tree(4*n,0);
+ inll(n);
+ instr(x);
+ ll ans=0;
+ rep(i,n,0){
+    map<char,int>mp;
+    rep(j,n,i){
+        mp[x[j]]++;
+        if(mp[x[j]]>=11){
+            break;
+        }
+        bool check=true;
+        for(auto it:mp){
+            if(it.second>mp.size())check=false;
+        }
+        if(check)ans++;
+    }
+ }
+ cout<<ans<<endl;
+
 }
+
 int32_t main()
 {
     fastio()
@@ -203,29 +234,3 @@ int32_t main()
     }
     return 0;
 }
-/* 
- 1. If greedy :-
-      0. If it is an interval related problem try either sorting in an optimal way or line sweep algorithm.
-      1. think of prefix or suffix sum
-      2. think of binary search :-  either lowerbound / upperbound , binary search on answers, when constraints are 
-       greater than 10^9 or around 10^18
-      3. iterate from last 
-      4. think of any mathematical expression :- for ex  (we use seive function cleverly)
-      5. think of map , we can create any types of map ,  for ex:- int,vectorint etc , we can also use ordered map for extra functionalities.
-      6. we can also use priorityqueue
- 2. Two pointers:-
-       1. maintain two pointers on different arrays
-       2. sliding window 
- 3. Bit manipulation :-
-       1. just follow the properties greedily of or , xor and and;
- 4. Dynamic Programming :-
-       1. think of state using constraints and requirement 
-       2. if ans is not coming in given states try to increase states and find the states smartly not violating the constraints
- 5. Graph :-
-       1. either bfs / dfs or dijkstra
-       2. use dsu 
-       3. u may also require to use dp to calculate the precomputed value for correct ans , means somewhat u have to use dfs.
-  6. If u are not able to proove that  any of your approaches is correct
-      1. There might be a brute force solution which is actually not exceeding the time limit
-         (Just carefully observe how many max times a loop can run if i do it and try to proove it will be in given constraints).
-*/

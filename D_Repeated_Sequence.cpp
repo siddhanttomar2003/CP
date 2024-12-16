@@ -184,8 +184,80 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
     ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
     return left+right;
  }
+
  void solve(){
 // vector<int>Seg_tree(4*n,0);
+ inint(n);
+ inll(s);
+ vl v(n);inv;
+ vl temp;
+ vl pre(n,0);
+ pre[0]=v[0];
+ ll sum=0;
+ sum+=v[0];
+ rep(i,n,1){
+   pre[i]=pre[i-1]+v[i];
+   sum+=v[i];
+ }
+ vl suff(n,0);
+ suff[n-1]=v[n-1];
+ for(int i=n-2;i>=0;i--){
+    suff[i]=suff[i+1]+v[i];
+ }
+//  cout<<pre<<endl;
+//  cout<<suff<<endl;
+//  vl temp;
+ temp.insert(temp.end(),all(v));
+ temp.insert(temp.end(),all(v));
+//  cout<<temp<<endl;
+ if(s<=sum){
+    int i=0;int j=0;
+    ll curr=0;
+    bool check=false;
+    while(j<2*n){
+        curr+=temp[j];
+        if(curr==s){
+            check=true;
+            break;
+        }
+        if(curr<s)j++;
+        else {
+            while(curr>s){
+                curr-=temp[i];
+                i++;
+                if(curr==s)check=true;
+            }
+            j++;
+        }
+    }
+    if(check){
+        cout<<"Yes"<<endl;
+        return;
+    }
+ }
+ bool check=false;
+ map<ll,int>mp;
+ rep(i,n,0){
+    mp[pre[i]]++;
+ }
+ if(s%sum==0)check=true;
+ for(int i=n-1;i>=0;i--){
+    ll cc=s-suff[i];
+    // cout<<cc<<" "<<sum<<endl;
+    if(cc%sum==0)check=true;
+    else {
+        ll rem=cc%sum;
+        if(mp.find(rem)!=mp.end())check=true;
+    }
+ }
+ if(check)cout<<"Yes"<<endl;
+ else cout<<"No"<<endl;
+
+
+
+ 
+
+ 
 }
 int32_t main()
 {
@@ -194,13 +266,10 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-    int t;
-    cin>>t;
-    while(t--)
-    {
+   
      
      solve();
-    }
+    
     return 0;
 }
 /* 

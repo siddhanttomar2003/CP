@@ -186,6 +186,34 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
+ inint(m);
+ int a,b,c;cin>>a>>b>>c;
+ ll ans=0;
+ int m1=m,m2=m;
+ if(m1>=a){
+    m1-=a;
+    ans+=a;
+ }
+ else {
+   ans+=m1;
+   m1=0;
+ }
+ if(m2>=b){
+    m2-=b;
+    ans+=b;
+ }
+ else {
+    ans+=m2;
+    m2=0;
+ }
+ ll rem=m1+m2;
+ if(rem>=c){
+    ans+=c;
+ }
+ else {
+    ans+=rem;
+ }
+ cout<<ans<<endl;
 }
 int32_t main()
 {

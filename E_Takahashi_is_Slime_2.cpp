@@ -186,6 +186,17 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
+ inint(n);
+ inint(m);
+ inll(x);
+ inint(a);inint(b);
+ vvl grid(n,vl(m));
+ rep(i,n,0){
+    rep(j,m,0){
+        cin>>grid[i][j];
+    }
+ }
+ 
 }
 int32_t main()
 {
@@ -194,13 +205,10 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-    int t;
-    cin>>t;
-    while(t--)
-    {
+   
      
      solve();
-    }
+    
     return 0;
 }
 /* 
