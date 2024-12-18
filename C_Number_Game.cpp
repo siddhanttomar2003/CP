@@ -186,6 +186,44 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
  void solve(){
 // vector<int>Seg_tree(4*n,0);
+ inint(n);
+ vl v(n);
+ inv;
+ int ans=0;
+ map<int,int>mp;
+ rep(i,n,0)mp[v[i]]++;
+ for(int i=1;i<=n;i++){
+   map<int,int>mp2=mp;
+   bool check=true;
+   for(int curr_stage=1;curr_stage<=i;curr_stage++){
+      int tar=i-curr_stage+1;
+      auto it=mp2.lower_bound(tar);
+        if(it->first==tar){
+            mp2[tar]--;
+            if(mp2[tar]==0)mp2.erase(tar);
+        }
+        else {
+           if(it!=mp2.begin()){
+            auto it2=prev(it);
+            mp2[it2->first]--;
+            if(mp2[it2->first]==0)mp2.erase(it2->first);
+           }
+           else {
+              check=false;break;
+           }
+        }
+        if(mp2.size()>0){
+        auto it3=mp2.begin();
+        int ele=it3->first;
+        mp2[ele]--;
+        if(mp2[ele]==0)mp2.erase(ele);
+        mp2[ele+tar]++;
+        }
+        
+   }
+   if(check)ans=i;
+ }
+ cout<<ans<<endl;
 }
 int32_t main()
 {
@@ -203,3 +241,29 @@ int32_t main()
     }
     return 0;
 }
+/* 
+ 1. If greedy :-
+      0. If it is an interval related problem try either sorting in an optimal way or line sweep algorithm.
+      1. think of prefix or suffix sum
+      2. think of binary search :-  either lowerbound / upperbound , binary search on answers, when constraints are 
+       greater than 10^9 or around 10^18
+      3. iterate from last 
+      4. think of any mathematical expression :- for ex  (we use seive function cleverly)
+      5. think of map , we can create any types of map ,  for ex:- int,vectorint etc , we can also use ordered map for extra functionalities.
+      6. we can also use priorityqueue
+ 2. Two pointers:-
+       1. maintain two pointers on different arrays
+       2. sliding window 
+ 3. Bit manipulation :-
+       1. just follow the properties greedily of or , xor and and;
+ 4. Dynamic Programming :-
+       1. think of state using constraints and requirement 
+       2. if ans is not coming in given states try to increase states and find the states smartly not violating the constraints
+ 5. Graph :-
+       1. either bfs / dfs or dijkstra
+       2. use dsu 
+       3. u may also require to use dp to calculate the precomputed value for correct ans , means somewhat u have to use dfs.
+  6. If u are not able to proove that  any of your approaches is correct
+      1. There might be a brute force solution which is actually not exceeding the time limit
+         (Just carefully observe how many max times a loop can run if i do it and try to proove it will be in given constraints).
+*/

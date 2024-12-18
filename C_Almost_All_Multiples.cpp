@@ -13,7 +13,7 @@ using namespace std;
        tree_order_statistics_node_update> 
        ordered_set;
 //Speed
-#define fastio() ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie,(nullptr);
+#define fastio() ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
 //Macros
 #define IOtext freopen("input.txt","r",stdin); freopen("output.txt","w",stdout);
 #define PI (3.141592653589)
@@ -99,6 +99,39 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
+    inint(n);
+    inint(x);
+    bool check=false;
+    vi vis(n+1,0);
+    vis[1]=1;
+    vis[x]=1;
+    if(n%x==0)check=true;
+    if(!check){
+        cout<<-1<<endl;
+        return;
+    }
+    vi ans(n,0);ans[0]=x;ans[n-1]=1;
+    set<int>st;
+    rep(i,n,2){
+        if(n%i==0  && i%x==0 &&  i>x)st.insert(i);
+    }
+    st.insert(n);
+    rep(i,n,2){
+        if(n%i==0 && i%x==0 && i>=x){
+            int num=n;
+            for(auto it:st){
+                if((it)%i==0){
+                    num=(it);
+                    break;
+                }
+            }
+            st.erase(num);ans[i-1]=num;
+        }
+        else ans[i-1]=i;
+    }
+    cout<<ans<<endl;
+
+
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
@@ -137,6 +170,7 @@ int32_t main()
     cin>>t;
     while(t--)
     {
+     
      solve();
     }
     return 0;

@@ -190,34 +190,34 @@ void solve() {
     inint(n);
    vector<int>v(n);
    inv;
-   int maxi = 0;
-   set<int>st;
-   for (int i = 0; i < n; i++) {
-       maxi = max(maxi, v[i]);
-       st.insert(v[i]);
+   vector<int>vis(n+1,0);
+   priority_queue<pi,vpi,greater<pi>>pq;
+   rep(i,n,0){
+    if(!vis[v[i]]){
+    vis[v[i]]=1;
+    pq.push({i,v[i]});
+    }
    }
-   vector<int> miss;
-   for (int value = 1; value <= n; value++) {
-       if (st.find(value) == st.end()) {
-           miss.push_back(value);
-       }
+   vi ans;
+   while(pq.size()>0){
+    ans.push_back(pq.top().second);
+    pq.pop();
    }
-   int m = 0;
-   set<int> vis;
-   vector<int> ans;
-   for (int i = 0; i < n; i++) {
-       if (vis.find(v[i]) == vis.end()) {
-           ans.push_back(v[i]);
-           vis.insert(v[i]);
-       } else {
-           ans.push_back(miss[m]);
-           m++;
-       }
+   int j=1;
+   while( j<n+1 && vis[j]){
+      j++;
    }
-   for (int i = 0; i < n; i++) {
-       cout << ans[i] << " ";
+//    cout<<ans<<endl;
+   while(ans.size()<n){
+     ans.push_back(j);
+     vis[j]=1;
+     while(j<n+1 && vis[j]){
+        j++;
+     }
    }
-   cout << endl;
+   cout<<ans<<endl;
+//    pe;
+   
 }
 int32_t main()
 {
