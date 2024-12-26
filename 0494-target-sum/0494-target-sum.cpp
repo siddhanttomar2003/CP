@@ -1,18 +1,18 @@
 class Solution {
 public:
-    void recur(vector<int> &nums,int target,int &count,int i){
-       if(i==nums.size()){
-        if(target==0)count++;
-        return;
-       }
-       // plus
-       recur(nums,target-nums[i],count,i+1);
-       // minus
-       recur(nums,target+nums[i],count,i+1);
+    int cal(map<pair<int,int>,int>&mp, int i, vector<int>&nums, int tar,int curr_sum){
+        if(i==nums.size()){
+           return curr_sum==tar;            
+        }
+        if(mp.find({i,curr_sum})!=mp.end())return mp[{i,curr_sum}];
+        int w1=cal(mp,i+1,nums,tar,curr_sum+nums[i]);
+        int w2=cal(mp,i+1,nums,tar,curr_sum-nums[i]);
+        return mp[{i,curr_sum}]=w1+w2;
     }
     int findTargetSumWays(vector<int>& nums, int target) {
-        int count=0;
-        recur(nums,target,count,0);
-        return count;
+        int n=nums.size();
+        map<pair<int,int>,int>mp;
+        return cal(mp,0,nums,target,0);
+
     }
 };
