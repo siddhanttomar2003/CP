@@ -86,6 +86,7 @@
     "semaphore": "cpp",
     "ratio": "cpp",
     "map": "cpp",
-    "cmath": "cpp"
+    "cmath": "cpp",
+    "set": "cpp"
   }
 }
