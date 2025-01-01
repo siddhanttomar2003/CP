@@ -100,41 +100,43 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
-    inint(n);
-    inint(m);
-    vi v(n);
+    inll(n);
+    inll(m);
+    vl v(n);
     inv;
     Sieve(1001);
-    map<int,int>mp;
-    for(int i=2;i<=m;i++){
-        mp[i]++;
-          int num=i;
-       for(int j=2;j<=sqrt(num);j++){
+    unordered_map<ll,ll>mp;
+    for(ll i=2;i<=m;i++){
+          ll num=i;
+       for(ll j=2;j<=sqrt(num);j++){
           while(num%j==0 && is_prime[j]){
             mp[j]++;
             num/=j;
           }
        }
+       if(is_prime[num])
+      mp[num]++;
     }
-  
-    for(int i=0;i<n;i++){
-       map<int,int>temp=mp;
-       
-       temp[v[i]]++;
-        int num=v[i];
-       for(int j=2;j<=sqrt(num);j++){
-         while(is_prime[j] && num%j==0){
-            temp[j]++;
-            num/=j;
+    get_primes(1001);
+    // for(auto it:mp){
+    //   cout<<it.first<<" "<<it.second<<endl;
+    // }
+    for(ll i=0;i<n;i++){
+       unordered_map<ll,ll>temp=mp;
+        ll num=v[i];
+       for(ll j=0;j<primes.size();j++){
+         while(num%primes[j]==0){
+            temp[primes[j]]++;
+            num/=primes[j];
          }
        }
-       int ans=1;
+       if(is_prime[num])
+       temp[num]++;
+       ll ans=1;
        for(auto it:temp){
-        if(it.first>1)
-        ans=(ans*(it.second+1))%M;
+        ans=(ans*(it.second+1)%M)%M;
        }
        cout<<ans<<" ";
-       
     }
     pe;
 }

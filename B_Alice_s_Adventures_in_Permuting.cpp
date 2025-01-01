@@ -98,44 +98,31 @@ vector <bool> is_prime;
 // Mathematical functions
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
-ll dfs(int start , vvl &adj, vl &vis){
-    vis[start]=1;
-    int curr=0;
-    rep(i,adj[start].size(),0){
-        int child=adj[start][i];
-        if(!vis[child]){
-              curr+=dfs(child,adj,vis);
-        }
-    }
-    return 1+curr;
+bool check(ll m , ll b, ll c, ll n){
+    ll powb=log10(b);
+    ll powm=log10(m);
+    if(powb+powm>=18)return false;
+    if(c>=n)return false;
+    
+     if(b*(m-1)+c<=n-1)return true;
+     return false;
 }
 void solve(){
-    inint(n);
-    vl v(n);
-    inv;
-    vvl adj(n+1);
-    rep(i,n,0){
-        adj[i+1].push_back(v[i]);
-        adj[v[i]].push_back(i+1);
-    }
-    vl vis(n+1,0);
-    priority_queue<ll,vl,greater<ll>>pq;
-    rep(i,n+1,1){
-        if(!vis[i]){
-            ll cycle_length=dfs(i,adj,vis);
-            pq.push(cycle_length);
-        }
-    }
-    ll sum=0;
-    while(pq.size()>1){
-        ll p1=pq.top();pq.pop();
-        ll p2=pq.top();pq.pop();
-        sum+=(p1+p2);
-        pq.push(p1+p2);
-    }
-    cout<<sum<<endl;
+   ll n,b,c;cin>>n>>b>>c;
+   if(b==0 && c==0){
+      if(n>2*1ll)cout<<-1<<endl;
+      else cout<<n-1<<endl;
+      return;
+   }
+   if(b==0){
+     if(c>n-1*1ll)cout<<n<<endl;
+     else if(c<=n-1 && c>=n-2)cout<<n-1<<endl;
+     else cout<<-1<<endl;
+     return;
+   }
+   ll terms=((n-c)+(b-1))/b;
 
-
+   cout<<n-terms<<endl;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-

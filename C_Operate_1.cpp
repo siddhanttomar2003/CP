@@ -98,45 +98,44 @@ vector <bool> is_prime;
 // Mathematical functions
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
-ll dfs(int start , vvl &adj, vl &vis){
-    vis[start]=1;
-    int curr=0;
-    rep(i,adj[start].size(),0){
-        int child=adj[start][i];
-        if(!vis[child]){
-              curr+=dfs(child,adj,vis);
-        }
-    }
-    return 1+curr;
-}
 void solve(){
-    inint(n);
-    vl v(n);
-    inv;
-    vvl adj(n+1);
-    rep(i,n,0){
-        adj[i+1].push_back(v[i]);
-        adj[v[i]].push_back(i+1);
+   inint(k);
+   instr(x);instr(y);
+   int s1=x.size();
+   int s2=y.size();
+   if(abs(s1-s2)>1){
+    cout<<"No"<<endl;
+    return;
+   }
+   if(s1==s2){
+    int pos_diff=0;
+    rep(i,s1,0){
+        if(x[i]!=y[i])pos_diff++;
     }
-    vl vis(n+1,0);
-    priority_queue<ll,vl,greater<ll>>pq;
-    rep(i,n+1,1){
-        if(!vis[i]){
-            ll cycle_length=dfs(i,adj,vis);
-            pq.push(cycle_length);
+    if(pos_diff>1)cout<<"No"<<endl;
+    else cout<<"Yes"<<endl;
+   }
+   else {
+    int cal=0;
+    int i=0;int j=0;
+    if(s2>s1){
+        swap(x,y);
+        swap(s1,s2);
+    }
+    while(i<s1 && j<s2){
+        if(x[i]!=y[j]){
+            cal++;
+            i++;
+        }
+        else {
+            i++;j++;
         }
     }
-    ll sum=0;
-    while(pq.size()>1){
-        ll p1=pq.top();pq.pop();
-        ll p2=pq.top();pq.pop();
-        sum+=(p1+p2);
-        pq.push(p1+p2);
-    }
-    cout<<sum<<endl;
-
-
+    if(cal>1)cout<<"No"<<endl;
+    else cout<<"Yes"<<endl;
+   }
 }
+
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
 //       0. If it is an interval related problem try either sorting in an optimal way or line sweep algorithm.
@@ -172,11 +171,8 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-    int t;
-    cin>>t;
-    while(t--)
-    {
+   
      solve();
-    }
+    
     return 0;
 }

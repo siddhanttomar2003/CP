@@ -98,43 +98,16 @@ vector <bool> is_prime;
 // Mathematical functions
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
-ll dfs(int start , vvl &adj, vl &vis){
-    vis[start]=1;
-    int curr=0;
-    rep(i,adj[start].size(),0){
-        int child=adj[start][i];
-        if(!vis[child]){
-              curr+=dfs(child,adj,vis);
-        }
-    }
-    return 1+curr;
-}
 void solve(){
-    inint(n);
-    vl v(n);
-    inv;
-    vvl adj(n+1);
-    rep(i,n,0){
-        adj[i+1].push_back(v[i]);
-        adj[v[i]].push_back(i+1);
-    }
-    vl vis(n+1,0);
-    priority_queue<ll,vl,greater<ll>>pq;
-    rep(i,n+1,1){
-        if(!vis[i]){
-            ll cycle_length=dfs(i,adj,vis);
-            pq.push(cycle_length);
-        }
-    }
-    ll sum=0;
-    while(pq.size()>1){
-        ll p1=pq.top();pq.pop();
-        ll p2=pq.top();pq.pop();
-        sum+=(p1+p2);
-        pq.push(p1+p2);
-    }
-    cout<<sum<<endl;
-
+    int a,b,c,d;
+    cin>>a>>b>>c>>d;
+    set<int>st;
+    st.insert(a);
+    st.insert(b);
+    st.insert(c);
+    st.insert(d);
+    if(st.size()==2)cout<<"Yes"<<endl;
+    else cout<<"No"<<endl;
 
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
@@ -172,11 +145,8 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-    int t;
-    cin>>t;
-    while(t--)
-    {
+    
      solve();
-    }
+    
     return 0;
 }

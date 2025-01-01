@@ -87,6 +87,7 @@
     "ratio": "cpp",
     "map": "cpp",
     "cmath": "cpp",
-    "set": "cpp"
+    "set": "cpp",
+    "system_error": "cpp"
   }
 }
