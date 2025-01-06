@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/minimum-number-of-operations-to-move-all-balls-to-each-box/">1769. Minimum Number of Operations to Move All Balls to Each Box</a></h2><h3>Medium</h3><hr><div><p>You have <code>n</code> boxes. You are given a binary string <code>boxes</code> of length <code>n</code>, where <code>boxes[i]</code> is <code>'0'</code> if the <code>i<sup>th</sup></code> box is <strong>empty</strong>, and <code>'1'</code> if it contains <strong>one</strong> ball.</p>
+<h2><a href="https://leetcode.com/problems/minimum-number-of-operations-to-move-all-balls-to-each-box">1769. Minimum Number of Operations to Move All Balls to Each Box</a></h2><h3>Medium</h3><hr><p>You have <code>n</code> boxes. You are given a binary string <code>boxes</code> of length <code>n</code>, where <code>boxes[i]</code> is <code>&#39;0&#39;</code> if the <code>i<sup>th</sup></code> box is <strong>empty</strong>, and <code>&#39;1&#39;</code> if it contains <strong>one</strong> ball.</p>
 
 <p>In one operation, you can move <strong>one</strong> ball from a box to an adjacent box. Box <code>i</code> is adjacent to box <code>j</code> if <code>abs(i - j) == 1</code>. Note that after doing so, there may be more than one ball in some boxes.</p>
 
@@ -9,7 +9,8 @@
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
 
-<pre><strong>Input:</strong> boxes = "110"
+<pre>
+<strong>Input:</strong> boxes = &quot;110&quot;
 <strong>Output:</strong> [1,1,3]
 <strong>Explanation:</strong> The answer for each box is as follows:
 1) First box: you will have to move one ball from the second box to the first box in one operation.
@@ -19,7 +20,8 @@
 
 <p><strong class="example">Example 2:</strong></p>
 
-<pre><strong>Input:</strong> boxes = "001011"
+<pre>
+<strong>Input:</strong> boxes = &quot;001011&quot;
 <strong>Output:</strong> [11,8,5,4,3,4]</pre>
 
 <p>&nbsp;</p>
@@ -28,6 +30,5 @@
 <ul>
 	<li><code>n == boxes.length</code></li>
 	<li><code>1 &lt;= n &lt;= 2000</code></li>
-	<li><code>boxes[i]</code> is either <code>'0'</code> or <code>'1'</code>.</li>
+	<li><code>boxes[i]</code> is either <code>&#39;0&#39;</code> or <code>&#39;1&#39;</code>.</li>
 </ul>
-</div>
