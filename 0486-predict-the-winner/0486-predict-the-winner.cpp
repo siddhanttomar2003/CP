@@ -1,18 +1,23 @@
 class Solution {
-public:
-    int solve(vector<int>& nums,int i,int j,int chance){
-        if(i>j) return 0;
-        if(chance==0)
-            return max(nums[i]+solve(nums,i+1,j,1),nums[j]+solve(nums,i,j-1,1));
-        else
-            return min(solve(nums,i+1,j,0),solve(nums,i,j-1,0));
+public: 
+    int cal(vector<int>&nums, int i, int j, int curr){
+        if(j<i)return 0;
+        int w1=0;
+        if(curr==0){
+           w1=nums[i]+cal(nums,i+1,j,curr^1);
+           w1=max(w1,nums[j]+cal(nums,i,j-1,curr^1));
+        }
+        else {
+               w1=min(cal(nums,i+1,j,curr^1),cal(nums,i,j-1,curr^1));
+        }
+        return w1;
     }
     bool predictTheWinner(vector<int>& nums) {
         int n=nums.size();
-        long long sum=0;
-        for(int i=0;i<n;i++) sum=sum+nums[i];
-        long long one=(long long) solve(nums,0,n-1,0);
-        sum=sum-one;
-        return(one>=sum);
+       int first_max=cal(nums,0,n-1,0);
+       int sum=0;
+       for(int i=0;i<n;i++)sum+=nums[i];
+       cout<<sum<<endl;
+        return first_max>=sum-first_max;
     }
 };
