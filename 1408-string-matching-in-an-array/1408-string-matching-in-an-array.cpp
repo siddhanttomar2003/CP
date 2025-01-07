@@ -6,7 +6,7 @@ bool rabin_karp(string text, string pattern) {
     int p_s = pattern.size();
     if (p_s > t_s) return false;  // Early exit if pattern is larger than text
 
-    const int mod = 1000;  // Prime modulus for hash function
+    const int mod = 100000;  // Prime modulus for hash function
     int hash_pat = 0, hash_txt = 0;
     int pp = 1;
 
@@ -39,7 +39,7 @@ bool rabin_karp(string text, string pattern) {
 
         // Calculate the hash for the next window of text
         if (i < t_s - p_s) {
-            hash_txt = (m * (hash_txt - text[i] * pp)%mod + text[i + p_s]) % mod;
+            hash_txt = ((m * (hash_txt - (text[i] * pp)%mod))%mod + text[i + p_s]) % mod;
             if (hash_txt < 0) {
                 hash_txt += mod;  // Ensure non-negative hash values
             }
