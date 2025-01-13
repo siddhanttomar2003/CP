@@ -100,29 +100,25 @@ void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = fal
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
     inll(n);
-    ll last_power_2=0;
-    ll num=2;
-    while(pow(num,last_power_2)<=n){
-        last_power_2++;
-    }
-    vector<int>ans;
-    vi temp;
-    for(int i=0;i<last_power_2;i++){
-        ans.push_back(pow(2,i));
-        temp.pb(pow(2,i));
-    }
-    ll rem=n-pow(2,last_power_2-1);
-    ll curr=ans.back();
-    for(int i=temp.size()-1;i>=0;i--){
-        if(temp[i]<=rem){
-            ans.pb(curr+temp[i]);
-            rem-=temp[i];
-            curr+=temp[i];
+    inll(x);
+    inll(k);
+    instr(y);
+    ll count_inv=0;
+    ll count0=0;
+    for(int i=n-1;i>=0;i--){
+        if(y[i]=='0'){
+            count0++;
         }
+        else count_inv+=count0;
     }
-    cout<<ans.size()<<endl;
-    reverse(all(ans));
-    cout<<ans<<endl;
+    if(count_inv>x){
+        cout<<2<<endl;
+    }
+    else {
+        if(count_inv%k==0)cout<<1<<endl;
+        else cout<<2<<endl;
+    }
+
 
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.

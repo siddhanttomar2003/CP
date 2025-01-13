@@ -99,30 +99,50 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
-    inll(n);
-    ll last_power_2=0;
-    ll num=2;
-    while(pow(num,last_power_2)<=n){
-        last_power_2++;
+    inint(n);
+    vl v(n);
+    inv;
+    map<int,vector<ll>>mp;
+    rep(i,n,0){
+        mp[v[i]].push_back(i);
     }
-    vector<int>ans;
-    vi temp;
-    for(int i=0;i<last_power_2;i++){
-        ans.push_back(pow(2,i));
-        temp.pb(pow(2,i));
-    }
-    ll rem=n-pow(2,last_power_2-1);
-    ll curr=ans.back();
-    for(int i=temp.size()-1;i>=0;i--){
-        if(temp[i]<=rem){
-            ans.pb(curr+temp[i]);
-            rem-=temp[i];
-            curr+=temp[i];
+    vpl temp;
+    for(auto it:mp){
+        vl arr=it.second;
+        int size=arr.size();
+        if(size>1){
+        temp.pb({arr[0],arr[size-1]});
         }
     }
-    cout<<ans.size()<<endl;
-    reverse(all(ans));
+    sort(temp);
+    ll ans=0;
+    if(temp.size()>0){
+    int s=temp[0].first;
+    int e=temp[0].second;
+    vpl f_arr;
+    rep(i,temp.size(),1){
+        int curr_s=temp[i].first;
+        int curr_e=temp[i].second;
+        if(curr_s<=e){
+            e=max(e,curr_e);
+        }
+        else {
+            f_arr.pb({s,e});
+            s=curr_s;
+            e=curr_e;
+        }
+    }
+    f_arr.pb({s,e});
+    rep(i,f_arr.size(),0){
+        set<int>st;
+        for(int j=f_arr[i].first;j<f_arr[i].second;j++){
+           st.insert(v[j]);
+        }
+        ans+=st.size();
+    }
+    }
     cout<<ans<<endl;
+
 
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.

@@ -99,30 +99,58 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
-    inll(n);
-    ll last_power_2=0;
-    ll num=2;
-    while(pow(num,last_power_2)<=n){
-        last_power_2++;
-    }
-    vector<int>ans;
-    vi temp;
-    for(int i=0;i<last_power_2;i++){
-        ans.push_back(pow(2,i));
-        temp.pb(pow(2,i));
-    }
-    ll rem=n-pow(2,last_power_2-1);
-    ll curr=ans.back();
-    for(int i=temp.size()-1;i>=0;i--){
-        if(temp[i]<=rem){
-            ans.pb(curr+temp[i]);
-            rem-=temp[i];
-            curr+=temp[i];
+    inint(n);
+    inint(m);
+    instr(x);
+    vector<vector<ll>>grid(n,vector<ll>(m,0));
+    rep(i,n,0){
+        rep(j,m,0){
+            cin>>grid[i][j];
         }
     }
-    cout<<ans.size()<<endl;
-    reverse(all(ans));
-    cout<<ans<<endl;
+    vl row(n,0),col(m,0);
+    rep(i,n,0){
+        ll sum=0;
+        rep(j,m,0){
+            sum+=grid[i][j];
+        }
+        row[i]=sum;
+    }
+    rep(j,m,0){
+        ll sum=0;
+        rep(i,n,0){
+              sum+=grid[i][j];
+        }
+        col[j]=sum;
+    }
+    int r=0,c=0;
+    rep(i,x.size(),0){
+        if(x[i]=='D'){
+            ll curr=row[r];
+            // make it zero
+            ll req=-row[r];
+            grid[r][c]=req;
+            col[c]+=(req);
+            r++;
+        }
+        else {
+            ll curr=col[c];
+            ll req=-col[c];
+            grid[r][c]=req;
+            row[r]+=(req);
+            c++;
+        }
+    }
+    ll req= -row[n-1];
+    grid[n-1][m-1]=req;
+    rep(i,n,0){
+        rep(j,m,0){
+            cout<<grid[i][j]<<" ";
+        }
+        pe;
+    }
+    
+
 
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.

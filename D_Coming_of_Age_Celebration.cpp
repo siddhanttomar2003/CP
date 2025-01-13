@@ -99,31 +99,18 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
-    inll(n);
-    ll last_power_2=0;
-    ll num=2;
-    while(pow(num,last_power_2)<=n){
-        last_power_2++;
+    inint(n);
+    vl v(n);
+    inv;
+    priority_queue<int,vi,greater<int>>pq;
+    rep(i,n,0){
+       int minus=(n-i-1);
+       while(pq.size()>0 && pq.top()<i)pq.pop();
+       int curr=pq.size()+v[i]-minus;
+       cout<<max(curr,0)<<" ";
+       pq.push(pq.size()+v[i]+i);
     }
-    vector<int>ans;
-    vi temp;
-    for(int i=0;i<last_power_2;i++){
-        ans.push_back(pow(2,i));
-        temp.pb(pow(2,i));
-    }
-    ll rem=n-pow(2,last_power_2-1);
-    ll curr=ans.back();
-    for(int i=temp.size()-1;i>=0;i--){
-        if(temp[i]<=rem){
-            ans.pb(curr+temp[i]);
-            rem-=temp[i];
-            curr+=temp[i];
-        }
-    }
-    cout<<ans.size()<<endl;
-    reverse(all(ans));
-    cout<<ans<<endl;
-
+    pe;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
@@ -160,11 +147,8 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-    int t;
-    cin>>t;
-    while(t--)
-    {
+   
      solve();
-    }
+    
     return 0;
 }

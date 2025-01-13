@@ -98,32 +98,44 @@ vector <bool> is_prime;
 // Mathematical functions
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
+bool check(int m , vl &v){
+    int curr=1;
+    ll curr_sum=v[0];
+    ll count=1;
+    ll curr_min=v[0];
+    ll curr_max=v[0];
+    rep(i,v.size(),1){
+         curr_max=v[i];
+         curr_sum+=v[i];
+         count++;
+         ll middle=(curr_min+curr_max)/2;
+         if(abs(middle-curr_min) > m || abs(middle-curr_max) > m){
+            curr++;
+            count=1;
+            curr_min=v[i];
+            curr_max=v[i];
+            curr_sum=v[i];
+         }
+    }
+    return curr<=3;
+}
 void solve(){
-    inll(n);
-    ll last_power_2=0;
-    ll num=2;
-    while(pow(num,last_power_2)<=n){
-        last_power_2++;
-    }
-    vector<int>ans;
-    vi temp;
-    for(int i=0;i<last_power_2;i++){
-        ans.push_back(pow(2,i));
-        temp.pb(pow(2,i));
-    }
-    ll rem=n-pow(2,last_power_2-1);
-    ll curr=ans.back();
-    for(int i=temp.size()-1;i>=0;i--){
-        if(temp[i]<=rem){
-            ans.pb(curr+temp[i]);
-            rem-=temp[i];
-            curr+=temp[i];
+    inint(n);
+    vl v(n);
+    inv;
+    sort(v);
+    ll low=0;
+    ll high=1e9;
+    ll ans=high;
+    while(low<=high){
+        ll mid=(low+(high-low)/2);
+        if(check(mid,v)){
+            ans=mid;
+            high=mid-1;
         }
+        else low=mid+1;
     }
-    cout<<ans.size()<<endl;
-    reverse(all(ans));
     cout<<ans<<endl;
-
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
