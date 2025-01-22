@@ -99,24 +99,25 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
-    inint(n);
+    inll(n);
     vl v(n);
     inv;
-    if(v[0]>v[1]){
-        pn;return;
+    map<ll,ll>mp;
+    ll count=0;
+    ll tt=0;
+    ll ss=0;
+    rep(i,n,0){
+         mp[v[i]]++;
+         tt+=v[i];
+         ss+=v[i];
     }
-    v[1]=v[1]-v[0];
-    rep(i,n,2){
-        if(v[i]<v[i-1]){
-            pn;return;
-        }
-        else {
-            v[i]=v[i]-v[i-1];
-        }
+    ll ans=max(n*n,tt);
+    for(auto it:mp){
+       ans=max((count*count)+ss,ans);
+       count+=it.second;
+       ss-=(it.first*it.second);
     }
-    py;
-    return;
-    
+    cout<<ans<<endl;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-

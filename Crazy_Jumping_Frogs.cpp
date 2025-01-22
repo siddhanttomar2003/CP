@@ -102,21 +102,14 @@ void solve(){
     inint(n);
     vl v(n);
     inv;
-    if(v[0]>v[1]){
-        pn;return;
+    map<ll,ll>mp;
+    ll odd=0;ll even=0;
+    rep(i,n,0){
+    if(v[i]&1)odd++;
+    else even++;
     }
-    v[1]=v[1]-v[0];
-    rep(i,n,2){
-        if(v[i]<v[i-1]){
-            pn;return;
-        }
-        else {
-            v[i]=v[i]-v[i-1];
-        }
-    }
-    py;
-    return;
-    
+    cout<<max(odd,even)<<endl;
+
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-

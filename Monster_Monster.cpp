@@ -100,23 +100,17 @@ void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = fal
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
     inint(n);
+    inll(x);
     vl v(n);
     inv;
-    if(v[0]>v[1]){
-        pn;return;
+    sort(v);
+    reverse(all(v));
+    ll ans=-1e18;
+    rep(i,n,0){
+        ll curr=v[i]+(1ll*i*x);
+        ans=max(ans,curr);
     }
-    v[1]=v[1]-v[0];
-    rep(i,n,2){
-        if(v[i]<v[i-1]){
-            pn;return;
-        }
-        else {
-            v[i]=v[i]-v[i-1];
-        }
-    }
-    py;
-    return;
-    
+    cout<<ans<<endl;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
