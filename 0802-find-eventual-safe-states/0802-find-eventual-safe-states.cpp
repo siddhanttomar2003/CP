@@ -159,30 +159,34 @@ ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
  }
 class Solution {
 public:
-   bool dfs(int curr,int start, vi &is_visited, vvi & adj){
-       is_visited[curr]=1;
-       bool ans=false;
-       rep(i,adj[curr].size(),0){
-         if(!is_visited[adj[curr][i]]){
-             ans=dfs(adj[curr][i],start,is_visited,adj);
-             if(ans)break;
-         }
-         else if(is_visited[adj[curr][i]] && adj[curr][i]==start)return true;
-       }
-       return ans;
-      
-   }
     vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
-      // if there is cycle existing for a particular starting node than it will not be there in answer
-      int n=graph.size();
-        vector<int>v;
-      rep(i,n,0){
-         vi is_visited(n,0);
-        if(!dfs(i,i,is_visited,graph))v.pb(i);
+        int n=graph.size();
+        vvi adj(n);
+        rep(i,n,0){
+            rep(j,graph[i].size(),0){
+                adj[graph[i][j]].pb(i);
+            }
         }
-      
-   sort(v);
-   return v;
-        
+        vi indegree(n,0);
+        rep(i,n,0){
+            rep(j,adj[i].size(),0){
+                indegree[adj[i][j]]++;
+            }
+        }
+        queue<int>q;
+        vi topo;
+        rep(i,n,0){
+            if(indegree[i]==0)q.push(i);
+        }
+        while(q.size()>0){
+            int num=q.front();q.pop();
+            topo.push_back(num);
+            rep(i,adj[num].size(),0){
+                indegree[adj[num][i]]--;
+                if(indegree[adj[num][i]]==0)q.push(adj[num][i]);
+            }
+        }
+        sort(topo);
+        return topo;
     }
 };
