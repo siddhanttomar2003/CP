@@ -99,20 +99,32 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
-    ll n,m;
-      cin>>n>>m;
-      ll ans=(4*m)*n;
-      vector<pair<ll,ll>>v;
-      for(ll i=0;i<n;i++){
-        ll a,b;
-        cin>>a>>b;
-        v.push_back({a,b});
-      }
-      for(ll i=1;i<n;i++){
-       if(m-v[i].first>0)ans-=2*(m-v[i].first);
-       if(m-v[i].second>0)ans-=2*(m-v[i].second);
-      }
-      cout<<ans<<endl;
+    inint(n);
+    instr(x);
+    vl v(n);
+    rep(i,n,0){
+       if(x[i]=='R')v[i]=0;
+       else if(x[i]=='G')v[i]=1;
+       else v[i]=2;
+    }
+    vector<int>temp;
+    temp.pb(0);temp.pb(1);temp.pb(2);
+    ll ans=1e9;
+    for(int i=0;i<6;i++){ 
+        ll curr=0;
+        int j=0;
+        rep(k,n,0){
+            if(v[k]!=temp[j]){
+                curr++;
+            }
+            j=(j+1)%3;
+        }
+        next_permutation(all(temp));
+        ans=min(ans,curr);
+    }
+    cout<<ans<<endl;
+    
+    
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-

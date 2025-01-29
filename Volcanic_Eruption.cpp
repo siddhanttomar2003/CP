@@ -99,20 +99,50 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
-    ll n,m;
-      cin>>n>>m;
-      ll ans=(4*m)*n;
-      vector<pair<ll,ll>>v;
-      for(ll i=0;i<n;i++){
-        ll a,b;
-        cin>>a>>b;
-        v.push_back({a,b});
+    inll(n);
+    inll(p);
+    vl v(n);inv;
+    stack<ll>st;
+    vector<ll>temp(n,1e9);
+    rep(i,n,0){
+      if(v[i]==0){
+        st.push(i);
+        temp[i]=0;
+        continue;
       }
-      for(ll i=1;i<n;i++){
-       if(m-v[i].first>0)ans-=2*(m-v[i].first);
-       if(m-v[i].second>0)ans-=2*(m-v[i].second);
+      while(st.size()>0 && v[st.top()]<v[i] && v[st.top()]!=0){
+        st.pop();
       }
-      cout<<ans<<endl;
+      if(st.size()>0){
+        if(v[st.top()]==0){
+            temp[i]=v[i]/p +(v[i]%p==0?0:1);
+        }
+        else temp[i]=temp[st.top()];
+      }
+      st.push(i);
+    }
+    stack<ll>st2;
+    for(int i=n-1;i>=0;i--){
+        if(v[i]==0){
+            st2.push(i);
+            temp[i]=0;
+            continue;
+        }
+while(st2.size()>0 && v[st2.top()]<v[i] && v[st2.top()]!=0){
+        st2.pop();
+      }
+      if(st2.size()>0){
+        if(v[st2.top()]==0){
+            temp[i]=v[i]/p+ (v[i]%p==0?0:1);
+        }
+        else temp[i]=min(temp[i],temp[st2.top()]);
+      }
+      st2.push(i);
+    }
+    rep(i,n,0){
+        cout<<temp[i]<<" "; 
+    }
+    pe;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-

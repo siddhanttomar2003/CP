@@ -98,21 +98,42 @@ vector <bool> is_prime;
 // Mathematical functions
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
+struct Compare {
+    bool operator()(const pair<int, int>& a, const pair<int, int>& b) {
+        if (a.first == b.first) {
+            return a.second > b.second; // Larger second value has higher priority
+        }
+        return a.first < b.first; // Smaller first value has higher priority
+    }
+};
 void solve(){
-    ll n,m;
-      cin>>n>>m;
-      ll ans=(4*m)*n;
-      vector<pair<ll,ll>>v;
-      for(ll i=0;i<n;i++){
-        ll a,b;
-        cin>>a>>b;
-        v.push_back({a,b});
-      }
-      for(ll i=1;i<n;i++){
-       if(m-v[i].first>0)ans-=2*(m-v[i].first);
-       if(m-v[i].second>0)ans-=2*(m-v[i].second);
-      }
-      cout<<ans<<endl;
+    inint(n);
+    vl v(n);inv;
+    vl pre(n+1,0);
+    priority_queue<pl,vpl,Compare>pq;
+    ll count=0;
+    rep(i,n+1,1){
+       if(v[i-1]>0){
+        pre[i]=pre[i-1]+v[i-1];
+        count++;
+       }
+       else {
+        pre[i]=pre[i-1];
+        pq.push({v[i-1],i-1});
+       }
+    }
+   
+    while(pq.size()>0){
+        ll ind=pq.top().second+1;
+        ll num=pq.top().first;
+        pq.pop();
+        auto it=lower_bound(all(pre),abs(num))-pre.begin();
+        // cout<<it<<" "<<ind<<endl;
+        if(it<=ind){
+         vector<pre>temp(n+1,0);
+        }
+    }
+    cout<<count<<endl;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
@@ -149,11 +170,8 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-    int t;
-    cin>>t;
-    while(t--)
-    {
+    
      solve();
-    }
+    
     return 0;
 }

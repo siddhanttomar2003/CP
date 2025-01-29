@@ -99,20 +99,58 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
-    ll n,m;
-      cin>>n>>m;
-      ll ans=(4*m)*n;
-      vector<pair<ll,ll>>v;
-      for(ll i=0;i<n;i++){
-        ll a,b;
-        cin>>a>>b;
-        v.push_back({a,b});
-      }
-      for(ll i=1;i<n;i++){
-       if(m-v[i].first>0)ans-=2*(m-v[i].first);
-       if(m-v[i].second>0)ans-=2*(m-v[i].second);
-      }
-      cout<<ans<<endl;
+    inll(n);
+    inll(a);inll(b);
+    vl v(n);
+    inv;
+    map<ll,ll>mp_a,mp_b;
+    rep(i,a,0){
+        mp_a[v[i]]++;
+    }
+    rep(i,n,a)mp_b[v[i]]++;
+    ll ans=abs(a-b)/2;
+    ll to_make=n/2;
+    for(auto it:mp_a){
+        if(mp_b.find(it.first)!=mp_b.end()){
+            int sub=min(it.second,mp_b[it.first]);
+           mp_a[it.first]-=sub;
+           mp_b[it.first]-=sub;
+           to_make-=sub;
+        }
+    }
+    ll transfer=ans;
+    if(a>b){
+        for(auto it:mp_a){
+            if(it.second>0){
+                ll can_transfer=it.second/2;
+                if(can_transfer<=transfer){
+                    to_make-=can_transfer;
+                    transfer-=can_transfer;
+                }
+                else {
+                    to_make-=transfer;
+                    break;
+                }
+            }
+        }
+    }
+    if(b>a){
+           for(auto it:mp_b){
+            if(it.second>0){
+                ll can_transfer=it.second/2;
+                if(can_transfer<=transfer){
+                    to_make-=can_transfer;
+                    transfer-=can_transfer;
+                }
+                else {
+                    to_make-=transfer;
+                    break;
+                }
+            }
+        }
+    }
+    cout<<ans+to_make<<endl;
+
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-

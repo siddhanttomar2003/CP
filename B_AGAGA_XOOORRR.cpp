@@ -22,9 +22,8 @@ using namespace std;
 #define f first
 #define s second
 #define foreach(i, j, k, in) for(int i=j;i<k;i+=in)
-#define rforeach(i, j, k, in) for(int i=j;i>=k;i-=in)
 #define rep(i,j,s) foreach(i,s,j,1)
-#define rrep(i,j,k) rforeach(i,j,k,1)
+#define rrep(i,j,k) for(int i=j-1;i>=k;i--)
 #define set_bits(x) __builtin_popcountll(x)
 #define zero_bits(x) __builtin_ctzll(x)
 #define sz(s) (int)(s.size())
@@ -98,22 +97,7 @@ vector <bool> is_prime;
 // Mathematical functions
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
-void solve(){
-    ll n,m;
-      cin>>n>>m;
-      ll ans=(4*m)*n;
-      vector<pair<ll,ll>>v;
-      for(ll i=0;i<n;i++){
-        ll a,b;
-        cin>>a>>b;
-        v.push_back({a,b});
-      }
-      for(ll i=1;i<n;i++){
-       if(m-v[i].first>0)ans-=2*(m-v[i].first);
-       if(m-v[i].second>0)ans-=2*(m-v[i].second);
-      }
-      cout<<ans<<endl;
-}
+
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
 //       0. If it is an interval related problem try either sorting in an optimal way or line sweep algorithm.
@@ -142,18 +126,42 @@ void solve(){
 //   6. If u are not able to proove that  any of your approaches is correct
 //       1. There might be a brute force solution which is actually not exceeding the time limit
 //          (Just carefully observe how many max times a loop can run if i do it and try to proove it will be in given constraints).
-int32_t main()
-{
-    fastio()
-    #ifndef ONLINE_JUDGE
-        freopen("Error.txt","w",stderr);
-    #endif
-   // Jai Bajrang Bali 
-    int t;
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(0);
+    cin.exceptions(ios::badbit | ios::failbit);
+    ll t;
     cin>>t;
-    while(t--)
-    {
-     solve();
+    while(t--){
+        ll n;
+        cin>>n;
+        vector<ll>v(n);
+        ll x = 0;
+        for(ll i =0;i<n;i++){
+            cin>>v[i];
+            x = x xor v[i];
+        }
+        if(x==0){
+            cout<<"YES"<<endl;
+        }
+        else{
+            ll xm = 0;
+            ll count = 0;
+            for(ll i =0;i<n;i++){
+                xm = xm  xor v[i];
+                if(xm==x){
+                    count++;
+                    xm = 0;
+                }
+            }
+            if(count>=3){
+                cout<<"YES"<<endl;
+            }
+            else{
+                cout<<"NO"<<endl;
+            }
+        }
+ 
     }
-    return 0;
 }

@@ -98,21 +98,32 @@ vector <bool> is_prime;
 // Mathematical functions
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
+ll cal_ans(string s, string t, int pos, int t_size){
+    for(int i=pos+1;i<t_size;i++){
+        s[i]='0';t[i]='0';
+    }
+    ll ss=stoi(s);
+    ll tt=stoi(t);
+    ll rem=tt-ss;
+    ll up=t_size-pos-1;
+    return rem/(pow(10,up));
+}
 void solve(){
-    ll n,m;
-      cin>>n>>m;
-      ll ans=(4*m)*n;
-      vector<pair<ll,ll>>v;
-      for(ll i=0;i<n;i++){
-        ll a,b;
-        cin>>a>>b;
-        v.push_back({a,b});
-      }
-      for(ll i=1;i<n;i++){
-       if(m-v[i].first>0)ans-=2*(m-v[i].first);
-       if(m-v[i].second>0)ans-=2*(m-v[i].second);
-      }
-      cout<<ans<<endl;
+    inint(l);
+    inint(r);
+    string s=to_string(l);
+    string t=to_string(r);
+    int s_size=s.size();int t_size=t.size();
+    reverse(all(s));
+    rep(i,t_size-s_size,0){
+        s+='0';
+    }
+    reverse(all(s));
+    ll ans= t[0]-s[0];
+    for(int i=1;i<t_size;i++){
+       ans+=cal_ans(s,t,i,t_size);
+    }
+    cout<<ans<<endl;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
