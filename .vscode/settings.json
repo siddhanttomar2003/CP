@@ -88,6 +88,7 @@
     "map": "cpp",
     "cmath": "cpp",
     "set": "cpp",
-    "system_error": "cpp"
+    "system_error": "cpp",
+    "thread": "cpp"
   }
 }
