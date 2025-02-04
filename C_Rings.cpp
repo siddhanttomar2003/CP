@@ -98,34 +98,34 @@ vector <bool> is_prime;
 // Mathematical functions
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
-void dfs(int start, vl &vis, vl &adj, int &f_ans){
-            int child=adj[start];
-            if(vis[child]){
-                f_ans=start;
-                return;
-            }
-            dfs(child,vis,adj,f_ans);
-}
 void solve(){
     inint(n);
-    inint(k);
-    vl v(n);inv;
-    vl node(k);
-    rep(i,k,0)cin>>node[i];
-    vl vis(n,0);
-    rep(i,k,0){
-        if(i!=0){
-            int f_ans=0;
-        dfs(node[i],vis,v,f_ans);
-       cout<<f_ans<<" ";
-       vis[f_ans]=1;
-        }
-        else {
-            cout<<0<<" ";
-            vis[0]=1;
-        }
+    instr(x);
+    bool check_zero=false;
+    int pos=0;
+    rep(i,n,0){
+      if(x[i]=='0'){
+        check_zero=true;
+        pos=i+1;
+        break;
+      }
     }
+    if(!check_zero){
+        cout<<1<<" "<<n/2<<" "<<2<<" "<<(n/2)+1<<endl;
+    }
+    else {
+       
+            if(pos<=n/2){
+                cout<<pos<<" "<<n<<" "<<pos+1<<" "<<n<<endl;
+            }
+            else {
+                cout<<1<<" "<<pos<<" "<<1<<" "<<pos-1<<endl;
+            }
+      
+    }
+     
 }
+
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
 //       0. If it is an interval related problem try either sorting in an optimal way or line sweep algorithm.
