@@ -1,22 +1,28 @@
 class Solution {
-private:
-    int buildstring(vector<int>&freq){
-        int ways = 0;
-        for(int i=0;i<26;i++){
-            if(freq[i]>0){
-                freq[i]--;
-                ways += 1 + buildstring(freq);
-                freq[i]++;
+public:
+    void cal(set<string>&st,string &curr, string &tiles, int i,vector<int>&vis){
+        if(i==tiles.size()){
+            st.insert(curr);
+            return;
+        }
+        for(int j=0;j<tiles.size();j++){
+            if(!vis[j]){
+                curr+=tiles[j];
+                vis[j]=1;
+                cal(st,curr,tiles,i+1,vis);
+                vis[j]=0;
+                curr.pop_back();
             }
         }
-        return ways;
+                cal(st,curr,tiles,i+1,vis);
+
     }
-public:
     int numTilePossibilities(string tiles) {
-        vector<int> freq(26,0);
-        for(char c:tiles){
-            freq[c-'A']++;
-        }
-        return buildstring(freq);
+        set<string>st;
+        int n=tiles.size();
+        vector<int>vis(n,0);
+        string curr="";
+         cal(st,curr,tiles,0,vis);
+         return st.size()-1;
     }
 };
