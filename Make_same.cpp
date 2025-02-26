@@ -100,61 +100,25 @@ void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = fal
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
     inint(n);
-    inint(k);
-    int p=0;
-    set<int>st;
-    for(int i=0;i<32;i++){
-     if(k&(1<<i)){
-        p=i;
-     }
-     else break;
+    instr(x);instr(y);instr(z);
+    int c0=0,c1=0,a1=0,a0=0,b0=0,b1=0;
+    rep(i,n,0){
+        if(x[i]=='0')a0++;
+        else a1++;
+        if(y[i]=='0')b0++;
+        else b1++;
+        if(z[i]=='0')c0++;
+        else c1++;
     }
-    int mex=pow(2,p+1)-1;
-    for(int i=0;i<32;i++){
-     if(k&(1<<i))st.insert(i);
+    int count0=0;
+    int count1=0;
+    count0=a0+b0+c0;
+    count1=a1+b1+c1;
+    if(count0%n ==0 && count1%n==0){
+       int ans=min({min(c0,c1)+min(b0,b1),min(a0,a1)+min(c0,c1),min(b0,b1)+min(a0,a1)});
+       cout<<ans<<endl;
     }
-    bool check=true;
-    int curr=0;
-    vi ans;
-    for(int i=0;i<=mex;i++){
-        bool flag=true;
-        for(int j=0;j<32;j++){
-            if((i&(1<<j)) && !(k&(1<<j)))flag=false;
-        }
-        if(flag){
-        ans.pb(i);
-        curr|=i;
-        if(ans.size()==n){
-            check=false;
-            break;
-        }
-    }
-    else break;
-    }
-    if(!check){
-        if(curr!=k){
-        ans.pop_back();
-        ans.push_back(k);
-        }
-    }
-    else if(curr!=k){
-        if(ans.size()==n)ans.pop_back();
-        int num=0;
-        for(int i=0;i<32;i++){
-            if(k&(1<<i) && !(curr&(1<<i))){
-                 num|=(1<<i);
-            }
-        }
-        ans.push_back(num);
-    }
-    while(ans.size()<n){
-        ans.push_back(0);
-    }
-    cout<<ans<<endl;
-
-
-   
-
+    else cout<<-1<<endl;
 
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.

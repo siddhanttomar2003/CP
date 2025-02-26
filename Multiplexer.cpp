@@ -100,63 +100,69 @@ void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = fal
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
     inint(n);
-    inint(k);
-    int p=0;
-    set<int>st;
-    for(int i=0;i<32;i++){
-     if(k&(1<<i)){
-        p=i;
-     }
-     else break;
+    inll(k);
+    vl v(n);
+    inv;
+    
+    map<ll, vi> mp;
+    rep(i, n, 0){
+        mp[v[i]].push_back(i);
     }
-    int mex=pow(2,p+1)-1;
-    for(int i=0;i<32;i++){
-     if(k&(1<<i))st.insert(i);
+    
+    ll ans = 0;
+    for(auto &p : mp){
+        ans = max(ans, (ll)p.second.size());
     }
-    bool check=true;
-    int curr=0;
-    vi ans;
-    for(int i=0;i<=mex;i++){
-        bool flag=true;
-        for(int j=0;j<32;j++){
-            if((i&(1<<j)) && !(k&(1<<j)))flag=false;
-        }
-        if(flag){
-        ans.pb(i);
-        curr|=i;
-        if(ans.size()==n){
-            check=false;
-            break;
-        }
+    if(k == 1){
+        cout << ans << endl;
+        return;
     }
-    else break;
-    }
-    if(!check){
-        if(curr!=k){
-        ans.pop_back();
-        ans.push_back(k);
-        }
-    }
-    else if(curr!=k){
-        if(ans.size()==n)ans.pop_back();
-        int num=0;
-        for(int i=0;i<32;i++){
-            if(k&(1<<i) && !(curr&(1<<i))){
-                 num|=(1<<i);
+    
+    for(auto &p : mp){
+        ll val = p.first;
+        if(val % k == 0 && mp.count(val/k)){
+            vi &positionsVal = p.second;
+            vi &positionsConvertible = mp[val/k];
+            
+            int i = 0, j = 0;
+            ll curr_sum = 0, maxi = 0;
+            while(i < positionsVal.size() || j < positionsConvertible.size()){
+                int score;
+                if(i == positionsVal.size()){
+                    score = 1;
+                    j++;
+                } else if(j == positionsConvertible.size()){
+                    score = -1;
+                    i++;
+                } else if(positionsVal[i] < positionsConvertible[j]){
+                    score = -1;
+                    i++;
+                } else {
+                    score = 1;
+                    j++;
+                }
+                curr_sum += score;
+                if(curr_sum < 0) curr_sum = 0;
+                maxi = max(maxi, curr_sum);
             }
+            ll candidateFreq = positionsVal.size() + maxi;
+            ans = max(ans, candidateFreq);
         }
-        ans.push_back(num);
     }
-    while(ans.size()<n){
-        ans.push_back(0);
-    }
-    cout<<ans<<endl;
+    
+    cout << ans << endl;
+}
+
+
+
+
+
 
 
    
+   
 
 
-}
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
 //       0. If it is an interval related problem try either sorting in an optimal way or line sweep algorithm.

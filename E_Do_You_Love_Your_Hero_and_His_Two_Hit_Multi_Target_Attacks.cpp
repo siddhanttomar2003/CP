@@ -99,63 +99,30 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
-    inint(n);
     inint(k);
-    int p=0;
-    set<int>st;
-    for(int i=0;i<32;i++){
-     if(k&(1<<i)){
-        p=i;
-     }
-     else break;
+    vector<pi>ans;
+    if(k==0){
+        cout<<0<<endl;
+        return;
     }
-    int mex=pow(2,p+1)-1;
-    for(int i=0;i<32;i++){
-     if(k&(1<<i))st.insert(i);
-    }
-    bool check=true;
-    int curr=0;
-    vi ans;
-    for(int i=0;i<=mex;i++){
-        bool flag=true;
-        for(int j=0;j<32;j++){
-            if((i&(1<<j)) && !(k&(1<<j)))flag=false;
+    int x=0;int y=0;
+    while(k!=0){
+       int n=1;
+        while((n*(n-1))/2<=k){
+            n++;
         }
-        if(flag){
-        ans.pb(i);
-        curr|=i;
-        if(ans.size()==n){
-            check=false;
-            break;
-        }
+       for(int i=0;i<n-1;i++){
+          ans.pb({x,y});
+          y++;
+       }
+       x++;
+       n--;
+       k-=((n*(n-1))/2);
     }
-    else break;
+    cout<<ans.size()<<endl;
+    for(int i=0;i<ans.size();i++){
+        cout<<ans[i].first<<" "<<ans[i].second<<endl;
     }
-    if(!check){
-        if(curr!=k){
-        ans.pop_back();
-        ans.push_back(k);
-        }
-    }
-    else if(curr!=k){
-        if(ans.size()==n)ans.pop_back();
-        int num=0;
-        for(int i=0;i<32;i++){
-            if(k&(1<<i) && !(curr&(1<<i))){
-                 num|=(1<<i);
-            }
-        }
-        ans.push_back(num);
-    }
-    while(ans.size()<n){
-        ans.push_back(0);
-    }
-    cout<<ans<<endl;
-
-
-   
-
-
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
