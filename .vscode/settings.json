@@ -89,6 +89,7 @@
     "cmath": "cpp",
     "set": "cpp",
     "system_error": "cpp",
-    "thread": "cpp"
+    "thread": "cpp",
+    "Q1.C": "cpp"
   }
 }
