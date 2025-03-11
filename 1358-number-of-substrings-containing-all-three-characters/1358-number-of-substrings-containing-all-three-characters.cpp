@@ -1,34 +1,23 @@
 class Solution {
 public:
-    bool check(vector<int> &v){
-        bool ans=true;
-        for(int i=0;i<3;i++){
-            if(v[i]<1){
-                ans=false;
-                break;
+    int numberOfSubstrings(string s) {
+        int n=s.size();
+        int ca=0,cb=0,cc=0;
+        int i=0;int j=0;
+        int ans=0;
+        while(j<n){
+            if(s[j]=='a')ca++;
+            else if(s[j]=='b')cb++;
+            else cc++;
+            while(ca>0 && cb>0 && cc>0 ){
+                ans+=(n-j);
+                if(s[i]=='a')ca--;
+                else if(s[i]=='b')cb--;
+                else cc--;
+                i++;
             }
+            j++;
         }
         return ans;
     }
-    int numberOfSubstrings(string s) {
-        int count=0;
-        int i=0;
-        int j=0;
-        vector<int>v(3,0);
-        while(j<s.length()){
-            v[s[j]-'a']++;
-            if(!check(v)){
-             j++;
-            }
-            else {
-                while(check(v)){
-                    count+=s.length()-j;
-                    v[s[i]-'a']--;i++;
-                }
-                j++;
-            }
-        }
-        return count;
-    }
-    
 };
