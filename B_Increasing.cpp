@@ -94,28 +94,15 @@ void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = fal
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
     inint(n);
-    inint(q);
-    vl v(n);
-    inv;
-    vl pre(n+1,0);
-    rep(i,n+1,1){
-        pre[i]=pre[i-1]+v[i-1];
-    }
-    // cout<<pre<<endl;
-    vl pre_max(n,0);
-    pre_max[0]=v[0];
-    rep(i,n,1){
-        pre_max[i]=max(pre_max[i-1],v[i]);
-    }
-    // cout<<pre_max<<endl;
-    while(q--){
+    set<int>st;
+    rep(i,n,0){
         inint(a);
-        int ind = upper_bound(all(pre_max),a)-pre_max.begin();
-        // cout<<ind<<" ";
-        cout<<pre[ind]<<" ";
+        st.insert(a);
     }
-    pe;
+    if(st.size()!=n)pn;
+    else py;
 }
+
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
 //       0. If it is an interval related problem try either sorting in an optimal way or line sweep algorithm.

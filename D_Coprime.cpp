@@ -1,14 +1,13 @@
-
 //author:-Siddhant Tomar
 //linked in :-https://www.linkedin.com/in/siddhant-tomar-9b3aab261/
-
-
 #include <bits/stdc++.h>
 using namespace std;
-
+#include <ext/pb_ds/assoc_container.hpp> 
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds; 
+#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
 //Speed
 #define fastio() ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
-
 //Macros
 #define IOtext freopen("input.txt","r",stdin); freopen("output.txt","w",stdout);
 #define PI (3.141592653589)
@@ -51,7 +50,6 @@ using namespace std;
 #define sort(v) sort(v.begin(),v.end());
 #define add(sum,v) accumulate(v.begin(),v.end(),sum);
 #define repa(it)      for(auto it:mp)
-
 //Typedef
 typedef long long ll;
 typedef unordered_map<ll,ll> ull;
@@ -67,14 +65,11 @@ typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 typedef map<int,int> mii;
 typedef set<int> st;
-
 #ifndef ONLINE_JUDGE
 #define debug(x) cerr<<#x<<" ";_print(x); cerr<<endl;
 #else
 #define debug(x)
 #endif
-
-
 // Operator overloads
 template<typename T> // cin >> vector<T>
 istream& operator>>(istream &istream, vector<T> &v){for (auto &it : v)cin >> it;return istream;}
@@ -82,88 +77,79 @@ template<typename T> // cout << vector<T>
 ostream& operator<<(ostream &ostream, const vector<T> &c) { for (auto &it : c) cout << it << " "; return ostream; }
 template<typename T, typename V> // cout << map<T,T>
 ostream& operator<<(ostream &ostream, const map<T,V> &c) { for (auto &it : c) cout << it.first << " " << it.second<<endl; return ostream; }
-
 //Sorting
 bool sorta(const pair<int,int> &a,const pair<int,int> &b){return (a.second < b.second);}
-
-
 //Bits
 string decToBinary(int n){string s="";int i = 0;while (n > 0) {s =to_string(n % 2)+s;n = n / 2;i++;}return s;}
 ll binaryToDecimal(string n){string num = n;ll dec_value = 0;int base = 1;int len = num.length();for(int i = len - 1; i >= 0; i--){if (num[i] == '1')dec_value += base;base = base * 2;}return dec_value;}
-
 //Check
 bool isPrime(ll n){if(n<=1)return false;if(n<=3)return true;if(n%2==0||n%3==0)return false;for(int i=5;i*i<=n;i=i+6)if(n%i==0||n%(i+2)==0)return false;return true;}
 bool isPowerOfTwo(int n){if(n==0)return false;return (ceil(log2(n)) == floor(log2(n)));}
 bool isPerfectSquare(ll x){if (x >= 0) {ll sr = sqrt(x);return (sr * sr == x);}return false;}
-
 //Constants
 vector <ll> primes;
 vector <bool> is_prime;
-
 // Mathematical functions
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
-ll mod_add(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a + b) % m) + m) % m;}
-ll mod_sub(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a - b) % m) + m) % m;}
-ll gcd(ll a, ll b){if (b == 0)return a;return gcd(b, a % b);} //__gcd 
-ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
-ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
-ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
-ll count_one(int n) { ll count=0; while(n) {  n = n&(n-1); count++; } return count;}
-bool isPowerOfFour(int n) { return !(n&(n-1)) && (n&0x55555555);//check the 1-bit location;
-}
-ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
-
-ll binomial_expo (ll a, ll b){
-    ll ans=1;
-    while(b){
-        if(b&1){
-            ans=(ans*a)%1000000007;
-        }
-        a=(a*a)%1000000007;
-        b>>=1;
-        
+void solve(){
+    inint(n);
+    vl v(n);
+    inv;
+    map<int,ll>mp;
+    rep(i,n,0){
+        mp[v[i]]=i+1;
     }
-    return ans;
+    ll ans=-1;
+    for(int i=1;i<=1000;i++){
+        for(int j=i;j<=1000;j++){
+            if(mp.find(i)!=mp.end() && mp.find(j)!=mp.end() && __gcd(i,j)==1){
+                ans=max(ans,mp[i]+mp[j]);
+            }
+        }
+    }
+    cout<<ans<<endl;
 }
-
-
+//  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
+//  1. If greedy :-
+//       0. If it is an interval related problem try either sorting in an optimal way or line sweep algorithm.
+//       1. think of prefix or suffix sum
+//       2. think of binary search :-  either lowerbound / upperbound , binary search on answers, when constraints are 
+//        greater than 10^9 or around 10^18
+//       3. iterate from last 
+//       4. think of any mathematical expression :- for ex  (we use seive function cleverly)
+//       5. think of map , we can create any types of map ,  for ex:- int,vectorint etc , we can also use ordered map for extra functionalities.
+//       6. we can also use priorityqueue
+//       IMPORTANT 1:- * If the question requires last greater or last smaller or next greater or next smaller use stack     
+//       IMPORTANT 2:-  * If the question require first greater or first smaller for i'th index then u can pre_min or max array with bs.
+//  2. Two pointers:-
+//        1. maintain two pointers on different arrays
+//        2. sliding window 
+//  3. Bit manipulation :-
+//        1. just follow the properties greedily of or , xor and and;
+//  4. Dynamic Programming :-
+//        1. think of state using constraints and requirement 
+//        2. if ans is not coming in given states try to increase states and find the states smartly not violating the constraints
+//  5. Graph :-
+//        1. either bfs / dfs or dijkstra
+//        2. use dsu.
+//        3. u may also require to use dp to calculate the precomputed value for correct ans , means somewhat u have to use dfs.
+//        4. U can use kahns algo for finding whether there is cycle or not , the vector will return the nodes which are not in the cycle.
+//   6. If u are not able to proove that  any of your approaches is correct
+//       1. There might be a brute force solution which is actually not exceeding the time limit
+//          (Just carefully observe how many max times a loop can run if i do it and try to proove it will be in given constraints).
 int32_t main()
 {
     fastio()
     #ifndef ONLINE_JUDGE
         freopen("Error.txt","w",stderr);
     #endif
-    //Rating? Neh. In love with experience.
-    //Code Karlo, Coz KHNH :)
+   // Jai Bajrang Bali 
     int t;
     cin>>t;
     while(t--)
     {
-    inint(n);
-     vi v(n);
-     inv;
-     // 
-    vi temp(1001,0);
-    rep(i,n,0){
-        temp[v[i]]=max(temp[v[i]],i+1);
-            }
-            int ans=1;
-            bool flag=false;
-    rep(i,1001,1){
-        rep(j,1001,1){
-          if(__gcd(i,j)==1 && temp[i]>0 && temp[j]>0){
-            flag=true;
-            ans=max(ans,temp[i]+temp[j]);
-          }
-        }
-    }
-    if(flag)cout<<ans<<endl;
-    else cout<<-1<<endl;
-
-    
-
-     
+     solve();
     }
     return 0;
 }

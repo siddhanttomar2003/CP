@@ -93,28 +93,58 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
-    inint(n);
-    inint(q);
-    vl v(n);
-    inv;
-    vl pre(n+1,0);
-    rep(i,n+1,1){
-        pre[i]=pre[i-1]+v[i-1];
-    }
-    // cout<<pre<<endl;
-    vl pre_max(n,0);
-    pre_max[0]=v[0];
-    rep(i,n,1){
-        pre_max[i]=max(pre_max[i-1],v[i]);
-    }
-    // cout<<pre_max<<endl;
-    while(q--){
-        inint(a);
-        int ind = upper_bound(all(pre_max),a)-pre_max.begin();
-        // cout<<ind<<" ";
-        cout<<pre[ind]<<" ";
-    }
-    pe;
+     vl a(26,0);
+     vl b(26,0);
+     a[0]++;b[0]++;
+     inint(q);
+     while(q--){
+        inint(type);
+        inint(k);
+        instr(x);
+        if(type==1){
+            rep(i,x.size(),0){
+                a[x[i]-97]+=k;
+            }
+        }
+        else {
+            rep(i,x.size(),0){
+                b[x[i]-97]+=k;
+            }
+        }
+        bool flag=false;
+        rep(i,26,0){
+            if(a[i]>0){
+            rep(j,26,i+1){
+                 if(b[j]>0)flag=true;
+            }
+        }
+        }
+        if(flag)py;
+        else {
+            int count=0;
+            int count_b=0;
+            rep(i,26,0){
+                if(a[i]>0)count++;
+                if(b[i]>0)count_b++;
+            }
+            if(count>=2)pn;
+            else if(count_b>=2)pn;
+            else {
+                bool f_check=false;
+                rep(i,26,0){
+                    if(b[i]>0 && a[i]==0)break;
+                    else if(b[i]>0 && a[i]>0){
+                        if(a[i]<b[i])f_check=true;
+                        break;
+                    }
+                }
+                if(f_check)py;
+                else pn;
+            }
+        }
+
+       
+     }
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
@@ -125,7 +155,7 @@ void solve(){
 //       3. iterate from last 
 //       4. think of any mathematical expression :- for ex  (we use seive function cleverly)
 //       5. think of map , we can create any types of map ,  for ex:- int,vectorint etc , we can also use ordered map for extra functionalities.
-//       6. we can also use priorityqueue
+//       6. we can also use priority_queue
 //       IMPORTANT 1:- * If the question requires last greater or last smaller or next greater or next smaller use stack     
 //       IMPORTANT 2:-  * If the question require first greater or first smaller for i'th index then u can pre_min or max array with bs.
 //  2. Two pointers:-

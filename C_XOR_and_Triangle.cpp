@@ -93,28 +93,37 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
-    inint(n);
-    inint(q);
-    vl v(n);
-    inv;
-    vl pre(n+1,0);
-    rep(i,n+1,1){
-        pre[i]=pre[i-1]+v[i-1];
+    inll(n);
+    if(!(n&(n-1)))cout<<-1<<endl;
+    else {
+        bool check=true;
+        int ele=n;
+        while(n>0){
+             if(!(n&1))check=false;
+             n/=2;
+        }
+        if(check)cout<<-1<<endl;
+        else {
+            bool check0=false;
+            bool check1=false;
+            int num=0;
+            for(int i=0;i<32;i++){
+                if(ele&(1<<i)){
+                  if(check0 && !check1){
+                     check1=true;
+                  }
+                  else num|=(1<<i);
+                }
+                else {
+                    if(!check0){
+                        num|=(1<<i);
+                        check0=true;
+                    }
+                }
+            }
+            cout<<num<<endl;
+        }
     }
-    // cout<<pre<<endl;
-    vl pre_max(n,0);
-    pre_max[0]=v[0];
-    rep(i,n,1){
-        pre_max[i]=max(pre_max[i-1],v[i]);
-    }
-    // cout<<pre_max<<endl;
-    while(q--){
-        inint(a);
-        int ind = upper_bound(all(pre_max),a)-pre_max.begin();
-        // cout<<ind<<" ";
-        cout<<pre[ind]<<" ";
-    }
-    pe;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-

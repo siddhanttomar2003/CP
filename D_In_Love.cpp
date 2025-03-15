@@ -2,10 +2,6 @@
 //linked in :-https://www.linkedin.com/in/siddhant-tomar-9b3aab261/
 #include <bits/stdc++.h>
 using namespace std;
-#include <ext/pb_ds/assoc_container.hpp> 
-#include <ext/pb_ds/tree_policy.hpp>
-using namespace __gnu_pbds; 
-#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
 //Speed
 #define fastio() ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
 //Macros
@@ -93,28 +89,37 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
-    inint(n);
     inint(q);
-    vl v(n);
-    inv;
-    vl pre(n+1,0);
-    rep(i,n+1,1){
-        pre[i]=pre[i-1]+v[i-1];
-    }
-    // cout<<pre<<endl;
-    vl pre_max(n,0);
-    pre_max[0]=v[0];
-    rep(i,n,1){
-        pre_max[i]=max(pre_max[i-1],v[i]);
-    }
-    // cout<<pre_max<<endl;
+    map<int,int>s,e;
+    int curr_min=1e9;
+    int curr_max=-1e9;
     while(q--){
-        inint(a);
-        int ind = upper_bound(all(pre_max),a)-pre_max.begin();
-        // cout<<ind<<" ";
-        cout<<pre[ind]<<" ";
+        char c;
+        cin>>c;
+        inint(a);inint(b);
+        if(c=='+'){
+             s[a]++;
+             e[b]++;
+        }
+        else {
+          s[a]--;
+          if(s[a]==0){
+            s.erase(a);
+          }
+          e[b]--;
+          if(e[b]==0){
+            e.erase(b);
+          }
+        }
+        if(s.size()>0)
+        curr_max=s.rbegin()->first;
+        if(e.size()>0)
+        curr_min=e.begin()->first;
+        auto it1=s.upper_bound(curr_min);
+        auto it2=e.lower_bound(curr_max);
+        if(it1!=s.end() || it2!=e.begin())py;
+        else  pn;
     }
-    pe;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
@@ -151,11 +156,8 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-    int t;
-    cin>>t;
-    while(t--)
-    {
+   
      solve();
-    }
+    
     return 0;
 }

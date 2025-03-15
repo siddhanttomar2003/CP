@@ -93,28 +93,22 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
-    inint(n);
-    inint(q);
-    vl v(n);
-    inv;
-    vl pre(n+1,0);
-    rep(i,n+1,1){
-        pre[i]=pre[i-1]+v[i-1];
+    vector<string>v(8);
+    rep(i,8,0){
+        cin>>v[i];
+        // cout<<v[i]<<endl;
     }
-    // cout<<pre<<endl;
-    vl pre_max(n,0);
-    pre_max[0]=v[0];
-    rep(i,n,1){
-        pre_max[i]=max(pre_max[i-1],v[i]);
+    bool check_row=false;
+    rep(i,8,0){
+        int curr=0;
+        rep(j,8,0){
+           if(v[i][j]=='R')curr++;
+        }
+        if(curr==8)check_row=true;
     }
-    // cout<<pre_max<<endl;
-    while(q--){
-        inint(a);
-        int ind = upper_bound(all(pre_max),a)-pre_max.begin();
-        // cout<<ind<<" ";
-        cout<<pre[ind]<<" ";
-    }
-    pe;
+   
+    if(check_row)cout<<"R"<<endl;
+    else cout<<"B"<<endl;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-

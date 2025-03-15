@@ -94,27 +94,55 @@ void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = fal
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
     inint(n);
-    inint(q);
-    vl v(n);
-    inv;
-    vl pre(n+1,0);
-    rep(i,n+1,1){
-        pre[i]=pre[i-1]+v[i-1];
+    vvl grid(n,vl(n));
+    set<pair<int,int>>st;
+    rep(i,n,0){
+        rep(j,n,0){
+            cin>>grid[i][j];
+            if(grid[i][j]==0)st.insert({i,j});
+        }
     }
-    // cout<<pre<<endl;
-    vl pre_max(n,0);
-    pre_max[0]=v[0];
-    rep(i,n,1){
-        pre_max[i]=max(pre_max[i-1],v[i]);
+    for(auto it:st){
+        int x=it.first;
+        int y=it.second;
+        int delRow[]={-1,0,1,0};
+        int delCol[]={0,1,0,-1};
+        for(int i=0;i<4;i++){
+            int n_r=x+delRow[i];
+            int n_c=y+delCol[i];
+            if(n_r>=0 && n_r<n && n_c>=0 && n_c<n)grid[n_r][n_c]=0;
+        }
     }
-    // cout<<pre_max<<endl;
-    while(q--){
-        inint(a);
-        int ind = upper_bound(all(pre_max),a)-pre_max.begin();
-        // cout<<ind<<" ";
-        cout<<pre[ind]<<" ";
+    vvl dis(n,vl(n,1e9));
+    queue<vector<ll>>q;
+    rep(i,n,0){
+        if(grid[i][0]==1){
+            q.push({0,i,0});
+            dis[i][0]=0;
+        }
     }
-    pe;
+    while(q.size()>0){
+        ll curr=q.front()[0];
+        ll curr_x=q.front()[1];
+        ll curr_y=q.front()[2];
+        q.pop();
+        ll delRow[]={-1,0,1,0};
+        ll delCol[]={0,1,0,-1};
+        for(ll i=0;i<4;i++){
+            ll n_r=curr_x+delRow[i];
+            ll n_c=curr_y+delCol[i];
+            if(n_r>=0 && n_r<n && n_c>=0 && n_c<n && grid[n_r][n_c] && dis[n_r][n_c]>1+curr){
+                 dis[n_r][n_c]=1+curr;
+                 q.push({1+curr,n_r,n_c});
+            }
+        }
+    }
+    ll ans=1e9;
+    for(int i=0;i<n;i++){
+        ans=min(ans,dis[i][n-1]);
+    }
+    if(ans==1e9)cout<<-1<<endl;
+    else cout<<ans<<endl;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-

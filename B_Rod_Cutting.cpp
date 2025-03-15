@@ -92,29 +92,38 @@ vector <bool> is_prime;
 // Mathematical functions
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
+ll modinv(ll p,ll q){
+    ll ans=1;
+    p%=M;
+    while(q>0){
+        if(q&1){
+            ans=(ans*p)%M;
+        }
+        p=(p*p)%M;
+        q/=2;
+    }
+    return ans;
+}
+vector<ll>fact,invFact;
+void fac(){
+    fact.resize(2e5+1);
+    invFact.resize(2e5+1);
+    fact[0]=1;
+    for(ll i=1;i<=2e5;i++){
+        fact[i]=fact[i-1]*i%M;
+    }
+    invFact[2e5]=modinv(fact[2e5],M-2);
+    for(ll i=2e5-1;i>=0;i--){
+        invFact[i]=invFact[i+1]*(i+1)%M;
+    }
+}
 void solve(){
-    inint(n);
-    inint(q);
-    vl v(n);
-    inv;
-    vl pre(n+1,0);
-    rep(i,n+1,1){
-        pre[i]=pre[i-1]+v[i-1];
-    }
-    // cout<<pre<<endl;
-    vl pre_max(n,0);
-    pre_max[0]=v[0];
-    rep(i,n,1){
-        pre_max[i]=max(pre_max[i-1],v[i]);
-    }
-    // cout<<pre_max<<endl;
-    while(q--){
-        inint(a);
-        int ind = upper_bound(all(pre_max),a)-pre_max.begin();
-        // cout<<ind<<" ";
-        cout<<pre[ind]<<" ";
-    }
+    inll(n);
+    inll(m);
+    cout<<(fact[n+m-1]%M*invFact[m-1]%M*invFact[n]%M)%M<<" ";
     pe;
+   
+   
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
@@ -153,6 +162,7 @@ int32_t main()
    // Jai Bajrang Bali 
     int t;
     cin>>t;
+    fac();
     while(t--)
     {
      solve();

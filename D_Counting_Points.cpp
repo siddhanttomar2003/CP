@@ -47,7 +47,6 @@ using namespace __gnu_pbds;
 #define inv2 rep(i,n){cin>>v2[i];}
 #define inv3 rep(i,n){cin>>v3[i];}
 #define inv4 rep(i,n){cin>>v4[i];}
-#define sort(v) sort(v.begin(),v.end());
 #define add(sum,v) accumulate(v.begin(),v.end(),sum);
 #define repa(it)      for(auto it:mp)
 //Typedef
@@ -93,28 +92,38 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
-    inint(n);
-    inint(q);
-    vl v(n);
-    inv;
-    vl pre(n+1,0);
-    rep(i,n+1,1){
-        pre[i]=pre[i-1]+v[i-1];
+    inint(n);inll(m);
+    vl x(n), r(n);
+    rep(i,n,0) cin >> x[i];
+    rep(i,n,0) cin >> r[i];
+    ll max_r = *max_element(all(r));
+    ll range = max_r, size = 2 * max_r + 1;
+    vector<vpl> interval(size);
+    rep(i,n,0) {
+        ll cx = x[i], cr = r[i];
+        for (int y = -cr; y <= cr; y++) {
+            ll d = (ll)floor(sqrt(1LL * cr * cr - 1LL * y * y));
+            interval[y + range].pb({cx - d, cx + d});
+        }
     }
-    // cout<<pre<<endl;
-    vl pre_max(n,0);
-    pre_max[0]=v[0];
-    rep(i,n,1){
-        pre_max[i]=max(pre_max[i-1],v[i]);
+    ll ans = 0;
+    for (int y = 0; y < size; y++) {
+        if (interval[y].empty()) continue;
+        sort(all(interval[y]));
+        ll left = interval[y][0].first, right = interval[y][0].second;
+        ll temp = 0;
+        for (int j = 1; j < interval[y].size(); j++) {
+            if (interval[y][j].first <= right + 1) right = max(right, interval[y][j].second);
+            else {
+                temp += (right - left + 1);
+                left = interval[y][j].first;
+                right = interval[y][j].second;
+            }
+        }
+        temp += (right - left + 1);
+        ans += temp;
     }
-    // cout<<pre_max<<endl;
-    while(q--){
-        inint(a);
-        int ind = upper_bound(all(pre_max),a)-pre_max.begin();
-        // cout<<ind<<" ";
-        cout<<pre[ind]<<" ";
-    }
-    pe;
+    cout << ans << endl;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
