@@ -94,33 +94,15 @@ void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = fal
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
     inint(n);
-    instr(x);
-    instr(y);
-    int i_x=0,i_y=0;
-    int j_x=n-1,j_y=n-1;
-    vvl ans;
-    while(i_x<=j_x){
-        while(i_x<=j_x && x[i_x]==y[i_y]){
-            i_x++;i_y++;
-        }
-        while(i_x<=j_x && x[j_x]==y[j_y]){
-            j_x--;j_y--;
-        }
-        if(i_x<=j_x){
-            ans.pb({1,i_x+1,j_x+1});
-            for(int i=i_x;i<=j_x;i++){
-                x[i]=49-x[i];
-            }
-            i_x++;j_x--;
-            i_y++;j_y--;
-        }
+    ll ans=1;
+    for(ll i=1;i<=n/2;i++){
+       ll rem=n-i;
+       ll diff=(i*rem);
+       ll mid=diff/2+1;
+       ans+=(mid*2);
+       if(diff%2==0)ans--;
     }
-    cout<<ans.size()<<endl;
-    for(auto it:ans){
-        cout<<it[0]<<" "<<it[1]<<" "<<it[2]<<endl;
-    }
-
-
+    cout<<ans<<endl;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
