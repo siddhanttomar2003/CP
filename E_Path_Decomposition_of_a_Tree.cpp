@@ -35,8 +35,8 @@ using namespace __gnu_pbds;
 #define SUM(x) accumulate(all(x), 0LL)
 #define COUNT(x,u) count(all(x), u)
 #define B break
-#define py cout<<"YES"<<endl
-#define pn cout<<"NO"<<endl
+#define py cout<<"Yes"<<endl
+#define pn cout<<"No"<<endl
 #define pm cout<<"-1"<<endl
 #define po cout<<"0"<<endl;
 #define ps(x,y) fixed<<setprecision(y)<<x
@@ -92,12 +92,59 @@ vector <bool> is_prime;
 // Mathematical functions
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
-  int dp[1001];
 void solve(){
-    int t;
-    cin>>t;
-    while(t--){
-     memset(dp,-1,sizeof(dp));
+    ll n,k;
+    cin>>n>>k;
+    ll size=n*k;
+    if(k==1){
+        py;
+        return;
+    }
+    vvl adj(size+1);
+    vl indegree(size+1,0);
+    rep(i,size-1,0){
+        inint(u);
+        inint(v);
+        adj[u].pb(v);
+        adj[v].pb(u);
+        indegree[u]++;indegree[v]++;
+    }
+    queue<pair<int,int>>q;
+    vl vis(size+1,0);
+    rep(i,size+1,1){
+        if(indegree[i]==1){
+            q.push({i,1});
+            vis[i]=1;
+        }
+    }
+    int count=0;
+    while(q.size()>0){
+        int par=q.front().first;
+        int curr=q.front().second;
+        q.pop();
+        rep(i,adj[par].size(),0){
+            int child=adj[par][i];
+            if(!vis[child]){
+                vis[child]=1;
+                if(curr+1==k)count++;
+                else {
+                 q.push({child,curr+1});
+                }
+            }
+        }
+    }
+    ll rem=0;
+    rep(i,size+1,1){
+        if(!vis[i])rem++;
+    }
+    if(rem>0 && count<n){
+        ll req=n-count;
+        if(rem%k==0 && rem/k==req)py;
+        else pn;
+    }
+    else {
+      if(count==n)py;
+      else pn;
     }
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
@@ -135,11 +182,8 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-    int t;
-    cin>>t;
-    while(t--)
-    {
+   
      solve();
-    }
+    
     return 0;
 }

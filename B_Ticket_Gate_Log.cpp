@@ -92,13 +92,15 @@ vector <bool> is_prime;
 // Mathematical functions
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
-  int dp[1001];
 void solve(){
-    int t;
-    cin>>t;
-    while(t--){
-     memset(dp,-1,sizeof(dp));
+    instr(x);
+    int count=0;
+    rep(i,x.size(),1){
+     if(x[i]==x[i-1])count++;
     }
+    if(x[0]=='o')count++;
+    if((x.size()+count)&1)count++;
+    cout<<count<<endl;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
@@ -135,11 +137,8 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-    int t;
-    cin>>t;
-    while(t--)
-    {
+   
      solve();
-    }
+    
     return 0;
 }
