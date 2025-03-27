@@ -93,13 +93,13 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
-  inint(n);
-  Sieve(n);
-  get_primes(n);
-  vl vis(n+1,0);
-  
+    ll n,m,k;
+    cin>>n>>m>>k;
+    ll max_in_onerow=k/n+(k%n==0?0:1);
+    ll extra=m-max_in_onerow;
+    
+    cout<<max_in_onerow/(extra+1)+(max_in_onerow%(extra+1)==0?0:1)<<endl;
 
-  
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
@@ -136,8 +136,8 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-    int t=1;
-    // cin>>t;
+    int t;
+    cin>>t;
     while(t--)
     {
      solve();

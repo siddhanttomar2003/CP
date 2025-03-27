@@ -92,14 +92,57 @@ vector <bool> is_prime;
 // Mathematical functions
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
+bool check(string &x, int i, int j,int k){
+    set<char>st;
+    for(int k=i;k<=j;k++){
+        st.insert(x[k]);
+    }
+    if(st.size()==1)return false;
+    else {
+        if(k>0)return true;
+        while(i<j){
+            if(x[i]<x[j])return true;
+            else if(x[i]>x[j])return false;
+            i++;j--;
+        }
+    }
+    return false;
+}
 void solve(){
-  inint(n);
-  Sieve(n);
-  get_primes(n);
-  vl vis(n+1,0);
-  
-
-  
+    inint(n);
+    inint(k);
+    instr(x);
+    int i=0,j=n-1;
+    while(i<j){
+        if(x[i]!=x[j]){
+            if(k>0){
+                py;
+                return;
+            }
+            else {
+                if(x[i]<x[j]){
+                    i++;j--;
+                    py;
+                    return;
+                }
+                else {
+                    pn;
+                    return;
+                }
+            }
+        }
+        else {
+            if(check(x,i,j,k)){
+                py;
+                return;
+            }
+            else {
+             pn;return;
+            }
+        }
+        i++;j--;
+    }
+    pn;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
@@ -136,8 +179,8 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-    int t=1;
-    // cin>>t;
+    int t;
+    cin>>t;
     while(t--)
     {
      solve();

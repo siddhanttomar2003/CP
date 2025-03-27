@@ -92,14 +92,30 @@ vector <bool> is_prime;
 // Mathematical functions
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
+bool check(vi &a,vi &b){
+    rep(i,10,0){
+        if(a[i]<b[i])return false;
+    }
+    return true;
+}
 void solve(){
-  inint(n);
-  Sieve(n);
-  get_primes(n);
-  vl vis(n+1,0);
-  
-
-  
+    inint(n);
+    vl v(n);
+    inv;
+    vector<int>req(10,0),curr(10,0);
+    req[0]=3;
+    req[1]=1;
+    req[2]=2;
+    req[3]=1;
+    req[5]=1;
+    rep(i,n,0){
+        curr[v[i]]++;
+        if(check(curr,req)){
+            cout<<i+1<<endl;
+            return;
+        }
+    }
+    cout<<0<<endl;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
@@ -136,8 +152,8 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-    int t=1;
-    // cin>>t;
+    int t;
+    cin>>t;
     while(t--)
     {
      solve();
