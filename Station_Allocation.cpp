@@ -1,17 +1,11 @@
 //author:-Siddhant Tomar
 //linked in :-https://www.linkedin.com/in/siddhant-tomar-9b3aab261/
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
 #include <bits/stdc++.h>
 using namespace std;
- using namespace __gnu_pbds;
-   typedef tree<
-       int, 
-       null_type, 
-       less<int>, 
-       rb_tree_tag, 
-       tree_order_statistics_node_update> 
-       ordered_set;
+#include <ext/pb_ds/assoc_container.hpp> 
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds; 
+#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
 //Speed
 #define fastio() ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
 //Macros
@@ -99,51 +93,40 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
-    inll(n);
+    inint(n);
     vl v(n);
     inv;
-    ll sum=0;
+    sort(v);
+    inint(q);
+    ll sum=accumulate(all(v),0*1ll);
+    vl ss;
     rep(i,n,0){
-        sum+=v[i];
+        ss.pb(sum-v[i]);
     }
-    inll(k);
-    vl temp;
-    temp=v;
-    rep(i,n,0)temp.pb(v[i]);
-    ll i=0;ll j=0;
-    ll req;
-    ll ex=0;
-    if(sum==0){
-        cout<<-1<<endl;
-        return;
-    }
-    if(k<=sum)req=k;
-    else {
-
-        if(k%sum==0){
-            req=sum;
-            ex=(k/(sum-1))*n;
+    sort(ss);
+    while(q--){
+        ll c,o;
+        cin>>c>>o;
+        ll ind=lower_bound(all(v),c)-v.begin();
+        if(ind == n){
+            ind--;
         }
-        else {
-        req=k%sum;
-        ex=(k/sum)*n;
+        ll op1=0;
+        if(v[ind]<c){
+            op1+=c-v[ind];
         }
-    }
-    ll len=1e18;
-    ll curr=0;
-    while(j<temp.size()){
-       curr+=temp[j];
-       while(curr>=req && i<=j){
-        if((curr==req) && ((i==0) || (i<n && j>=n) || j==n-1)){
-            len=min(len,j-i+1);
+        ll rem_sum=sum-v[ind];
+        if(rem_sum<o)op1+=o-rem_sum;
+        ind--;
+        if(ind>=0){
+            ll op2=0;
+            op2+=c-v[ind];
+            ll rem=sum-v[ind];
+            if(rem<o)op2+=o-rem;
+            op1=min(op1,op2);
         }
-        curr-=temp[i];
-        i++;
-       }
-       j++;
+        cout<<op1<<endl;
     }
-    if(len==1e18)cout<<-1<<endl;
-    else cout<<len+ex<<endl;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-

@@ -1,17 +1,11 @@
 //author:-Siddhant Tomar
 //linked in :-https://www.linkedin.com/in/siddhant-tomar-9b3aab261/
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
 #include <bits/stdc++.h>
 using namespace std;
- using namespace __gnu_pbds;
-   typedef tree<
-       int, 
-       null_type, 
-       less<int>, 
-       rb_tree_tag, 
-       tree_order_statistics_node_update> 
-       ordered_set;
+#include <ext/pb_ds/assoc_container.hpp> 
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds; 
+#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
 //Speed
 #define fastio() ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
 //Macros
@@ -99,53 +93,54 @@ vector <bool> is_prime;
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void solve(){
-    inll(n);
-    vl v(n);
-    inv;
-    ll sum=0;
-    rep(i,n,0){
-        sum+=v[i];
+    ll n;
+	cin>>n;
+	vector<ll>v(n);
+	for(ll i=0;i<n;i++){
+	    cin>>v[i];
+	}
+    ll m=*max_element(v.begin(),v.end());
+	vector<ll>last_pos(n),first_pos(n);
+	vector<ll>ele_pos1(m+1,n),ele_pos2(m+1,-1);
+	for(ll i=n-1;i>=0;i--){
+	    last_pos[i]=ele_pos1[v[i]];
+	    ele_pos1[v[i]]=i;
+	}
+    for(ll i=0;i<n;i++){
+      first_pos[i]=ele_pos2[v[i]];
+      ele_pos2[v[i]]=i;
     }
-    inll(k);
-    vl temp;
-    temp=v;
-    rep(i,n,0)temp.pb(v[i]);
-    ll i=0;ll j=0;
-    ll req;
-    ll ex=0;
-    if(sum==0){
-        cout<<-1<<endl;
-        return;
+    vector<ll>r_min(n),l_min(n);
+    ll mini=last_pos[n-1];
+    for(ll i=n-1;i>=0;i--){
+        mini=min(mini,last_pos[i]);
+        r_min[i]=mini-1;
     }
-    if(k<=sum)req=k;
-    else {
+    ll maxi=first_pos[0];
+    for(ll i=0;i<n;i++){
+        maxi=max(maxi,first_pos[i]);
+        l_min[i]=maxi+1;
+    }
 
-        if(k%sum==0){
-            req=sum;
-            ex=(k/(sum-1))*n;
-        }
-        else {
-        req=k%sum;
-        ex=(k/sum)*n;
-        }
+    // for(ll i=0;i<n;i++)cout<<r_min[i]<<" ";
+    // cout<<endl;
+    // for(ll i=0;i<n;i++)cout<<l_min[i]<<" ";
+    // cout<<endl;
+    ll ans=0;
+    for(ll i=0;i<n;i++){
+        ll r=r_min[i];
+        ll ind=upper_bound(l_min.begin(),l_min.end(),r)-l_min.begin();
+        ind--;
+        ll avail=ind-i;
+        if(avail>0)
+        ans+=avail;
+        // cout<<ind<<" ";
     }
-    ll len=1e18;
-    ll curr=0;
-    while(j<temp.size()){
-       curr+=temp[j];
-       while(curr>=req && i<=j){
-        if((curr==req) && ((i==0) || (i<n && j>=n) || j==n-1)){
-            len=min(len,j-i+1);
-        }
-        curr-=temp[i];
-        i++;
-       }
-       j++;
-    }
-    if(len==1e18)cout<<-1<<endl;
-    else cout<<len+ex<<endl;
+    // cout<<endl;/
+    cout<<ans<<endl;
+
 }
-//  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
+//  IMPORTANT :-  First look up the constralls first for every value given not just n for every valueeeee.
 //  1. If greedy :-
 //       0. If it is an interval related problem try either sorting in an optimal way or line sweep algorithm.
 //       1. think of prefix or suffix sum
