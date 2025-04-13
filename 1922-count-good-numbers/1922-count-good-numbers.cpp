@@ -1,28 +1,22 @@
+const int m=1e9+7;
 class Solution {
 public:
+    long long binomial_expo(long long a, long long b){
+         long long  res=1;
+         while(b){
+            if(b&1){
+                res=(res*a)%m;
+            }
+            a=(a*a)%m;
+            b>>=1;
+         }
+         return res;
+    }
     int countGoodNumbers(long long n) {
         long long odd=n/2;
-        long long even=n/2+n%2;
-         long long e=5;
-         long long ans1=1;
-         long long ans2=1;
-         long long o=4;
-         while(odd>0){
-             if(odd&1){
-              ans1=(ans1*o)%1000000007;
-             }
-             o=(o*o)%1000000007;
-             odd>>=1;
-         }
-         while(even>0){
-             if(even&1){
-                 ans2=(ans2*e)%1000000007;
-             }
-             e=(e*e)%1000000007;
-             even>>=1;
-         }
-         int f=(ans1*ans2)%1000000007;
-         return f;
-
+        long long even=(n+1)/2;
+        long long  a= binomial_expo(5,even);
+        long long  b=binomial_expo(4,odd);
+        return (a*b)%m;
     }
 };
