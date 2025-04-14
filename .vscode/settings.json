@@ -90,6 +90,7 @@
     "set": "cpp",
     "system_error": "cpp",
     "thread": "cpp",
-    "Q1.C": "cpp"
+    "Q1.C": "cpp",
+    "format": "cpp"
   }
 }
