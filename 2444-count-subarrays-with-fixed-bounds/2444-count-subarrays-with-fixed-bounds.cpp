@@ -1,24 +1,32 @@
+typedef long long ll;
 class Solution {
 public:
     long long countSubarrays(vector<int>& nums, int minK, int maxK) {
-        
-        // data = {min_idx, max_idx, base_idx}
-        vector<int> data(3, -1);
-        long long ans = 0;
-        
-        for (int i = 0; i < nums.size(); i++) {
-            if (nums[i] < minK || nums[i] > maxK) {
-                data[0] = -1; 
-                data[1] = -1;
-                data[2] = i;
-                continue;
+        ll violation = -1;
+        ll max_i = 1e9;
+        ll min_i = 1e9;
+        int maxi = -1;
+        int mini = 1e9;
+        int n=nums.size();
+        ll ans=0;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] <= mini) {
+                min_i = i;
+                mini = nums[i];
             }
-            if (nums[i] == minK) data[0] = i;
-            if (nums[i] == maxK) data[1] = i;
-            if (data[0] != -1 && data[1] != -1) ans += min(data[0],data[1]) - data[2];
+            if (nums[i] >= maxi) {
+                max_i = i;
+                maxi = nums[i];
+            }
+            if(nums[i]<minK || nums[i]>maxK){
+                violation = i;
+                mini= 1e9;
+                maxi= -1;
+            }
+            if(mini==minK && maxi==maxK){
+                ans+=(min(min_i,max_i)-violation);
+            }
         }
-
         return ans;
-
     }
 };
