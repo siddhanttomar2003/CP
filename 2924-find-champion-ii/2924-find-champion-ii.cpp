@@ -1,18 +1,15 @@
 class Solution {
 public:
     int findChampion(int n, vector<vector<int>>& edges) {
-        vector<vector<int>> adj(n);
-        for(int i=0; i<edges.size(); i++){
-            adj[edges[i][1]].push_back(edges[i][0]);
+        vector<int>indegree(n);
+        for(auto it:edges){
+            indegree[it[1]]++;
         }
-        
-        int ans=-1;
-        for(int i=0; i<n; i++){
-            if(adj[i].size()==0){
-                if(ans!=-1) return -1;
-                ans = i;
-            }
+        set<int>st;
+        for(int i=0;i<indegree.size();i++){
+            if(indegree[i]==0)st.insert(i);
         }
-        return ans;
+        if(st.size()>1 || st.size()==0)return -1;
+        return *st.begin();
     }
 };
