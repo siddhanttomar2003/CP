@@ -1,0 +1,1 @@
+{"name":"Local: myntraoa1","url":"c:\\Users\\HP\\Desktop\\CP\\myntraoa1.cpp","tests":[{"id":1746623957747,"input":"6\n3 1 5 6 2 4","output":"16"},{"id":1746623983990,"input":"2\n6 4","output":"10"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\HP\\Desktop\\CP\\myntraoa1.cpp","group":"local","local":true}
