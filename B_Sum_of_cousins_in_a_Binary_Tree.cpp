@@ -88,18 +88,9 @@ bool isPowerOfTwo(int n){if(n==0)return false;return (ceil(log2(n)) == floor(log
 bool isPerfectSquare(ll x){if (x >= 0) {ll sr = sqrt(x);return (sr * sr == x);}return false;}
 //Constants
 vector <ll> primes;
-vector<bool>is_prime;
-void Sieve(int n){
-    is_prime.resize(n,true);
-    is_prime[0]=is_prime[1]=false;
-    for(int i=2;i*i<=n;i++){
-        if(is_prime[i]){
-            for(int j=i*i;j<=n;j+=i){
-                is_prime[j]=false;
-            }
-        }
-    }
-}
+vector <bool> is_prime;
+// Mathematical functions
+void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void constructlps(vector<int>& lps, string &p) {
     int len = 0;
@@ -142,39 +133,45 @@ vector<int> matching(string &s, vector<int>& lps, string &p) {
     }
     return ans;
 }
-int check(ll m, vl &v, ll w){
-    ll curr=1;
-    ll curr_sum=0;
-    rep(i,v.size(),0){
-        if(curr_sum+v[i]>m){
-           curr++;
-           curr_sum=v[i];
-        }
-        else curr_sum+=v[i];
-    }
-     return curr>w;
-}
 void solve(){
-    inint(n);
-    vl v(n);
-    inv;
-    inll(w);
-    ll sum=accumulate(all(v),0*1ll);
-    ll l=0,h=sum;
-    ll ans=sum;
-    while(l<=h){
-        ll mid=l+(h-l)/2;
-        if(check(mid,v,w)){
-           l=mid+1;
+    inint(h);
+    if (h == -1) {
+        cout<<-1<<endl;
+        int skip = (1 << (h + 1));
+        for (int i = 0; i < skip; ++i) {
+        int x; cin>>x;
         }
-        else {
-          ans=mid;
-          h=mid-1;
+        return;
         }
-        
+ 
+    vector<vector<ll>>v(h+1);
+    for(int i=0;i<=h;i++){
+       for(int j=0;j<pow(2,i);j++){
+           inll(a);
+           v[i].push_back(a);
+       } 
+    }
+    inll(k);
+    ll ans=0;
+    ll nodes=0;
+    for(int i=0;i<=h;i++){
+        ll curr_sum=0;
+        for(int j=0;j<pow(2,i);j++){
+            ll num=v[i][j];
+            if(num!=-1)curr_sum+=v[i][j];
+            if(v[i][j]==k){
+                nodes++;
+                curr_sum-=v[i][j];
+                if(j&1){
+                    if(v[i][j-1]!=-1)
+                    curr_sum-=v[i][j-1];
+                }
+                else j++;
+            }
+        }
+        if(curr_sum!=0)ans=curr_sum;
     }
     cout<<ans<<endl;
-    
 
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
@@ -213,8 +210,11 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-     Sieve(1e5+1);
+    int t;
+    cin>>t;
+    while(t--)
+    {
      solve();
-    
+    }
     return 0;
 }

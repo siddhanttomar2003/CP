@@ -88,18 +88,9 @@ bool isPowerOfTwo(int n){if(n==0)return false;return (ceil(log2(n)) == floor(log
 bool isPerfectSquare(ll x){if (x >= 0) {ll sr = sqrt(x);return (sr * sr == x);}return false;}
 //Constants
 vector <ll> primes;
-vector<bool>is_prime;
-void Sieve(int n){
-    is_prime.resize(n,true);
-    is_prime[0]=is_prime[1]=false;
-    for(int i=2;i*i<=n;i++){
-        if(is_prime[i]){
-            for(int j=i*i;j<=n;j+=i){
-                is_prime[j]=false;
-            }
-        }
-    }
-}
+vector <bool> is_prime;
+// Mathematical functions
+void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 void constructlps(vector<int>& lps, string &p) {
     int len = 0;
@@ -142,40 +133,29 @@ vector<int> matching(string &s, vector<int>& lps, string &p) {
     }
     return ans;
 }
-int check(ll m, vl &v, ll w){
-    ll curr=1;
-    ll curr_sum=0;
-    rep(i,v.size(),0){
-        if(curr_sum+v[i]>m){
-           curr++;
-           curr_sum=v[i];
-        }
-        else curr_sum+=v[i];
+int dp[16][601];
+int cal(vl &v, int i, ll tar, int n){
+    if(i==n){
+        return tar==0;
     }
-     return curr>w;
+    if(dp[i][tar]!=-1)return dp[i][tar];
+    int can=0;
+    if(v[i]>=tar){
+       can|=cal(v,i+1,tar-v[i],n);
+    }
+    can|=cal(v,i+1,tar,n);
+    return dp[i][tar]=can;
 }
 void solve(){
-    inint(n);
-    vl v(n);
-    inv;
-    inll(w);
+    inint(n);vl v(n);inv;
     ll sum=accumulate(all(v),0*1ll);
-    ll l=0,h=sum;
-    ll ans=sum;
-    while(l<=h){
-        ll mid=l+(h-l)/2;
-        if(check(mid,v,w)){
-           l=mid+1;
-        }
-        else {
-          ans=mid;
-          h=mid-1;
-        }
-        
+    if(sum&1){
+        cout<<0<<endl;return;
     }
-    cout<<ans<<endl;
-    
-
+    memset(dp,-1,sizeof(dp));
+    ll tar=sum/2;
+    if(cal(v,0,tar,n))cout<<tar<<endl;
+    else cout<<0<<endl;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
@@ -213,8 +193,11 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-     Sieve(1e5+1);
+    int t;
+    cin>>t;
+    while(t--)
+    {
      solve();
-    
+    }
     return 0;
 }
