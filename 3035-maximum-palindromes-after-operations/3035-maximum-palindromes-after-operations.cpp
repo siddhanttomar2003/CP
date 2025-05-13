@@ -1,38 +1,16 @@
 class Solution {
 public:
-    bool palendrome(string& temp) {
-        int i = 0;
-        int j = temp.length() - 1;
-        while (i < j) {
-            if (temp[i] != temp[j])
-                return false;
-            i++;
-            j--;
-        }
-        return true;
-    }
     int maxPalindromesAfterOperations(vector<string>& words) {
-        int n = words.size();
-        vector<int> v(26, 0);
-        int ans = 0;
-        vector<int> npal;
-        for (int i = 0; i < n; i++) {
-            string temp = words[i];
-            if (palendrome(temp)) {
-                ans++;
-                if (temp.length() & 1) {
-                    v[temp[temp.length() / 2] - 'a']++;
-                }
-            } else {
-                for (int j = 0; j < temp.length(); j++) {
-                    v[temp[j] - 'a']++;
-                }
-                npal.push_back(temp.length());
-            }
+        vector<int>v(26,0);
+        for(int i=0;i<words.size();i++){
+            for(auto it:words[i])v[it-97]++;
         }
-        sort(npal.begin(), npal.end());
-        for (int i = 0; i < npal.size(); i++) {
-            int req = npal[i];
+        sort(words.begin(),words.end(),[](string &a,string &b){
+             return a.size()<b.size();
+        });
+        int ans=0;
+        for (int i = 0; i < words.size(); i++) {
+            int req = words[i].size();
             bool odd = req & 1;
             if (odd)
                 req--;
@@ -77,5 +55,6 @@ public:
             }
         }
         return ans;
+
     }
 };
