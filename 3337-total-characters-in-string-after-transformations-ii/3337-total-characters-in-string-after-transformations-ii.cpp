@@ -1,58 +1,58 @@
-const int MOD = 1e9 + 7;
-vector<vector<int>> mat_mul(const vector<vector<int>>& mat1, const vector<vector<int>>& mat2, int mod) {
-    int rows = mat1.size();
-    int cols = mat2[0].size();
-    int common_dim = mat2.size();
-    vector<vector<int>> res(rows, vector<int>(cols, 0));
-    
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            for (int k = 0; k < common_dim; k++) {
-                res[i][j] = (res[i][j] + (1LL * mat1[i][k] * mat2[k][j]) % mod) % mod;
-            }
-        }
-    }
-    return res;
-}
-
-vector<vector<int>> mat_pow(vector<vector<int>> mat, int n, int mod) {
-    int size = mat.size();
-    vector<vector<int>> res(size, vector<int>(size, 0));
-    for (int i = 0; i < size; i++) res[i][i] = 1;
-    
-    while (n > 0) {
-        if (n & 1) {
-            res = mat_mul(res, mat, mod);
-        }
-        mat = mat_mul(mat, mat, mod);
-        n >>= 1;
-    }
-    return res;
-}
-
 class Solution {
 public:
-    int lengthAfterTransformations(const string& s, int t, const vector<int>& A) {
-        vector<vector<int>> M(26, vector<int>(26, 0));
-        for (int i = 0; i < A.size(); ++i) {
-            int k = A[i];
-            for (int j = i + 1; j <= i + k; ++j) {
-                M[i][j % 26] = 1;
+    const int m=1e9+7;
+    vector<vector<int>> mul(vector<vector<int>>&s,vector<vector<int>>&r,int n1,int m1,int n2,int m2){
+        vector<vector<int>>res(n1,vector<int>(m2,0));
+        for(int i=0;i<n1;i++){
+            for(int j=0;j<m2;j++){
+                for(int k=0;k<m1;k++){
+                    res[i][j]=(res[i][j]+(s[i][k]*r[k][j])%m)%m;
+                }
             }
         }
-        
-        vector<vector<int>> Mt = mat_pow(M, t, MOD);
-        vector<int> count(26, 0);
-        for (char c : s) {
-            count[c - 'a']++;
+        return res;
+    }
+    vector<vector<int>> fast_pow(vector<vector<int>>&s,int t){
+        vector<vector<int>>res(26,vector<int>(26,0));
+        for(int i=0;i<26;i++){
+            for(int j=0;j<26;j++){
+                if(i==j)res[i][j]=1;
+            }
         }
-        
-        vector<vector<int>> res = mat_mul({count}, Mt, MOD);
-        int sum_result = 0;
-        for (int val : res[0]) {
-            sum_result = (sum_result + val) % MOD;
+        while(t>0){
+            if(t&1){
+                res=mul(res,s,26,26,26,26);
+            }
+            s=mul(s,s,26,26,26,26);
+            t>>=1;
         }
-        
-        return sum_result;
+        return res;
+
+    }
+    int lengthAfterTransformations(string s, int t, vector<int>& nums) {
+        // similiar to fibnoacci number in which we know that 
+        // the current number will depend on the past two number 
+        // similiary in this we know that each character will be changed
+        // to according to nums vaala array
+        // building state matrix first for this
+        vector<vector<int>>state(26,vector<int>(26,0));
+        // here state[i] will denote on which will it change in one transformation
+        // so to find out after t transformation how will this look 
+        // we simply need to use fast pow , matrix exponentiation
+        for(int i=0;i<26;i++){
+            for(int j=i+1;j<=i+nums[i];j++){
+                state[i][j%26]=1;
+            }
+        }
+        vector<vector<int>>res= fast_pow(state,t);
+        // now we just need to multiply this final state for the freq of char in s
+        vector<vector<int>>f(1,vector<int>(26,0));
+        for(char it:s)f[0][it-'a']++;
+        vector<vector<int>>f_ans=  mul(f,res,1,26,26,26);
+        int ans=0;
+        for(int i=0;i<26;i++){
+            ans=(ans+f_ans[0][i])%m;
+        }
+        return ans;
     }
 };
