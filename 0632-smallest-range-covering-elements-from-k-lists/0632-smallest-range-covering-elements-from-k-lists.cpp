@@ -1,36 +1,33 @@
 class Solution {
 public:
     vector<int> smallestRange(vector<vector<int>>& nums) {
-        priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>>
-            pq;
-        // initialize the pq with first value of each list
-        int maxi = INT_MIN;
-        for (int i = 0; i < nums.size(); i++) {
-            pq.push({nums[i][0], i, 0});
-            maxi = max(maxi, nums[i][0]);
+        int range = 1e9;
+        set<pair<int, int>> st;
+        int start = -1, end = -1;
+        int n = nums.size(), k = nums[0].size();
+        for (int i = 0; i < n; i++) {
+            st.insert({nums[i][0], i});
         }
-        vector<int> ans(2);
-        ans[0] = -1e6;
-        ans[1] = 1e6;
         while (true) {
-            vector<int> curr = pq.top();pq.pop();
-            int curr_ele = curr[0];
-            int list_index = curr[1];
-            int ele_index = curr[2];
-            if (maxi - curr_ele < ans[1] - ans[0] ||
-                (maxi - curr_ele == ans[1] - ans[0] && curr_ele < ans[0])){
-                    ans[0]=curr_ele;
-                    ans[1]=maxi;
-                }
-
-                if(ele_index+1<nums[list_index].size()){
-                    pq.push({nums[list_index][ele_index+1],list_index,ele_index+1});
-                    maxi=max(maxi,nums[list_index][ele_index+1]);
-                }
-                else {
-                    break;
-                }
+            int curr_min = st.begin()->first;
+            int ind_s = st.begin()->second;
+            int curr_max = st.rbegin()->first;
+            int ind_e = st.rbegin()->second;
+            int curr_range = curr_max - curr_min;
+            if (curr_range < range) {
+                range = curr_range;
+                start = curr_min;
+                end = curr_max;
+            }
+            int it =
+                upper_bound(nums[ind_s].begin(), nums[ind_s].end(), curr_min) -
+                nums[ind_s].begin();
+            int size = nums[ind_s].size();
+            st.erase({curr_min,ind_s});
+            if (it == size)
+                break;
+            st.insert({nums[ind_s][it], ind_s});
         }
-        return ans;
+        return {start, end};
     }
 };
