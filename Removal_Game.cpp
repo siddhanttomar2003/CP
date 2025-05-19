@@ -1,48 +1,22 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
 typedef long long ll;
-typedef vector<ll> vl;
-typedef vector<vl> vvl;
-
-// Global memoization table
-vvl dp;
-
-ll maxScore(const vl& x, int left, int right) {
-    // Base case
-    if (left > right) return 0;
-    // Memoization check
-    if (dp[left][right] != -1) return dp[left][right];
-    
-    // Option 1: First player picks x[left]
-    ll pickLeft = x[left] + min(maxScore(x, left + 2, right), maxScore(x, left + 1, right - 1));
-    
-    // Option 2: First player picks x[right]
-    ll pickRight = x[right] + min(maxScore(x, left + 1, right - 1), maxScore(x, left, right - 2));
-    
-    // Maximum score first player can achieve
-    return dp[left][right] = max(pickLeft, pickRight);
+const int N=5005;
+ll dp[N][N];
+ll cal(int i, int j, vector<ll>&c){
+    if(i==j)return c[i];
+    else if(j-i==1)return max(c[i],c[j]);
+    if(dp[i][j]!=-1)return dp[i][j];
+    return dp[i][j]= max((c[i]+min(cal(i+2,j,c),cal(i+1,j-1,c))),(c[j]+min(cal(i+1,j-1,c),cal(i,j-2,c))));
 }
-
-void solve() {
-    int n;
-    cin >> n;
-    vl x(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> x[i];
+int main(){
+    int n;cin>>n;
+    vector<ll>c(n);
+    for(int i=0;i<n;i++){
+        cin>>c[i];
     }
-    
-    // Initialize memoization table
-    dp.assign(n, vl(n, -1));
-    
-    // Calculate and print the maximum score for the first player
-    ll maxScoreFirstPlayer = maxScore(x, 0, n - 1);
-    cout << maxScoreFirstPlayer << endl;
-}
-
-int main() {
-    solve();
+    memset(dp,-1,sizeof(dp));
+    cout<<cal(0,n-1,c)<<endl;
     return 0;
 }
