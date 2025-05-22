@@ -4,14 +4,18 @@ public:
         intervals.push_back(newInterval);
         sort(intervals.begin(),intervals.end());
         vector<vector<int>>ans;
-        ans.push_back(intervals[0]);
-        int j=0;
+        int s=intervals[0][0],e=intervals[0][1];
         for(int i=1;i<intervals.size();i++){
-            if(ans[j][1]>=intervals[i][0]){
-                ans[j][1]=max(ans[j][1],intervals[i][1]);
-            }
-            else {ans.push_back(intervals[i]);j++;}
+             int curr_s=intervals[i][0],curr_e=intervals[i][1];
+             if(curr_s<=e){
+                e=max(e,curr_e);
+             }
+             else {
+                ans.push_back({s,e});
+                s=curr_s,e=curr_e;
+             }
         }
+        ans.push_back({s,e});
         return ans;
     }
 };
