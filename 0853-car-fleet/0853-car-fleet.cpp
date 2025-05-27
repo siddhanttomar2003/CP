@@ -7,23 +7,16 @@ public:
             ps.push_back({position[i],speed[i]});
         }
         sort(ps.begin(),ps.end());
-        stack<double>st;
         int count=0;
-        for(int i=n-1;i>=0;i--){
+        double last=(target-ps[n-1].first)/ps[n-1].second;
+        for(int i=n-2;i>=0;i--){
             double dis=(double)target-ps[i].first;
             double t=dis/ps[i].second;
-            if(st.size()==0){
-                 st.push(t);
-                 continue;
-            }
-            while(!st.empty() && t>st.top()){
+            if(t>last){
                 count++;
-                st.pop();
+                last=t;
             }
-            if(st.size()==0)st.push(t);
         }
-        int add=0;
-        if(st.size()>0)add=1;
-        return count+add;
+        return count+1;
     }
 };
