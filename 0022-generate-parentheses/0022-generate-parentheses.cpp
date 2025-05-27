@@ -1,19 +1,19 @@
 class Solution {
 public:
-     void gen(vector<string> &ans, string temp, int n , int o, int c){
-        if(o==n && c==n){
-            ans.push_back(temp);
-            return;
-        }
-        if(o<n){
-        gen(ans,temp+'(',n,o+1,c);
-        }
-        if(o>c)gen(ans,temp+')',n,o,c+1);
-     }
+    void cal(vector<string>&ans, int i, int n, int o, string a){
+      if(i==n){
+        if(o==0)ans.push_back(a);
+        return;
+      }
+      if(o>0){
+        cal(ans,i+1,n,o-1,a+')');
+      }
+      cal(ans,i+1,n,o+1,a+'(');
+    }
     vector<string> generateParenthesis(int n) {
-        string temp="";
+        int open=0;
         vector<string>ans;
-        gen(ans,temp,n,0,0);
+        cal(ans,0,2*n,open,"");
         return ans;
     }
 };
