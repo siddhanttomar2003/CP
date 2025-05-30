@@ -4,7 +4,7 @@ public:
      int dp[8][16385];
      int ans(vector<int>&nums, int &full_mask , int &curr_mask,int op){
         if(curr_mask==full_mask){
-           return dp[op][curr_mask]=0;
+           return 0;
         }
         if(dp[op][curr_mask]!=-1)return dp[op][curr_mask];
         int curr=0;
