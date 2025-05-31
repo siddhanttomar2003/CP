@@ -1,44 +1,49 @@
 class Solution {
 public:
     int snakesAndLadders(vector<vector<int>>& board) {
-        map<int,int>mp;
-        int n=board.size();
-        vector<int>temp(n*n+1);
-        int m=board[0].size();
-        for(int i=n-1;i>=0;i--){
-            for(int j=0;j<m;j++){
-                  if((n-1-i)%2==0){
-                       temp[(n-1-i)*n+(j+1)]=board[i][j];
-                  }
-                  else {
-                    temp[(n-1-i)*n+(m-j)]=board[i][j];
-                  }
-                 
+        int n = board.size();
+        int new_size = n * n;
+        vector<int> nboard(new_size + 1);
+        int curr = 1;
+        int level = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            if (level & 1) {
+                for (int j = n - 1; j >= 0; j--) {
+                    nboard[curr] = board[i][j];
+                    curr++;
+                }
+            } else {
+                for (int j = 0; j < n; j++) {
+                    nboard[curr] = board[i][j];
+                    curr++;
+                }
             }
+            level++;
         }
-
-        queue<pair<int,int>>q;
-        vector<int>dis(n*n+1,INT_MAX);
-        dis[1]=0;
-        q.push({1,0});
-        while(q.size()>0){
-            int par=q.front().first;
-            int times=q.front().second;
-            q.pop();
-            for(int i=0;i<=6;i++){
-                if(par+i<=n*n && dis[par+i]>times+1){
-                    dis[par+i]=times+1;
-                    if(temp[par+i]!=-1){
-                        dis[temp[par+i]]=times+1;
-                        q.push({temp[par+i],times+1});
-                    }
-                    else {
-                    q.push({par+i,times+1});
+        
+        vector<int> dis(new_size + 1, 1e9);
+        dis[1] = 0;
+        priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>>
+            pq;
+        pq.push({0, 1});
+        while (pq.size() > 0) {
+            int par = pq.top()[1];
+            int steps = pq.top()[0];
+            pq.pop();
+            for (int i = 1; i <= 6; i++) {
+                if (par + i <= new_size) {
+                    int new_par = par + i;
+                    if (nboard[new_par] != -1)
+                        new_par = nboard[new_par];
+                    if (dis[new_par] > steps + 1) {
+                        dis[new_par] = steps + 1;
+                        pq.push({steps + 1, new_par});
                     }
                 }
             }
         }
-        if(dis[n*n]==INT_MAX)return -1;
-        return dis[n*n];
+        if (dis[new_size] == 1e9)
+            return -1;
+        return dis[new_size];
     }
 };
