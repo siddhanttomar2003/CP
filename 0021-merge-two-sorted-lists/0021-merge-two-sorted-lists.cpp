@@ -8,61 +8,63 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        ListNode *temp1=list1;
-        ListNode *temp2=list2;
-        ListNode *head=NULL;
-        ListNode *tail=NULL;
-        while(temp1!=NULL&&temp2!=NULL){
-            if(temp1->val<temp2->val){
-                   if(head==NULL){
-                       head=temp1;
-                       tail=temp1;
-                   }
-                   else {
-                        tail->next=temp1;
-                        tail=temp1;
-                   }
-                   temp1=temp1->next;
+        ListNode *head1=list1;
+        ListNode *head2=list2;
+        ListNode *last=NULL;
+        ListNode *newhead=NULL;
+    while(head1!=NULL && head2!=NULL){
+        if(newhead==NULL){
+            if(head1->val<head2->val){
+                newhead=head1;
+                last=head1;
+                head1=head1->next;
             }
-           
-            else{
-                 if(head==NULL){
-                       head=temp2;
-                       tail=temp2;
-                   }
-                   else {
-                        tail->next=temp2;
-                        tail=temp2;
-                   }
-                   temp2=temp2->next;
+            else {
+                newhead=head2;
+                last=head2;
+                head2=head2->next;
             }
-
         }
-        while(temp1!=NULL){
-             if(head==NULL){
-                       head=temp1;
-                       tail=temp1;
-                   }
-                   else {
-                        tail->next=temp1;
-                        tail=temp1;
-                   }
-                   temp1=temp1->next;
+        else {
+            if(head1->val<head2->val){
+                last->next=head1;
+                last=head1;
+                head1=head1->next;
+            }
+            else {
+                last->next=head2;
+                last=head2;
+                head2=head2->next;
+            }
         }
-        while(temp2!=NULL){
-            if(head==NULL){
-                       head=temp2;
-                       tail=temp2;
-                   }
-                   else {
-                        tail->next=temp2;
-                        tail=temp2;
-                   }
-                   temp2=temp2->next;
+    }
+    while(head1!=NULL){
+        if(newhead==NULL){
+            newhead=head1;
+            last=head1;
         }
-        return head;
+        else {
+        last->next=head1;
+        last=head1;
+        }
+        head1=head1->next;
+    }
+    while(head2!=NULL){
+        if(newhead==NULL){
+            newhead=head2;
+            last=head2;
+        }
+        else {
+        last->next=head2;
+        last=head2;
+        }
+        head2=head2->next;
+    }
+    return newhead;
+        
     }
 };
