@@ -8,25 +8,33 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        vector<pair<int,ListNode *>>ans;
+        priority_queue<pair<int,ListNode *>,vector<pair<int,ListNode *>>,greater<pair<int,ListNode*>>>pq;
         for(int i=0;i<lists.size();i++){
-            ListNode *temp=lists[i];
-            while(temp!=NULL){
-                ans.push_back({temp->val,temp});
-                temp=temp->next;
+            if(lists[i]!=NULL)
+            pq.push({lists[i]->val,lists[i]});
+        }
+        ListNode * head=NULL,*tail=NULL;
+        while(pq.size()>0){
+            ListNode *temp=pq.top().second;
+            int num=pq.top().first;
+            pq.pop();
+            ListNode *newnode=new ListNode(num);
+            if(temp->next!=NULL){
+                pq.push({temp->next->val,temp->next});
+            }
+            if(head==NULL){
+                head=newnode;
+                tail=newnode;
+            }
+            else {
+                tail->next=newnode;
+                tail=newnode;
             }
         }
-        sort(ans.begin(),ans.end());
-        
-        for(int i=0;i<ans.size();i++){
-            if(i==ans.size()-1)ans[i].second->next=NULL;
-            else 
-            ans[i].second->next=ans[i+1].second;
-        }
-        if(ans.size()==0)return NULL;
-        return ans[0].second;
+        return head;
     }
 };
