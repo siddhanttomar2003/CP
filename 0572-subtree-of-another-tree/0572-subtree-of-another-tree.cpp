@@ -6,31 +6,64 @@
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
  * };
  */
 class Solution {
 public:
-    bool check(TreeNode *a1, TreeNode *b1){
-        if(a1==NULL && b1==NULL)return true;
-        if(a1==NULL || b1==NULL)return false;
-        if(a1->val!=b1->val)return false;
-        bool l=check(a1->left,b1->left);
-        bool r=check(a1->right,b1->right);
-        return l&r;
-    }
-    bool cal(TreeNode *a1, TreeNode *b1,bool &ans){
-        if(a1==NULL)return false;
-        if(a1->val==b1->val){
-           if(check(a1,b1))ans=true;
+    void serialize(TreeNode* root, string& s) {
+        if (root == NULL) {
+            s += ",#";
+            return;
         }
-        cal(a1->left,b1,ans);
-        cal(a1->right,b1,ans);
+        s += "," + to_string(root->val);
+        serialize(root->left, s);
+        serialize(root->right, s);
+    }
+    void build_lps(string& s, int n, vector<int>& lps) {
+        int len = 0;
+        lps[0] = 0;
+        int i = 1;
+        while (i < n) {
+            if (s[len] == s[i]) {
+                len++;
+                lps[i] = len;
+                i++;
+            } else {
+                if (len != 0) {
+                    len = lps[len - 1];
+                } else {
+                    i++;
+                }
+            }
+        }
+    }
+    bool matching(string& s1, string& s2, vector<int>& lps) {
+        int n = s1.size(), m = s2.size();
+        int i = 0, j = 0;
+        while (i < n) {
+            if (s1[i] == s2[j]) {
+                i++;
+                j++;
+                if (j == m)
+                    return true;
+            } else {
+                if (j != 0) {
+                    j = lps[j - 1];
+                } else
+                    i++;
+            }
+        }
         return false;
     }
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-        bool ans=false;
-        cal(root,subRoot,ans);
-        return ans;
+        string s1, s2;
+        serialize(root, s1);
+        serialize(subRoot, s2);
+        int m = s2.size();
+        vector<int> lps(m, 0);
+        build_lps(s2, m , lps);
+        return matching(s1, s2, lps);
     }
 };
