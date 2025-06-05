@@ -9,23 +9,20 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+typedef long long ll;
 class Solution {
 public:
-    bool recur(TreeNode *root, long long mini, long long maxi){
-        if(root==NULL)return true;
-        if(root->val<mini+1 || root->val>maxi-1){
-            return false;
-        }
-        
-        bool check_left=recur(root->left,mini,root->val);
-        bool check_right=recur(root->right,root->val,maxi);
-        return check_left&&check_right;
+    void cal(TreeNode * root, bool &ans, ll mini, ll maxi){
+         if(root==NULL)return;
+         if((ll)root->val<mini || (ll)root->val>maxi)ans=false;
+         cal(root->left,ans,mini,root->val-1*1ll);
+         cal(root->right,ans,root->val+1*1ll,maxi);
     }
     bool isValidBST(TreeNode* root) {
-        // top to down approach
-        long long int mini=-1000000000000;        
-        long long int maxi=1000000000000;
-          bool ans=recur(root,mini,maxi);
-          return ans;
+        bool ans=true;
+        ll mini=-1e10;
+        ll maxi=1e10;
+        cal(root,ans,mini,maxi);
+        return ans;
     }
 };
