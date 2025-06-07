@@ -18,15 +18,13 @@ public:
             int size=tw[it].size();
             vector<pair<int,int>>&v=tw[it];
             for(int i=size-1;i>=0;i--){
-                if(v[i].first>=t-10){
-                  ans.push_back(v[i]);
-                }
-                else break;
+                ans.push_back({v[i]});
             }
         }
         sort(ans.rbegin(),ans.rend());
         vector<int>f_ans;
-        for(auto it:ans)f_ans.push_back(it.second);
+        int size=ans.size();
+        for(int i=0;i<min(size,10);i++)f_ans.push_back(ans[i].second);
         return f_ans;
     }
     
