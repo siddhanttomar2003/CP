@@ -1,28 +1,22 @@
 class Solution {
 public:
-     void recursion(vector<vector<int>>&ans,vector<int>&v,vector<int>&nums,int index){
-         if(index>=nums.size()){
-             ans.push_back(v);
-             return;
-         }
-         v.push_back(nums[index]);
-         recursion(ans,v,nums,index+1);
-         v.pop_back();
-         while(index+1<nums.size()&&nums[index+1]==nums[index]){
-               index++;
-         }
-         recursion(ans,v,nums,index+1);
-     }
+    void cal(vector<vector<int>>&st,vector<int>&curr,vector<int>&nums,int i){
+        if(i==nums.size()){
+            st.push_back(curr);
+            return;
+        }
+        curr.push_back(nums[i]);
+        cal(st,curr,nums,i+1);
+        curr.pop_back();
+        while(i+1<nums.size() && nums[i]==nums[i+1])i++;
+        cal(st,curr,nums,i+1);
+
+    }
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-          //power set
-          sort(nums.begin(),nums.end());
-      int index=0;
-      vector<vector<int>>ans;
-      vector<int>v;
-      recursion(ans,v,nums,index);
-        return ans;
+        vector<vector<int>>st;
+        vector<int>curr;
+        sort(nums.begin(),nums.end());
+        cal(st,curr,nums,0);
+        return st;
     }
 };
-
-     
-    
