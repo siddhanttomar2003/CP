@@ -1,32 +1,30 @@
-//Solution 01:
 class Solution {
 public:
-    vector<vector<string>> partition(string s) {
-        vector<vector<string>> ans;
-        vector<string> temp;
-        help(0, s, temp, ans);
-        return ans;
+    bool isPalendrome(string s, int start,int end){
+          while(start<=end){
+           if(s[start]!=s[end])return false;
+            start++;end--;
+          }
+          return true;
     }
-    
-    void help(int index, string s, vector<string> &temp, vector<vector<string>> &ans){
-        if(index == s.size()){
-            ans.push_back(temp);
+    void palendrome_partition(int index, vector<string>&store, vector<vector<string>>&ans,string s){
+        if(index==s.length()){
+            ans.push_back(store);
             return;
         }
-        for(int i=index; i<s.size(); i++){
-            if(isPalindrome(s, index, i)){
-                temp.push_back(s.substr(index, i-index+1));
-                help(i+1, s, temp, ans);
-                temp.pop_back();
+        for(int i=index;i<s.length();i++){
+            if(isPalendrome(s,index,i)){
+                store.push_back(s.substr(index,i-index+1));
+                palendrome_partition(i+1,store,ans,s);
+                store.pop_back();
             }
         }
     }
-    
-    bool isPalindrome(string s, int start, int end){
-        while(start<=end){
-            if(s[start++] != s[end--])
-                return false;
-        }
-        return true;
+    vector<vector<string>> partition(string s) {
+        vector<vector<string>>ans;
+        vector<string>store;
+        int index=0;
+        palendrome_partition(index,store,ans,s);
+        return ans;
     }
 };
