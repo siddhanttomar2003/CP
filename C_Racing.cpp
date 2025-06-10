@@ -133,30 +133,46 @@ vector<int> matching(string &s, vector<int>& lps, string &p) {
     }
     return ans;
 }
-
-int dfs(int start, vi &vis, vvi &adj, vi &ans){
-        vis[start]=1;
-        int sum=0;
-        for(auto it:adj[start]){
-           if(!vis[it]){
-            sum+=dfs(it,vis,adj,ans);
-           }
-        }
-        ans[start]=sum;
-        return ans[start]+1;
-}
 void solve(){
-  inint(n);
-  vvi adj(n+1);
-  rep(i,n-1,0){
-    inint(u);
-    adj[u].push_back(i+2);
-  }
-  vi ans(n+1,0);
-  vi vis(n+1,0);
-  dfs(1,vis,adj,ans);
-  for(int i=1;i<=n;i++)cout<<ans[i]<<" ";
-  cout<<endl;
+    inint(n);
+    vl v(n);
+    inv;
+    vpi inter(n);
+    rep(i,n,0){
+        inint(a);inint(b);
+        inter[i]={a,b};
+    }
+    int l_s=inter[n-1].first-1;
+    int l_e=inter[n-1].second;
+    vpi fin(n);
+    fin[n-1]=inter[n-1];
+    for(int i=n-2;i>=0;i--){
+        int c_s=inter[i].first;
+        int c_e=inter[i].second;
+        int maxi=max(l_s,c_s);
+        int mini=min(l_e,c_e);
+        if(mini<maxi){
+            cout<<-1<<endl;
+            return;
+        }
+        fin[i]={maxi,mini};
+        l_s=maxi-1;
+        l_e=mini;
+    }
+    if(fin[0].first>=2 || (fin[0].first>=1 && v[0]==0) || (fin[0].second==0 && v[0]==1)){
+        cout<<-1<<endl;
+        return;
+    }
+    int curr;
+    if(v[0]==-1){
+        v[0]=fin[0].first
+    }
+    curr=v[0];
+    rep(i,n,0){
+        
+    }
+
+
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
@@ -194,8 +210,11 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-   
+    int t;
+    cin>>t;
+    while(t--)
+    {
      solve();
-    
+    }
     return 0;
 }

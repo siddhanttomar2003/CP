@@ -176,65 +176,7 @@ void solve(){
     vector<int>temp;
     for(auto it:st)temp.pb(it);
     ll cal=0;
-    int s=temp.size();
-    cout<<temp<<endl;
-    rep(i,s-1,0){
-        ll curr_diff=temp[i+1]-temp[i]+1;
-        ll piche,aage;
-        if(i==0)piche=temp[i];
-            else {
-                piche=i-temp[i-1]-1;
-            }
-            if(i==s-2)aage=n-temp[i+1]-1;
-            else aage=temp[i+2]-temp[i+1]-1;
-
-        cout<<curr_diff<<" "<<aage<<" "<<piche<<endl;
-
-        if(curr_diff>=4){
-            cal+=(piche*aage+1+aage+piche);
-        }
-        else {
-            ll min_req=4-curr_diff;
-            if(min_req==1){
-               int c=0;
-               if(piche>0){
-                c++;
-                piche--;
-                cal+=(piche*aage+1);
-                piche++;
-               }
-               if(aage>0){
-                c++;
-                aage--;
-                cal+=(aage*piche+1);
-                aage++;
-               }
-               if(c==2)cal--;
-            }
-            else {
-            int c=0;
-            if (piche >= 2) {
-                piche -= 2;
-                cal += (piche * aage + piche);
-                piche += 2;
-            }
-            if (aage >= 2) {
-                aage -= 2;
-                cal += (piche * aage + aage);
-                aage += 2;
-            }
-            if (piche >= 1 && aage >= 1) {
-                piche--;
-                aage--;
-                cal += (piche * aage + 1);
-                piche++;
-                aage++;
-            }
-        }
-        }
-    //   cout<<cal<<endl;
-    }
-    cout<<cal<<endl;
+    
   
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.

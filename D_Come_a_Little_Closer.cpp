@@ -133,30 +133,64 @@ vector<int> matching(string &s, vector<int>& lps, string &p) {
     }
     return ans;
 }
-
-int dfs(int start, vi &vis, vvi &adj, vi &ans){
-        vis[start]=1;
-        int sum=0;
-        for(auto it:adj[start]){
-           if(!vis[it]){
-            sum+=dfs(it,vis,adj,ans);
+void solve(){
+    inint(n);
+    vpl v(n);
+    ll left=1e10,right=0,up=0,down=1e10;
+    ll left_ind=-1,right_ind=-1,up_ind=-1,down_ind=-1;
+    
+    rep(i,n,0){
+        ll a,b;
+        cin>>a>>b;
+        v[i]={a,b};
+        if(a<left){
+            left=a;
+            left_ind=i;
+        }
+        if(a>right){
+            right=a;
+            right_ind=i;
+        }
+        if(b>up){
+            up=b;
+            up_ind=i;
+        }
+        if(b<down){
+            down=b;
+            down_ind=i;
+        }
+    }
+    if(n==1){
+        cout<<1<<endl;
+        return;
+    }
+    // cout<<left<<" "<<right<<" "<<down<<" "<<up<<endl;
+    vl ind;
+    ind.push_back(left_ind);ind.push_back(right_ind);ind.push_back(up_ind);ind.push_back(down_ind);
+    ll coins=(right-left+(ll)1)*(up-down+(ll)1);
+    for(int i=0;i<4;i++){
+        ll n_left=1e10,n_right=0,n_down=1e10,n_up=0;
+        for(int j=0;j<n;j++){
+           if(ind[i]!=j){
+              n_left=min(n_left,v[j].first);
+              n_right=max(n_right,v[j].first);
+              n_down=min(n_down,v[j].second);
+              n_up=max(n_up,v[j].second);
            }
         }
-        ans[start]=sum;
-        return ans[start]+1;
-}
-void solve(){
-  inint(n);
-  vvi adj(n+1);
-  rep(i,n-1,0){
-    inint(u);
-    adj[u].push_back(i+2);
-  }
-  vi ans(n+1,0);
-  vi vis(n+1,0);
-  dfs(1,vis,adj,ans);
-  for(int i=1;i<=n;i++)cout<<ans[i]<<" ";
-  cout<<endl;
+        ll remain=n-1;
+        ll row=n_right-n_left+(ll)1;
+        ll col=n_up-n_down+(ll)1;
+
+        ll curr_cells=row*col;
+        if(remain==curr_cells){
+            coins=min(coins,(max(row,col)+(ll)1)*(min(row,col)));
+        }
+        else
+        coins=min(coins,curr_cells);
+    }
+    cout<<coins<<endl;
+
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
@@ -194,8 +228,11 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-   
+    int t;
+    cin>>t;
+    while(t--)
+    {
      solve();
-    
+    }
     return 0;
 }

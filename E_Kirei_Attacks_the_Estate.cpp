@@ -133,30 +133,43 @@ vector<int> matching(string &s, vector<int>& lps, string &p) {
     }
     return ans;
 }
-
-int dfs(int start, vi &vis, vvi &adj, vi &ans){
-        vis[start]=1;
-        int sum=0;
-        for(auto it:adj[start]){
-           if(!vis[it]){
-            sum+=dfs(it,vis,adj,ans);
-           }
+void dfs(vvl &adj, int node, vl &v, vl& ans,vl &vis, ll o, ll e,ll state,ll mini){
+     vis[node]=1;
+     ans[node]=max(v[node],v[node]-mini);
+     for(auto it:adj[node]){
+        if(!vis[it]){
+            mini=min(mini,e-o);
+            if(state==0){
+                swap(o,e);
+                o+=v[it];
+            }
+            else o+=v[it];
+            dfs(adj,it,v,ans,vis,o,e,state^1,mini);
         }
-        ans[start]=sum;
-        return ans[start]+1;
+     }
 }
 void solve(){
-  inint(n);
-  vvi adj(n+1);
-  rep(i,n-1,0){
-    inint(u);
-    adj[u].push_back(i+2);
-  }
-  vi ans(n+1,0);
-  vi vis(n+1,0);
-  dfs(1,vis,adj,ans);
-  for(int i=1;i<=n;i++)cout<<ans[i]<<" ";
-  cout<<endl;
+    inint(n);
+    vvl adj(n+1);
+    vl v(n+1);
+    rep(i,n+1,1){
+        cin>>v[i];
+    }
+    rep(i,n-1,0){
+       int u,v;
+       cin>>u>>v;
+       adj[u].push_back(v);
+       adj[v].push_back(u);
+    }
+    vl ans(n+1);
+    ll odd=v[1],even=0;
+    vl vis(n+1,0);
+    ll maxi=1e12;
+    dfs(adj,1,v,ans,vis,odd,even,0,maxi);
+    for(int i=1;i<=n;i++){
+        cout<<ans[i]<<" ";
+    }
+    cout<<endl;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
@@ -194,8 +207,11 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-   
+    int t;
+    cin>>t;
+    while(t--)
+    {
      solve();
-    
+    }
     return 0;
 }

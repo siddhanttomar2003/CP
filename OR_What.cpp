@@ -133,30 +133,56 @@ vector<int> matching(string &s, vector<int>& lps, string &p) {
     }
     return ans;
 }
-
-int dfs(int start, vi &vis, vvi &adj, vi &ans){
-        vis[start]=1;
-        int sum=0;
-        for(auto it:adj[start]){
-           if(!vis[it]){
-            sum+=dfs(it,vis,adj,ans);
-           }
-        }
-        ans[start]=sum;
-        return ans[start]+1;
-}
 void solve(){
-  inint(n);
-  vvi adj(n+1);
-  rep(i,n-1,0){
-    inint(u);
-    adj[u].push_back(i+2);
-  }
-  vi ans(n+1,0);
-  vi vis(n+1,0);
-  dfs(1,vis,adj,ans);
-  for(int i=1;i<=n;i++)cout<<ans[i]<<" ";
-  cout<<endl;
+    ll n,x;
+    cin>>n>>x;
+    set<ll>avail,not_avail;
+   
+    for(ll i=1;i<=n;i++){
+        bool check=true;
+        
+        for(ll j=0;j<32;j++){
+            if(!(x&(1*1ll<<j)) && (i&(1*1ll<<j)))check=false;
+        }
+        if(check)avail.insert(i);
+        else not_avail.insert(i);
+
+    }
+    map<ll,ll>mp;
+    set<ll>vis;
+
+    vector<ll>ans(n,0);
+
+    for(auto it:avail){
+        ll req=x^it;
+        if( req>0 && req<=n &&  vis.find(req)==vis.end()){
+            vis.insert(it);
+            vis.insert(req);
+            ans[it-1]=req;
+            ans[req-1]=it;
+        }
+    }
+    if(n>=x && vis.find(x)==vis.end()){
+        ans[x-1]=x;
+        vis.insert(x);
+    }
+
+    for(ll i=0;i<n;i++){
+        if(ans[i]==0 && not_avail.size()>0){
+            ll number=*not_avail.begin();
+            ans[i]=number;
+            not_avail.erase(number);
+        }
+        else if(ans[i]==0){
+            ll number=*avail.begin();
+            ans[i]=number;
+            avail.erase(number);
+        }
+    }
+    cout<<ans<<endl;
+
+
+
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
@@ -194,8 +220,11 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-   
+    int t;
+    cin>>t;
+    while(t--)
+    {
      solve();
-    
+    }
     return 0;
 }

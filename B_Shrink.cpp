@@ -133,30 +133,17 @@ vector<int> matching(string &s, vector<int>& lps, string &p) {
     }
     return ans;
 }
-
-int dfs(int start, vi &vis, vvi &adj, vi &ans){
-        vis[start]=1;
-        int sum=0;
-        for(auto it:adj[start]){
-           if(!vis[it]){
-            sum+=dfs(it,vis,adj,ans);
-           }
-        }
-        ans[start]=sum;
-        return ans[start]+1;
-}
 void solve(){
-  inint(n);
-  vvi adj(n+1);
-  rep(i,n-1,0){
-    inint(u);
-    adj[u].push_back(i+2);
-  }
-  vi ans(n+1,0);
-  vi vis(n+1,0);
-  dfs(1,vis,adj,ans);
-  for(int i=1;i<=n;i++)cout<<ans[i]<<" ";
-  cout<<endl;
+    inint(n);
+    cout<<1<<" ";
+    int en=n;
+    for(int i=0;i<n-1;i++){
+        cout<<en<<" ";
+        en--;
+    }
+    cout<<endl;
+
+    
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
@@ -194,8 +181,11 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-   
+    int t;
+    cin>>t;
+    while(t--)
+    {
      solve();
-    
+    }
     return 0;
 }

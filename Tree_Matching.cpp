@@ -1,22 +1,13 @@
 //author:-Siddhant Tomar
 //linked in :-https://www.linkedin.com/in/siddhant-tomar-9b3aab261/
-
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
 #include <bits/stdc++.h>
 using namespace std;
- using namespace __gnu_pbds;
-   typedef tree<
-       int, 
-       null_type, 
-       less<int>, 
-       rb_tree_tag, 
-       tree_order_statistics_node_update> 
-       ordered_set;
-
+#include <ext/pb_ds/assoc_container.hpp> 
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds; 
+#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
 //Speed
 #define fastio() ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
-
 //Macros
 #define IOtext freopen("input.txt","r",stdin); freopen("output.txt","w",stdout);
 #define PI (3.141592653589)
@@ -59,7 +50,6 @@ using namespace std;
 #define sort(v) sort(v.begin(),v.end());
 #define add(sum,v) accumulate(v.begin(),v.end(),sum);
 #define repa(it)      for(auto it:mp)
-
 //Typedef
 typedef long long ll;
 typedef unordered_map<ll,ll> ull;
@@ -75,14 +65,11 @@ typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 typedef map<int,int> mii;
 typedef set<int> st;
-
 #ifndef ONLINE_JUDGE
 #define debug(x) cerr<<#x<<" ";_print(x); cerr<<endl;
 #else
 #define debug(x)
 #endif
-
-
 // Operator overloads
 template<typename T> // cin >> vector<T>
 istream& operator>>(istream &istream, vector<T> &v){for (auto &it : v)cin >> it;return istream;}
@@ -90,154 +77,127 @@ template<typename T> // cout << vector<T>
 ostream& operator<<(ostream &ostream, const vector<T> &c) { for (auto &it : c) cout << it << " "; return ostream; }
 template<typename T, typename V> // cout << map<T,T>
 ostream& operator<<(ostream &ostream, const map<T,V> &c) { for (auto &it : c) cout << it.first << " " << it.second<<endl; return ostream; }
-
 //Sorting
 bool sorta(const pair<int,int> &a,const pair<int,int> &b){return (a.second < b.second);}
-
-
 //Bits
 string decToBinary(int n){string s="";int i = 0;while (n > 0) {s =to_string(n % 2)+s;n = n / 2;i++;}return s;}
 ll binaryToDecimal(string n){string num = n;ll dec_value = 0;int base = 1;int len = num.length();for(int i = len - 1; i >= 0; i--){if (num[i] == '1')dec_value += base;base = base * 2;}return dec_value;}
-
 //Check
 bool isPrime(ll n){if(n<=1)return false;if(n<=3)return true;if(n%2==0||n%3==0)return false;for(int i=5;i*i<=n;i=i+6)if(n%i==0||n%(i+2)==0)return false;return true;}
 bool isPowerOfTwo(int n){if(n==0)return false;return (ceil(log2(n)) == floor(log2(n)));}
 bool isPerfectSquare(ll x){if (x >= 0) {ll sr = sqrt(x);return (sr * sr == x);}return false;}
-
 //Constants
 vector <ll> primes;
 vector <bool> is_prime;
-
 // Mathematical functions
 void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
 void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
-ll mod_add(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a + b) % m) + m) % m;}
-ll mod_sub(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a - b) % m) + m) % m;}
-ll gcd(ll a, ll b){if (b == 0)return a;return gcd(b, a % b);} //__gcd 
-ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
-ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
-ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
-ll count_one(int n) { ll count=0; while(n) {  n = n&(n-1); count++; } return count;}
-bool isPowerOfFour(int n) { return !(n&(n-1)) && (n&0x55555555);//check the 1-bit location;
-}
-ll modinv(ll p,ll q){ll ex;ex=M-2;while (ex) {if (ex & 1) {p = (p * q) % M;}q = (q * q) % M;ex>>= 1;}return p;}
-class Disjoint{
-vector<int>parent;
-vector<int>rank;
-public:
-Disjoint(int n){
-    parent.resize(n+1);
-    rank.resize(n+1,0);
-    for(int i=0;i<n+1;i++){
-        parent[i]=i;
+void constructlps(vector<int>& lps, string &p) {
+    int len = 0;
+    int i = 1;
+    lps[0] = 0;
+    while (i < p.size()) {
+        if (p[i] == p[len]) {
+            len++;
+            lps[i] = len;
+            i++;
+        } else {
+            if (len != 0) {
+                len = lps[len - 1];
+            } else {
+                lps[i] = 0;
+                i++;
+            }
+        }
     }
 }
-int findpar(int node){
-    if(parent[node]==node)return node;
-    else return parent[node]=findpar(parent[node]);
-}
-public:
-void unions(int u, int v){
-      u=findpar(u);
-      v=findpar(v);
-      if(u==v)return;
-      else if(rank[u]<rank[v]){
-        parent[u]=v;
-      }
-      else if(rank[v]<rank[u]){
-        parent[v]=u;
-      }
-      else{
-        parent[u]=v;
-        rank[v]++;
-      }
-}
-};
-ll binomial_expo (ll a, ll b){
-    ll ans=1;
-    while(b){
-        if(b&1){
-            ans=(ans*a)%1000000007;
+
+vector<int> matching(string &s, vector<int>& lps, string &p) {
+    vector<int> ans;
+    int i = 0, j = 0;
+    while (i < s.size()) {
+        if (s[i] == p[j]) {
+            i++;
+            j++;
+            if (j == p.size()) {
+                ans.push_back(i - j);
+                j = lps[j - 1];
+            }
+        } else {
+            if (j != 0) {
+                j = lps[j - 1];
+            } else {
+                i++;
+            }
         }
-        a=(a*a)%1000000007;
-        b>>=1;
-        
     }
     return ans;
 }
-
-ll buildTree(ll i, ll l, ll r, vector<ll> & v,vector<ll> &Seg_tree){
- if(l==r){
-   Seg_tree[i]=v[l];
-   return Seg_tree[i];
- }
- ll mid=(l+r)/2;
- ll build_left=buildTree(2*i+1,l,mid,v,Seg_tree);
- ll build_right=buildTree(2*i+2,mid+1,r,v,Seg_tree);
- Seg_tree[i]=build_left+build_right;
- return Seg_tree[i];
-}
- ll updateTree(ll i,ll l ,ll r , ll a, vl &Seg_tree,ll value){
-    if(l==r &&r==a){
-        Seg_tree[i]=value;
-        return Seg_tree[i];
+void solve(){
+    inint(n);
+    vvl adj(n+1);
+    vl indegree(n+1);
+    rep(i,n-1,0){
+      inint(u);inint(v);
+      adj[u].push_back(v);
+      adj[v].push_back(u);
+      indegree[u]++;
+      indegree[v]++;
     }
-     if(r<a || l>a)return Seg_tree[i];
-     ll mid=(l+r)/2;
-    ll left= updateTree(2*i+1,l,mid,a,Seg_tree,value);
-      ll right= updateTree(2*i+2,mid+1,r,a,Seg_tree,value);
-      return Seg_tree[i]=left+right ;
- }
-  ll travel(ll i, ll a, ll b, ll l , ll r , vl &Seg_tree ){
-    if(l>=a && r<=b)return Seg_tree[i];
-    if(l>b || r<a)return 0;// outofbounds
-    if(l==r)return 0;
-    ll mid=(l+r)/2;
-    ll left=travel(2*i+1,a,b,l,mid,Seg_tree);
-    ll right=travel(2*i+2,a,b,mid+1,r,Seg_tree);
-    return left+right;
- }
- int dfs(int start, vvi &adj, vi &ans, vi &visited){
-   visited[start]=1;
-   int curr=0;
-   for(int i=0;i<adj[start].size();i++){
-      if(!visited[adj[start][i]]){
-        curr+=(dfs(adj[start][i],adj,ans,visited));
+    int count=0;
+    queue<int>q;
+    vl vis(n+1,0);
+    for(int i=1;i<=n;i++){
+      if(indegree[i]==1){
+        // cout<<i<<" ";
+        q.push(i);
       }
-   }
-    ans[start]=curr;
-   return 1+curr;
- }
-  int dfs(int start, vvi &adj,map<int,int> visited){
-      if(adj[start].size()==1)return 0;
-      int t1=0;int t2=0;
-      for(int i=0;i<adj[start].size();i++){
-        int child=adj[start][i];
-        int par=start;
-        visited[par]++;visited[child]++;
-        t1=1+dfs(child,adj,visited);
-        if(visited.find())
-
-           
-         
+    }
+    while(q.size()>0){
+      int par=q.front();
+      q.pop();
+      for(auto it:adj[par]){
+        if(!vis[par] && !vis[it]){
+          vis[par]=1;vis[it]=1;
+          count++;
+          q.push(it);
+        }
+        else if(!vis[it]){
+          q.push(it);
+        }
       }
-      return max(t1+t2);
-  }
- void solve(){
-// vector<int>Seg_tree(4*n,0);
- inint(n);
- vvi adj(n+1);
- rep(i,n-1,0){
-    inint(a);inint(b);
-    adj[a].pb(b);
- }
- ll ans=0;
- map<int,int>visited;
-  cout<<dfs(1,adj,visited)<<endl;
- 
-
+    }
+    cout<<count<<endl;
 }
-
+//  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
+//  1. If greedy :-
+//       0. If it is an interval related problem try either sorting in an optimal way or line sweep algorithm.
+//       1. think of prefix or suffix sum
+//       2. think of binary search :-  either lowerbound / upperbound , binary search on answers, when constraints are 
+//        greater than 10^9 or around 10^18
+//       3. iterate from last 
+//       4. think of any mathematical expression :- for ex  (we use seive function cleverly)
+//       5. think of map , we can create any types of map ,  for ex:- int,vectorint etc , we can also use ordered map for extra functionalities.
+//       6. we can also use priorityqueue
+//       IMPORTANT 1:- * If the question requires last greater or last smaller or next greater or next smaller use stack     
+//       IMPORTANT 2:-  * If the question require first greater or first smaller for i'th index then u can pre_min or max array with bs.
+// IMPORTANT:- Whenever problem asks for the number of subarrays try to think in this way that how many subarrays will end at this particular index
+//  2. Two pointers:-
+//        1. maintain two pointers on different arrays
+//        2. sliding window 
+//  3. Bit manipulation :-
+//        1. just follow the properties greedily of or , xor and and;
+//  4. Dynamic Programming :-
+//        1. think of state using constraints and requirement 
+//        2. if ans is not coming in given states try to increase states and find the states smartly not violating the constraints
+//  5. Graph :-
+//        1. either bfs / dfs or dijkstra
+//        2. use dsu.
+//        3. u may also require to use dp to calculate the precomputed value for correct ans , means somewhat u have to use dfs.
+//        4. U can use kahns algo for finding whether there is cycle or not , the vector will return the nodes which are not in the cycle.
+//   6. If u are not able to proove that  any of your approaches is correct
+//       1. There might be a brute force solution which is actually not exceeding the time limit
+//          (Just carefully observe how many max times a loop can run if i do it and try to proove it will be in given constraints).
 int32_t main()
 {
     fastio()
@@ -246,8 +206,6 @@ int32_t main()
     #endif
    // Jai Bajrang Bali 
    
-   
-     
      solve();
     
     return 0;

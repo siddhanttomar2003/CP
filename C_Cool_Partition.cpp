@@ -133,30 +133,28 @@ vector<int> matching(string &s, vector<int>& lps, string &p) {
     }
     return ans;
 }
-
-int dfs(int start, vi &vis, vvi &adj, vi &ans){
-        vis[start]=1;
-        int sum=0;
-        for(auto it:adj[start]){
-           if(!vis[it]){
-            sum+=dfs(it,vis,adj,ans);
-           }
-        }
-        ans[start]=sum;
-        return ans[start]+1;
-}
 void solve(){
-  inint(n);
-  vvi adj(n+1);
-  rep(i,n-1,0){
-    inint(u);
-    adj[u].push_back(i+2);
-  }
-  vi ans(n+1,0);
-  vi vis(n+1,0);
-  dfs(1,vis,adj,ans);
-  for(int i=1;i<=n;i++)cout<<ans[i]<<" ";
-  cout<<endl;
+    inint(n);
+    vl v(n);
+    inv;
+    map<int,int>mp;
+    for(auto it:v)mp[it]++;
+    int count=0;
+    map<int,int>temp;
+    for(int i=n-1;i>=0;i--){
+        temp[v[i]]++;
+        if(temp.size()==mp.size()){
+            // cout<<i<<" "<<endl;
+          for(auto it:temp){
+            mp[it.first]-=it.second;
+            if(mp[it.first]==0)mp.erase(it.first);
+          }
+          temp.clear();
+          count++;
+        }
+    }
+    // cout<<endl;
+    cout<<count<<endl;
 }
 //  IMPORTANT :-  First look up the constraints first for every value given not just n for every valueeeee.
 //  1. If greedy :-
@@ -194,8 +192,11 @@ int32_t main()
         freopen("Error.txt","w",stderr);
     #endif
    // Jai Bajrang Bali 
-   
+    int t;
+    cin>>t;
+    while(t--)
+    {
      solve();
-    
+    }
     return 0;
 }
