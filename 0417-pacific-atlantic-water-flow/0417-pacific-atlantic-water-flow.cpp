@@ -1,58 +1,39 @@
 class Solution {
 public:
-    int m, n;
-    
-    set<pair<int, int>> bfs(queue<pair<int, int>>& q, vector<vector<int>>& heights) {
-        set<pair<int, int>> visited;
-        vector<vector<bool>> seen(m, vector<bool>(n, false));
-        vector<pair<int, int>> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-
-        while (!q.empty()) {
-            auto [r, c] = q.front(); q.pop();
-            if (seen[r][c]) continue;
-
-            seen[r][c] = true;
-            visited.insert({r, c});
-
-            for (auto [dr, dc] : directions) {
-                int R = r + dr;
-                int C = c + dc;
-
-                if (R >= 0 && R < m && C >= 0 && C < n &&
-                    !seen[R][C] && heights[R][C] >= heights[r][c]) {
-                    q.push({R, C});
-                }
-            }
-        }
-
-        return visited;
+    bool isValid(int i, int j, int n, int m){
+        return i>=0 && i<n && j>=0 && j<m;
     }
-
-    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
-        m = heights.size();
-        n = heights[0].size();
-
-        queue<pair<int, int>> pacificQ, atlanticQ;
-
-        for (int i = 0; i < m; i++) {
-            pacificQ.push({i, 0});
-            atlanticQ.push({i, n - 1});
-        }
-        for (int j = 0; j < n; j++) {
-            pacificQ.push({0, j});
-            atlanticQ.push({m - 1, j});
-        }
-
-        set<pair<int, int>> pacific = bfs(pacificQ, heights);
-        set<pair<int, int>> atlantic = bfs(atlanticQ, heights);
-
-        vector<vector<int>> result;
-        for (const auto& cell : pacific) {
-            if (atlantic.count(cell)) {
-                result.push_back({cell.first, cell.second});
+    void dfs(vector<vector<int>>&vis,vector<vector<int>>&h,int r, int c){
+        vis[r][c]=1;
+        int delRow[]={-1,0,1,0};
+        int delCol[]={0,1,0,-1};
+        int n=h.size(),m=h[0].size();
+        for(int k=0;k<4;k++){
+            int n_r=r+delRow[k];
+            int n_c=c+delCol[k];
+            if(isValid(n_r,n_c,n,m) && h[n_r][n_c]>=h[r][c] && !vis[n_r][n_c]){
+                dfs(vis,h,n_r,n_c);
             }
         }
-
-        return result;
+    }
+    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
+        int n=heights.size();
+        int m=heights[0].size();
+        vector<vector<int>>vis1(n,vector<int>(m,0)),vis2(n,vector<int>(m,0));
+        for(int i=0;i<n;i++){
+             dfs(vis1,heights,i,0);
+             dfs(vis2,heights,i,m-1);
+        }
+        for(int j=0;j<m;j++){
+            dfs(vis1,heights,0,j);
+            dfs(vis2,heights,n-1,j);
+        }
+        vector<vector<int>>ans;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(vis1[i][j] && vis2[i][j])ans.push_back({i,j});
+            }
+        }
+        return ans;
     }
 };
