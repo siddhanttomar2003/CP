@@ -1,42 +1,34 @@
-class Dsu{
-   public:
-   vector<int>parent,size;
-   Dsu(int n){
-    parent.resize(n);
-    size.resize(n,1);
-    for(int i=0;i<n;i++)parent[i]=i;
-   }
-   int findpar(int node){
-    if(parent[node]==node)return node;
-    else return parent[node]=findpar(parent[node]);
-   }
-   void unions(int u , int v){
-     u=findpar(u);
-     v=findpar(v);
-     if(u==v)return ;
-     if(size[u]<size[v]){
-        size[v]+=size[u];
-        parent[u]=v;
-     }
-     else {
-        size[u]+=size[v];
-        parent[v]=u;
-     }
-   }
-};
 class Solution {
 public:
+    void dfs(unordered_map<int,unordered_set<int>>&mp, int start, vector<int>&vis){
+        vis[start]=1;
+        for(auto it:mp[start]){
+            if(!vis[it]){
+                dfs(mp,it,vis);
+            }
+        }
+    }
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
         int n=edges.size();
-        Dsu d(n+1);
-         for(int i=0;i<edges.size();i++){
-            int u=edges[i][0];
-            int v=edges[i][1];
-            if(d.findpar(u)==d.findpar(v)){
-                return {u,v};
+        unordered_map<int,unordered_set<int>>mp;
+        for(auto it:edges){
+            mp[it[0]].insert(it[1]);
+            mp[it[1]].insert(it[0]);
+        }
+        for(int i=n-1;i>=0;i--){
+            vector<int>vis(n+1,0);
+            int u=edges[i][0],v=edges[i][1];
+            mp[u].erase(v);
+            mp[v].erase(u);
+            dfs(mp,1,vis);
+            bool check=true;
+            for(int i=1;i<=n;i++){
+                if(!vis[i])check=false;
             }
-            d.unions(u,v);
-         }
-         return {0};
+            if(check)return {u,v};
+            mp[u].insert(v);
+            mp[v].insert(u);
+        }
+        return {-1,-1};
     }
 };
