@@ -1,26 +1,29 @@
 class Solution {
 public:
-    int numDecodings(string s) {
-      if(s.length()==0 ||s[0]=='0'){
-          return 0;
-      }  
-        else if(s.length()==1){
+    int dp[101];
+    int cal(string& s, int i, int n) {
+        if (i >= n)
             return 1;
+        if (dp[i] != -1)
+            return dp[i];
+        if (s[i] == '0')
+            return 0;
+        int ways = 0;
+        if (s[i] == '1' || s[i] == '2') {
+            ways += cal(s, i + 1, n);
+            if (s[i] == '1' && i + 1 < n) {
+                ways += cal(s, i + 2, n);
+            }
+            else if (s[i] == '2' && i+1 < n && s[i+1] <= '6'){
+                ways += cal(s, i + 2, n);
+            }
         }
-        int c1=1;
-        int c2=1;
-        for(int i=1;i<s.length();i++){
-            int d = s[i] - '0';
-            int d2 = (s[i - 1] - '0')*10 + d;
-            int c = 0;
-            if(d > 0)
-                c += c2;
-            if(d2 >= 10 and d2 <= 26)
-                c += c1;
-            c1 = c2;
-            c2 = c;
-        }
-        return c2; 
-        
+        else ways += cal(s, i + 1, n);
+        return dp[i] = ways;
+    }
+    int numDecodings(string s) {
+        memset(dp, -1, sizeof(dp));
+        int n = s.size();
+        return cal(s, 0, n);
     }
 };
