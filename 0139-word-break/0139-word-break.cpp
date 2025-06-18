@@ -1,34 +1,23 @@
-#include <string>
-#include <unordered_set>
-#include <vector>
-using namespace std;
-
 class Solution {
 public:
-    bool find_ans(string s, int index, unordered_set<string>& st, vector<int>& memo) {
-        if (index == s.length()) {
-            return true;
-        }
-        if (memo[index] != -1) {
-            return memo[index];
-        }
-        string temp = "";
-        for (int i = index; i < s.length(); i++) {
-            temp += s[i];
-            if (st.find(temp) != st.end()) {
-                if (find_ans(s, i + 1, st, memo)) {
-                    memo[index] = 1;
-                    return true;
-                }
+    int dp[301];
+    int cal(string &s, unordered_map<string,int>&mp, int i){
+        if(i==s.size())return true;
+        if(dp[i]!=-1)return dp[i];
+        int isPos=false;
+        for(int j=i;j<s.size();j++){
+            if(mp.find(s.substr(i,j-i+1))!=mp.end()){
+                 isPos|=cal(s,mp,j+1);
             }
         }
-        memo[index] = 0;
-        return false;
+        return dp[i]=isPos;
     }
-
-    bool wordBreak(string s, vector<string>& wordDict) {
-        unordered_set<string> st(wordDict.begin(), wordDict.end());
-        vector<int> memo(s.length(), -1);  // Initialize memo vector with -1 indicating uncomputed values
-        return find_ans(s, 0, st, memo);
+    bool wordBreak(string s, vector<string>& w) {
+        unordered_map<string,int>mp;
+        for(auto it:w){
+            mp[it]++;
+        }
+        memset(dp,-1,sizeof(dp));
+        return cal(s,mp,0);
     }
 };
