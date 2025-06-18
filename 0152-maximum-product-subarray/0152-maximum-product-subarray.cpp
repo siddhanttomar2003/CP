@@ -1,20 +1,19 @@
+typedef int ll;
 class Solution {
 public:
     int maxProduct(vector<int>& nums) {
-        int prefix=1;
-        int suffix=1;
-        int ans=INT_MIN;
-        for(int i=0;i<nums.size();i++){
-             prefix*=nums[i];
-           
-          suffix*=nums[nums.size()-i-1];
-          ans=max(ans,max(prefix,suffix));
-           if(nums[i]==0){prefix=1;
-            }
-            if(nums[nums.size()-i-1]==0){suffix=1;}
-         
-        
+        int n=nums.size();
+        ll pre=1;
+        ll suff=1;
+        ll maxi=-1e9;
+        for(int i=0;i<n;i++){
+            pre*=nums[i];
+            suff*=nums[n-i-1];
+            maxi=max({maxi,pre,suff});
+            if(suff==0)suff=1;
+            if(pre==0)pre=1;
         }
-        return ans;
+        return maxi;
+
     }
 };
