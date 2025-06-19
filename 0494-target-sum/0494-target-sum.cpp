@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int cal(vector<int>&nums, int tar, map<int,map<int,int>>&dp, int i, int curr){
+    int cal(vector<int>&nums, int tar, unordered_map<int,unordered_map<int,int>>&dp, int i, int curr){
      if(i==nums.size()){
         return curr==tar;
      }
@@ -11,7 +11,7 @@ public:
      return dp[i][curr]=ways;
     }
     int findTargetSumWays(vector<int>& nums, int target) {
-        map<int,map<int,int>>dp;
+        unordered_map<int,unordered_map<int,int>>dp;
         return cal(nums,target,dp,0,0);
     }
 };
