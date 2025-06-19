@@ -1,30 +1,24 @@
 class Solution {
 public:
-    int find_max(vector<int>& prices,vector<vector<int>> &dp,int i, int buy){
-        // using take nottake
-        if(i>=prices.size()){
+    int dp[5001][2];
+    int cal(vector<int>&p, int i , int op){
+        if(i>=p.size()){
             return 0;
         }
-        int profit=INT_MIN;
-        if(dp[i][buy]!=-1)return dp[i][buy];
-        if(buy){
-           profit=max(-prices[i]+find_max(prices,dp,i+1,0),find_max(prices,dp,i+1,1));
+        if(dp[i][op]!=-1)return dp[i][op];
+        int maxi=0;
+        if(op==0){
+          maxi=max(maxi,-p[i]+cal(p,i+1,op^1));
+          maxi=max(maxi,cal(p,i+1,op));
         }
         else {
-            profit=max(prices[i]+find_max(prices,dp,i+2,1),find_max(prices,dp,i+1,0));
+            maxi=max(maxi,p[i]+cal(p,i+2,op^1));
+            maxi=max(maxi,cal(p,i+1,op));
         }
-        return dp[i][buy]=profit;
+        return dp[i][op]=maxi;
     }
     int maxProfit(vector<int>& prices) {
-        int n=prices.size();
-        vector<vector<int>> dp(n+2,vector<int>(2,0));
-       for(int i=n-1;i>=0;i--){
-        for(int buy=0;buy<=1;buy++){
-            if(buy)dp[i][buy]=max(-prices[i]+dp[i+1][0],dp[i+1][1]);
-            else dp[i][buy]=max(prices[i]+dp[i+2][1],dp[i+1][0]);
-        }
-       }
-       return dp[0][1];
-       
+        memset(dp,-1,sizeof(dp));
+        return cal(prices,0,0);
     }
 };
