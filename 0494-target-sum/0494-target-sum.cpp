@@ -1,18 +1,17 @@
 class Solution {
 public:
-    int cal(map<pair<int,int>,int>&mp, int i, vector<int>&nums, int tar,int curr_sum){
-        if(i==nums.size()){
-           return curr_sum==tar;            
-        }
-        if(mp.find({i,curr_sum})!=mp.end())return mp[{i,curr_sum}];
-        int w1=cal(mp,i+1,nums,tar,curr_sum+nums[i]);
-        int w2=cal(mp,i+1,nums,tar,curr_sum-nums[i]);
-        return mp[{i,curr_sum}]=w1+w2;
+    int cal(vector<int>&nums, int tar, map<int,map<int,int>>&dp, int i, int curr){
+     if(i==nums.size()){
+        return curr==tar;
+     }
+     if(dp[i].count(curr))return dp[i][curr];
+     int ways=0;
+     ways+=cal(nums,tar,dp,i+1,curr+nums[i]);
+     ways+=cal(nums,tar,dp,i+1,curr-nums[i]);
+     return dp[i][curr]=ways;
     }
     int findTargetSumWays(vector<int>& nums, int target) {
-        int n=nums.size();
-        map<pair<int,int>,int>mp;
-        return cal(mp,0,nums,target,0);
-
+        map<int,map<int,int>>dp;
+        return cal(nums,target,dp,0,0);
     }
 };
