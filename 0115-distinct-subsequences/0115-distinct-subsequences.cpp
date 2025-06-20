@@ -1,24 +1,22 @@
 class Solution {
 public:
-    int dp[1001][1001];
-    int cal(string &s, string &t, int i, int j, int n, int m){
-        if(j==m)return true;
-        if(i==n)return false;
-        if(dp[i][j]!=-1)return dp[i][j];
-        int ways=0;
-        if(s[i]==t[j]){
-            ways += cal(s,t,i+1,j+1,n,m);
-            
-        }
-
-            ways += cal(s,t,i+1,j,n,m);
-        
-        return dp[i][j]=ways;
-    }
+    const int mod =1e9+7;
     int numDistinct(string s, string t) {
-        memset(dp,-1,sizeof(dp));
-        int n=s.size();
-        int m=t.size();
-        return cal(s,t,0,0,n,m);
+        int n = s.size();
+        int m = t.size();
+        vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+        for(int i=0;i<n;i++){
+            dp[i][0]=1;
+        }
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=m;j++){
+                if(s[i-1]==t[j-1]){
+                    dp[i][j]=(dp[i-1][j-1]+dp[i-1][j])%mod;
+                }
+                else dp[i][j]=dp[i-1][j];
+            }
+        }
+        return dp[n][m];
+
     }
 };
