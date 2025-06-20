@@ -1,21 +1,33 @@
 class Solution {
 public:
-    int dp[501][501];
-    int cal(string &w1, string &w2, int i , int j, int n , int m){
-        if(j == m)return n-i;
-        if(i == n)return m-j;
-        if(dp[i][j] != -1)return dp[i][j];
-        int ways=1e9;
-        if( w1[i] == w2[j]){
-          ways = min(ways, cal(w1,w2,i+1,j+1,n,m));
-        }
-         ways = min(ways, 1 + cal(w1,w2,i+1,j,n,m));
-         ways = min(ways, 1 + cal(w1,w2,i+1,j+1,n,m));
-         return dp[i][j] = ways;
-    }
     int minDistance(string word1, string word2) {
-        memset(dp,-1,sizeof(dp));
         int n=word1.size(),m=word2.size();
-        return cal(word1,word2,0,0,n,m);
+        
+        vector<vector<int>>dp(n+1,vector<int>(m+1,1e9));
+        //dp[i][j]-> number of different ways to make the string a equal to string b
+        // if we take the string a to ith index and string b to jth index
+
+        // where will it fail during the transition :-
+        // when either one of this string completes or both of them completes we cannot call
+        // for further transition
+
+        //->base case:1(when string b finished )
+        // ->base case:2 (when string a finished)
+           
+        for(int i=0;i<=n;i++)dp[i][0]=i;
+        for(int i=0;i<=m;i++)dp[0][i]=i;
+        for(int i=1;i<=n;i++){
+            char c=word1[i-1];
+            for(int j=1;j<=m;j++){
+               char d=word2[j-1];
+               if(c==d){
+                dp[i][j]=dp[i-1][j-1];
+               }
+               else {
+                 dp[i][j]=min({1+dp[i-1][j-1],1+dp[i-1][j],1+dp[i][j-1]});
+               }
+            }
+        }
+        return dp[n][m];
     }
 };
