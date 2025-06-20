@@ -1,28 +1,20 @@
 class Solution {
 public:
-    //  int recur(vector<int> &nums, int i,vector<int> &dp){
-    //     if(i>=nums.size()-1){
-    //       return 0;
-    //     }
-    //     if((dp[i]!=1e8))return dp[i];
-    //     for(int j=1;j<=nums[i];j++){
-    //         dp[i]= min(dp[i] ,1+recur(nums,i+j,dp));
-    //     }
-    //    return  dp[i];
-
-    //  }
-    int jump(vector<int>& nums) {
-        int i=0;
-        int n=nums.size();
-        vector<int>dp(n,1e8);
-        dp[n-1]=0;
-        for(int i=n-2;i>=0;i--){
-            for(int j=1;j<=nums[i];j++){
-                if(i+j<n)
-                dp[i]=min(dp[i],1+dp[i+j]);
+    int dp[10001];
+    int cal(vector<int>&nums, int i, int n){
+        if(i==n-1)return 0;
+        if(dp[i]!=-1)return dp[i];
+        int steps=1e9;
+        for(int j=1;j<=nums[i];j++){
+            if(i+j<=n-1){
+               steps=min(steps,1+cal(nums,i+j,n));
             }
         }
-        return dp[0];
-        
+        return dp[i]=steps;
+    }
+    int jump(vector<int>& nums) {
+        memset(dp,-1,sizeof(dp));
+        int n=nums.size();
+        return cal(nums,0,n);
     }
 };
