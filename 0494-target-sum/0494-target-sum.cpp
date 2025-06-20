@@ -1,17 +1,22 @@
 class Solution {
 public:
-    int cal(vector<int>&nums, int tar, unordered_map<int,unordered_map<int,int>>&dp, int i, int curr){
+    int dp[21][2001];
+    int cal(vector<int>&nums, int tar, int i, int curr){
      if(i==nums.size()){
         return curr==tar;
      }
-     if(dp[i].count(curr))return dp[i][curr];
+     if(dp[i][curr+1000]!=-1)return dp[i][curr+1000];
      int ways=0;
-     ways+=cal(nums,tar,dp,i+1,curr+nums[i]);
-     ways+=cal(nums,tar,dp,i+1,curr-nums[i]);
-     return dp[i][curr]=ways;
+     if(curr+nums[i]<=1000){
+     ways+=cal(nums,tar,i+1,curr+nums[i]);
+     }
+     if(curr-nums[i]>=-1000){
+     ways+=cal(nums,tar,i+1,curr-nums[i]);
+     }
+     return dp[i][curr+1000]=ways;
     }
     int findTargetSumWays(vector<int>& nums, int target) {
-        unordered_map<int,unordered_map<int,int>>dp;
-        return cal(nums,target,dp,0,0);
+        memset(dp,-1,sizeof(dp));
+        return cal(nums,target,0,0);
     }
 };
