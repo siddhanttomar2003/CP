@@ -1,18 +1,16 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-      // moore' svoting algo
-     int el;
-     int count=0;
-     for(int i=0;i<nums.size();i++){
-         if(count==0){
-             count=1;
-             el=nums[i];
-         }
-         else if(el==nums[i])count++;
-         else count--;
-     }
-     return el;
-
+        int ele;
+        int times = 0;
+        for(int i = 0; i < nums.size(); i++){
+            if(times == 0){
+                ele = nums[i];
+                times = 1;
+            }
+            else if(nums[i] == ele) times++;
+            else times --;
+        }
+        return ele;
     }
 };
