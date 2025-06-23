@@ -1,32 +1,21 @@
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
-        int pos=-1;
-        // we need to find the out the break point from the reverse
-        for(int i=nums.size()-1;i>0;i--){
-            if(nums[i-1]<nums[i]){
-             pos=i-1;
-             break;
-            }
-        }
-        if(pos==-1){reverse(nums.begin(),nums.end());
-        for(int j=0;j<nums.size();j++){
-            cout<<nums[j]<<" ";
-        }
-        }
+        int n = nums.size();
+        int last_pos = -1;
+        int i = n - 1;
+        while(i - 1 >= 0 && nums[i - 1] >= nums[i])i--;
+        last_pos = i - 1;
+        cout<<last_pos<<endl;
+        if(last_pos == -1)reverse(nums.begin(),nums.end());
         else {
-        int i=nums.size()-1;
-        while(pos<i){
-            if(nums[i]>nums[pos]){
-                swap(nums[pos],nums[i]);
-                break;
+            int j = n - 1;
+            while(nums[j] <= nums[last_pos]){
+                j--;
             }
-            i--;
+            swap(nums[last_pos], nums[j]);
+            reverse(nums.begin()+last_pos+1,nums.end());
         }
-        reverse(nums.begin()+pos+1,nums.end());
-         for(int j=0;j<nums.size();j++){
-             cout<<nums[j]<<" ";
-         }
-        }
+        return;
     }
 };
