@@ -175,8 +175,8 @@ public:
                 int len=n-mid;
                 if(len&1)i=mid+2;
                 else j=mid-1;
-            }
-          
+            }  
+            else return arr[mid];
         }
         return -1;
         
