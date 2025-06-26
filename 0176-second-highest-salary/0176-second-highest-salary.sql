@@ -1,2 +1,6 @@
 # Write your MySQL query statement below
-SELECT COALESCE((select distinct salary  from Employee order by salary DESC LIMIT 1 OFFSET 1),NULL) as "SecondHighestSalary";
+with temp as (
+    select salary , dense_rank() over (order by salary desc)  as ranks from Employee
+)
+-- select * from temp;
+SELECT COALESCE((select  salary  from temp where ranks = 2 limit 1 ),NULL) as SecondHighestSalary;
