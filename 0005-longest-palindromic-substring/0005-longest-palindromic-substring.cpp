@@ -1,37 +1,35 @@
 class Solution {
 public:
-    int isPal[1001][1001];
-    bool build(string &s, int i, int j){
-        if(j<i)return true;
-        if(i==j) return isPal[i][j]=true;
-        if(isPal[i][j]!=-1)return isPal[i][j];
-        if(s[i]==s[j]){
-            isPal[i][j]=build(s,i+1,j-1);
+    int expand(string &s, int pos_s, int pos_e){
+        int n=s.size();
+        while(pos_s>=0 && pos_e<n && s[pos_s]==s[pos_e]){
+            pos_s--;
+            pos_e++;
         }
-        else {
-            isPal[i][j]=0;
-        }
-        build(s,i+1,j);
-        build(s,i,j-1);
-        return isPal[i][j];
+        return pos_e-pos_s-1;
     }
     string longestPalindrome(string s) {
         int n=s.size();
-        memset(isPal,-1,sizeof(isPal));
-        build(s,0,n-1);
-        int len=0;
+        int max_len=0;
         int start=-1,end=-1;
         for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                if(isPal[i][j] && j>=i && j-i+1>len ){
-                    len=j-i+1;
-                    start=i;
-                    end=j;
-                }
+            int expand_for_odd=expand(s,i,i);
+            int expand_for_even=expand(s,i,i+1);
+            if(expand_for_odd>max_len){
+              max_len=expand_for_odd;
+              start=i-(max_len/2);
+              end=i+(max_len/2);
+            }
+            if(expand_for_even>max_len){
+              max_len=expand_for_even;
+              start=i-(max_len/2)+1;
+              end=i+(max_len/2);
             }
         }
         string ans="";
-        for(int i=start;i<=end;i++)ans+=s[i];
+        for(int i=start;i<=end;i++){
+              ans+=s[i];
+        }
         return ans;
     }
 };
