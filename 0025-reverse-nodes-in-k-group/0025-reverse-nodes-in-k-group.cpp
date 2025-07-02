@@ -1,48 +1,51 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
-    int getLengthOfLinkedList(ListNode *head)
-    {
-        ListNode *ptr = head;
-        int cnt=0;
-        while(ptr)
-        {
-            cnt++;
-            ptr=ptr->next;
-        }
-        return cnt;
-    }
 public:
-    ListNode* reverseKGroup(ListNode* head, int k) 
-    {
-        if(!head)
-            return NULL;
-    
-        int len = getLengthOfLinkedList(head);
-        if(len<k)
-            return head;
-        
-        int numberOfGroupsToReverse = len/k;
-        
-        ListNode *dummyNode = new ListNode(-1);
-        dummyNode->next = head;
-        ListNode *start = dummyNode;
-
-        ListNode *pre,*remaining,*next;
-        for(int i=0;i<numberOfGroupsToReverse;i++)
-        {
-            pre = NULL;
-            remaining = head;
-            for(int j=0;j<k;j++)
-            {
-                next = head->next;
-                head->next = pre;
-                pre=head;
-                head=next;
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        ListNode * temp = head;
+        if(k == 0)return head;
+        int count = k;
+        ListNode * last = NULL;
+        ListNode * prev_head = head;
+        bool check = false;
+        while(temp != NULL){
+            count --;
+            if(count == 0){
+               count = k;
+               ListNode * store = temp -> next;
+               ListNode * prev = NULL;
+               ListNode * curr = prev_head;
+               while(curr != store){
+                   ListNode * next = curr -> next;
+                   curr -> next = prev;
+                   prev = curr;
+                   curr = next;
+               }
+               if(!check){
+                head = prev;
+                check = true;
+               }
+               if(last != NULL){
+                last -> next = temp;
+               }
+               last = prev_head;
+               prev_head -> next = store;
+               prev_head = store;
+               temp = store;
             }
-            start->next = pre;
-            remaining->next = head;
-            start = remaining;
+            else {
+               temp = temp -> next;
+            }
         }
-        
-        return dummyNode->next;
+        return head;
     }
 };
