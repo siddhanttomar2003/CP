@@ -1,14 +1,16 @@
+typedef long long ll;
 class Solution {
 public:
     char kthCharacter(long long k, vector<int>& operations) {
-      int times=0;
-      for(int i=log2(k);i>=0;i--){
-        if(k> 1LL<<i){
-            k-= 1LL<<i;
-            times+=operations[i];
+        int op = log2(k);
+        int increments = 0;
+        while (k > 1LL) {
+            if ((1LL << op) == k) op--;
+            ll last = 1LL << op; 
+            if (operations[op] == 1) increments++;
+            k -= last;
+            op = log2(k);
         }
-      }
-      return 'a'+ times %26;
-
+        return (char)(97 + (increments % 26));
     }
 };
