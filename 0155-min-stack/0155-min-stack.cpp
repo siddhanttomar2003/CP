@@ -1,21 +1,21 @@
-typedef long long ll;
 class MinStack {
 public:
-    stack<pair<ll,ll>>st;
-    ll mini=1e10;
+    stack<pair<int,int>>st;
+    int mini;
     MinStack() {
-        
+        mini = pow(2, 31) - 1 ;
     }
     
     void push(int val) {
-        mini=min(mini,(ll)val);
+        mini = min(mini, val);
         st.push({val,mini});
     }
     
     void pop() {
-        st.pop();
-        if(!st.empty())mini=st.top().second;
-        else mini=1e10;
+       int curr_mini = st.top().second;
+       st.pop();
+       if(st.size() > 0)mini = st.top().second;
+       else mini = pow(2, 31) - 1;
     }
     
     int top() {
