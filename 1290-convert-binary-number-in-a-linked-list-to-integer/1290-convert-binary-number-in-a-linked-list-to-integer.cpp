@@ -10,26 +10,26 @@
  */
 class Solution {
 public:
+    int curr = 0;
+    int num = 0;
     ListNode * reverse_ll(ListNode * &head){
-        if(head -> next == NULL)return head;
+        if(head -> next == NULL){
+            if(head -> val)
+            num += pow(2, curr);
+            curr++;
+            return head;
+        }
         ListNode * mhead = reverse_ll(head -> next);
         head -> next -> next = head;
         head -> next = NULL;
+        if(head -> val){
+            num += pow(2, curr);
+        }
+        curr++;
         return mhead;
     }
     int getDecimalValue(ListNode* head) {
         head = reverse_ll(head);
-        int num = 0;
-        int curr = 0;
-        ListNode * temp = head;
-        while(temp != NULL){
-            if(temp -> val == 1){
-                num += pow(2, curr);
-            }
-            // cout << temp -> val << endl;
-            temp = temp -> next;
-            curr++;
-        }
         return num;
     }
 };
