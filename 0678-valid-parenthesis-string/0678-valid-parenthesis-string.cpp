@@ -1,29 +1,29 @@
 class Solution {
 public:
     bool checkValidString(string s) {
-        int curr_s=0;
-        int ex=0;
-        for(auto it:s){
-            if(it=='(')curr_s++;
-            else if(it==')'){
-                if(curr_s>0)curr_s--;
-                else if(ex>0)ex--;
-                else return false;
-            }
+        stack<int>st1, st2;
+        int n = s.size();
+        for(int i = 0; i < n; i++){
+            if(s[i] == '(')st1.push(i);
+            else if(s[i] == '*')st2.push(i);
             else {
-                ex++;
+                if(st1.size() == 0){
+                    if(st2.size() == 0)return false;
+                    else st2.pop();
+                }
+                else {
+                    st1.pop();
+                }
             }
         }
-        curr_s=0,ex=0;
-        for(int i=s.size()-1;i>=0;i--){
-            if(s[i]==')')curr_s++;
-            else if(s[i]=='('){
-                if(curr_s>0)curr_s--;
-                else if(ex>0)ex--;
-                else return false;
+        // all ) are balanced now
+        while(st1.size() > 0 && st2.size() > 0){
+            if(st2.top() > st1.top()){
+                st1.pop();
+                st2.pop();
             }
-            else ex++;
+            else st2.pop();
         }
-        return true;
+        return st1.size() == 0;
     }
 };
