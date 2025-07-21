@@ -11,21 +11,19 @@
  */
 class Solution {
 public:
-     TreeNode *prev=NULL;
+    void pre_order(TreeNode * root, vector<TreeNode *> &pre){
+        if(root == NULL)return;
+        pre.push_back(root);
+        pre_order(root -> left, pre);
+        pre_order(root -> right, pre);
+    }
     void flatten(TreeNode* root) {
-       TreeNode *curr=root;
-       // using morris order
-       while(curr!=NULL){
-          if(curr->left!=NULL){
-             TreeNode *prev=curr->left;
-             while(prev->right){
-                prev=prev->right;
-             }
-             prev->right=curr->right;
-             curr->right=curr->left;
-             curr->left=NULL;
-          }
-          curr=curr->right;
-       }
+        if(root == NULL)return;
+        vector<TreeNode *>pre;
+        pre_order(root, pre);
+        for(int i = 0; i < pre.size() - 1; i++){
+            pre[i] -> right = pre[i + 1];
+            pre[i] -> left = NULL;
+        }
     }
 };
