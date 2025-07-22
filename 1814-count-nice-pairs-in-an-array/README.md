@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/count-nice-pairs-in-an-array/">1814. Count Nice Pairs in an Array</a></h2><h3>Medium</h3><hr><div><p>You are given an array <code>nums</code> that consists of non-negative integers. Let us define <code>rev(x)</code> as the reverse of the non-negative integer <code>x</code>. For example, <code>rev(123) = 321</code>, and <code>rev(120) = 21</code>. A pair of indices <code>(i, j)</code> is <strong>nice</strong> if it satisfies all of the following conditions:</p>
+<h2><a href="https://leetcode.com/problems/count-nice-pairs-in-an-array">1814. Count Nice Pairs in an Array</a></h2><h3>Medium</h3><hr><p>You are given an array <code>nums</code> that consists of non-negative integers. Let us define <code>rev(x)</code> as the reverse of the non-negative integer <code>x</code>. For example, <code>rev(123) = 321</code>, and <code>rev(120) = 21</code>. A pair of indices <code>(i, j)</code> is <strong>nice</strong> if it satisfies all of the following conditions:</p>
 
 <ul>
 	<li><code>0 &lt;= i &lt; j &lt; nums.length</code></li>
@@ -10,7 +10,8 @@
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
 
-<pre><strong>Input:</strong> nums = [42,11,1,97]
+<pre>
+<strong>Input:</strong> nums = [42,11,1,97]
 <strong>Output:</strong> 2
 <strong>Explanation:</strong> The two pairs are:
  - (0,3) : 42 + rev(97) = 42 + 79 = 121, 97 + rev(42) = 97 + 24 = 121.
@@ -19,7 +20,8 @@
 
 <p><strong class="example">Example 2:</strong></p>
 
-<pre><strong>Input:</strong> nums = [13,10,35,24,76]
+<pre>
+<strong>Input:</strong> nums = [13,10,35,24,76]
 <strong>Output:</strong> 4
 </pre>
 
@@ -30,4 +32,3 @@
 	<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>
 	<li><code>0 &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>
 </ul>
-</div>
