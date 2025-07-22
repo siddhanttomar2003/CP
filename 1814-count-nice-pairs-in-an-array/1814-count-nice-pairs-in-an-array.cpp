@@ -1,26 +1,20 @@
 class Solution {
 public:
-      int rev(int a){
-          int reverse=0;
-          while(a>0){
-              reverse=reverse*10+a%10;
-              a/=10;
-          }
-          return reverse;
-      }
-       
-    long long countNicePairs(vector<int>& nums) {
-        unordered_map<int,int>s;
-        long long c=0;
-        int n=nums.size();
-        for(int i : nums){
-            int x=i-rev(i);
-            s[x]++;
+    typedef long long ll;
+    const int m = 1e9 + 7;
+    int countNicePairs(vector<int>& nums) {
+        map<int,int>mp;
+        for(int i = 0; i < nums.size(); i++){
+            string temp = to_string(nums[i]);
+            reverse(temp.begin(), temp.end());
+            int num = stoi(temp);
+            mp[nums[i] - num]++;
         }
-        long long mod=1e9+7;
-        for(auto i : s){
-            c=(c+(i.second%mod*(i.second-1)/2));
+        ll ans = 0;
+        for(auto it : mp){
+            ll freq = it.second;
+            ans = (ans + (freq * (freq - 1)) / 2) % m;
         }
-       return c%mod;
+        return ans;
     }
 };
