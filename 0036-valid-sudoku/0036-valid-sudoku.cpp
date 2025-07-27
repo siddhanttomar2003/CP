@@ -1,39 +1,31 @@
 class Solution {
 public:
-    bool check(char d, vector<vector<int>>&r, vector<vector<int>>&c,vector<vector<int>>&sub,int i,int j){
-       int num=d-'1';
-       if(!r[i][num]){
-          r[i][num]=1;
-       }
-       else return false;
-       if(!c[j][num]){
-         c[j][num]=1;
-       }
-       else return false;
-       if(!sub[((i/3)*3)+(j/3)][num]){
-        sub[((i/3)*3)+(j/3)][num]=1;
-       }
-       else return false;
-       return true;
-    }
-    bool isValid(vector<vector<char>>&b,vector<vector<int>>&r,vector<vector<int>>&c,vector<vector<int>>&sub, int col , int m){
-        bool flag=true;
-        if(col==m)return flag;
-        for(int i=0;i<9;i++){
-            if(b[i][col]!='.'){
-                if(check(b[i][col],r,c,sub,i,col)){
-                   continue;
-                }
-                else flag=false;
+    vector<vector<int>>rows, cols, boxes;
+    
+    bool isValidSudoku(vector<vector<char>>& board) {
+        rows.assign(10, vector<int>(10, 0));
+        cols.assign(10, vector<int>(10, 0));
+        boxes.assign(10, vector<int>(10, 0));
+        bool check = true;
+        for(int i = 0; i < 3; i++){
+            for(int j = 0 ; j < 3; j++){
+                    int s_r = i * 3;
+                    int s_c = j * 3;
+                    int box = i * 3 + j;
+                    for(int k = s_r; k < s_r + 3; k++){
+                        for(int l = s_c; l < s_c + 3; l++){
+                            if(board[k][l] == '.')continue;
+                            int val = board[k][l] - 48;
+                            boxes[box][val]++;
+                            if(boxes[box][val] == 2)return false;
+                            rows[k][val]++;
+                            if(rows[k][val] == 2)return false;
+                            cols[l][val]++;
+                            if(cols[l][val] == 2)return false;
+                        }
+                    }
             }
         }
-        if(!flag)return flag;
-        else return flag &=isValid(b,r,c,sub,col+1,m);
-    }
-    bool isValidSudoku(vector<vector<char>>& board) {
-        int n=9;
-        vector<vector<int>>row(n,vector<int>(9,0)),col(n,vector<int>(9,0)),sub_box(n,vector<int>(9,0));
-        // will try to move row wise and then next col
-        return isValid(board,row,col,sub_box,0,9);
+        return true;
     }
 };
