@@ -1,81 +1,62 @@
-class Node{
-   public : 
-   Node * prev;
-   Node * next;
-   int val , key;
-   Node(){
-     next = NULL;
-     prev = NULL;
-   }
-   Node(int val){
-     this -> val = val;
-     next = NULL;
-     prev = NULL;
-   }
+class Dl{
+    public :
+    Dl *next, *prev;
+    int val,key;
+    Dl(int val, int key){
+        this -> val = val;
+        next = NULL;
+        prev = NULL;
+        this -> key = key;
+    }
 };
 class LRUCache {
 public:
-    // will need a key to node mapping 
-    map<int,Node *>mp;
-    Node * head;
-    Node * tail;
-    int size;
-
+    Dl *head, *tail;
+    int cap;
+    map<int,Dl *>mp;
     LRUCache(int capacity) {
-        size = capacity;
-        head = new Node();
-        tail = new Node();
-        head =  NULL;
-        tail = NULL;
+        head = new Dl(-1, -1);
+        tail = new Dl(-1, -1);
+        head -> next = tail;
+        tail -> prev = head;
+        cap = capacity;
     }
-    void remove(Node * curr){
-        Node * p = curr -> prev;
-        Node * n = curr -> next;
-        if(n != NULL){
-            n -> prev = p;
-        }
-        else tail = p;
-        if(p != NULL){
-            p -> next = n;
-        }
-        else head = n;
+    void remove_from_Dl(Dl * node){
+        Dl * last = node -> prev;
+        Dl * nx = node -> next;
+        last -> next = nx;
+        nx -> prev = last;
     }
-    void add_last(Node * curr){
-        if(head == NULL){
-            head = curr;
-            tail = curr;
-        }
-        else {
-            tail -> next = curr;
-            curr -> prev = tail;
-            tail = curr;
-        }
+    void insert_in_Dl(Dl * node){
+        Dl * last = tail -> prev;
+        last -> next = node;
+        tail -> prev = node;
+        node -> next = tail;
+        node -> prev = last;
     }
     int get(int key) {
         if(mp.find(key) == mp.end())return -1;
-        Node * curr = mp[key];
-        remove(curr);
-        add_last(curr);
-        return curr -> val;
+        remove_from_Dl(mp[key]);
+        insert_in_Dl(mp[key]);
+        return mp[key] -> val;
     }
     
     void put(int key, int value) {
-        if(size == mp.size() && mp.find(key) == mp.end()){
-            int k = head -> key;
-            remove(head);
-            mp.erase(k);
-        }
-        if(mp.find(key) != mp.end()){
-            Node * curr = mp[key];
-            remove(curr);
-            add_last(curr);
-            curr -> val = value;
+        if(mp.find(key) == mp.end()){
+            if(mp.size() == cap){
+                mp.erase(head -> next -> key);
+                remove_from_Dl(head -> next);
+            }
+            Dl * node = new Dl(value, key);
+            insert_in_Dl(node);
+            mp[key] = node;
         }
         else {
-            Node * newnode = new Node(value);
-            newnode -> key = key;
-            mp[key] = newnode;
-            add_last(newnode);
+            Dl * node = mp[key];
+            node -> val = value;
+            node -> key = key;
+            remove_from_Dl(node);
+            insert_in_Dl(node);
         }
     }
 };
