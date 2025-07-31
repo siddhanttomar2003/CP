@@ -1,26 +1,25 @@
 class Solution {
 public:
-    int row[9],ld[18],ud[18];
-    int cal(int col, int n){
-        if(col==n)return 1;
-        int ways=0;
-        for(int j=0;j<n;j++){
-            if(!row[j] && !ud[col+j] && !ld[col-j+n]){
-                row[j]=1;
-                ud[col+j]=1;
-                ld[col-j+n]=1;
-                ways+=cal(col+1,n);
-                row[j]=0;
-                ud[col+j]=0;
-                ld[col-j+n]=0;
+    vector<int>row;
+    map<int,int>right_diagonal, left_diagonal;
+    int cal(int n, int i){
+        if(i == n)return 1;
+        int w = 0;
+        for(int j = 0; j < n; j++){
+            if(!row[j] && right_diagonal.find(i - j) == right_diagonal.end() && left_diagonal.find(i + j) == left_diagonal.end()){
+                row[j] = 1;
+                right_diagonal[i - j]++;
+                left_diagonal[i + j]++;
+                w += cal(n, i + 1);
+                row[j] = 0;
+                right_diagonal.erase(i - j);
+                left_diagonal.erase(i + j);
             }
         }
-        return ways;
+        return w;
     }
     int totalNQueens(int n) {
-        memset(row,0,sizeof(row));
-        memset(ld,0,sizeof(ld));
-        memset(ud,0,sizeof(ud));
-       return cal(0,n);
+        row.resize(n + 1, 0);
+        return cal(n, 0);
     }
 };
