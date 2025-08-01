@@ -1,23 +1,28 @@
 class Solution {
 public:
-    bool check(string a){
-        if(a.length()==1)return true;
-        int i=0;int e=a.length()-1;
-        while(i<e){
-            if(a[i]!=a[e])return false;
-            i++;e--;
+    int isPal[1001][1001];
+    bool build(string &s, int i, int j){
+        if(j == i) return isPal[i][j] = 1;
+        if(j < i)return 1;
+        if(isPal[i][j] != -1)return isPal[i][j];
+        if(s[i] == s[j]){
+         isPal[i][j] = build(s, i + 1, j - 1);
         }
-        return true;
+        else isPal[i][j] = 0;
+        build(s, i + 1, j);
+        build(s, i , j - 1);
+        return isPal[i][j];
     }
     int countSubstrings(string s) {
-        int ans=0;
-        for(int i=0;i<s.size();i++){
-            string a="";
-            for(int j=i;j<s.size();j++){
-                a+=s[j];
-                if(check(a))ans++;
+        int n = s.size();
+        memset(isPal, -1, sizeof(isPal));
+        build(s, 0, n - 1);
+        int count = 0;
+        for(int i = 0; i < n; i++){
+            for(int j = i; j < n; j++){
+                if(isPal[i][j] == 1)count++;
             }
         }
-        return ans;
+        return count;
     }
 };
