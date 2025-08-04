@@ -1,19 +1,20 @@
 class Solution {
 public:
-    int totalFruit(vector<int>& nums) {
-        int maxi = 0;
-        map<int,int>mp;
-        int n = nums.size();
+    int totalFruit(vector<int>& fruits) {
         int i = 0, j = 0;
+        int n = fruits.size();
+        map<int,int>mp;
+        int len = 0;
         while(j < n){
-            mp[nums[j]]++;
-            while(mp.size() > 2){
-                if(--mp[nums[i]] == 0)mp.erase(nums[i]);
-                i++; 
+            mp[fruits[j]]++;
+            while(mp.size() > 2 && i <= j){
+                mp[fruits[i]]--;
+                if(mp[fruits[i]] == 0)mp.erase(fruits[i]);
+                i++;
             }
-            maxi = max(maxi, j - i + 1);
+            len = max(len, j - i + 1);
             j++;
         }
-        return maxi;
+        return len;
     }
 };
