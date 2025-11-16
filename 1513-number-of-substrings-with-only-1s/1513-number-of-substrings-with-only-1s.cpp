@@ -1,20 +1,18 @@
 class Solution {
 public:
+    const int mod = 1e9 + 7;
+    typedef long long ll;
     int numSub(string s) {
-        int ans=0;
-        long long count=0;
-        for(int i=0;i<s.length();i++){
-            if(s[i]=='1'){
-                 count=0;
-                while(s[i]=='1'){
-                  count++;i++;
-                }
-                i--;
-                long long n=((count*(count+1)%1000000007)/2)%1000000007;
-                ans=(ans+n)%1000000007;
+        int n = s.size();
+        ll ans = 0;
+        for(int i = 0; i < n; i++){
+            ll count = 0;
+            while(i < n && s[i] == '1'){
+                count++;
+                i++;
             }
+            ans = (ans + (count * (count + 1)) / 2ll) % mod;
         }
         return ans;
-
     }
 };
