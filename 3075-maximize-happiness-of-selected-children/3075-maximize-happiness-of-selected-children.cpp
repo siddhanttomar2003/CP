@@ -1,22 +1,18 @@
 class Solution {
 public:
-    long long maximumHappinessSum(vector<int>& happiness, int k) {
-        priority_queue<int>q;
-        for(int i=0;i<happiness.size();i++){
-            q.push(happiness[i]);
-        }
-        int count=0;
-        long long ans=0;
-        while(k){
-           int add=q.top();
-           if(add>0)add=q.top()-count;
-           if(add<0)add=0;
-           ans+=add;
-           count++;
-           k--;
-           q.pop();
+    typedef long long ll;
+    long long maximumHappinessSum(vector<int>& h, int k) {
+        int n = h.size();
+        sort(h.begin(), h.end());
+        int times = k;
+        ll ans = 0;
+        for(int i = n - 1; i >= 0; i--){
+            if(times > 0){
+                ans += max(0, h[i] - (k - times));
+                times--;
+            }
+            else break;
         }
         return ans;
-
     }
 };
