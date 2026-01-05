@@ -1,26 +1,23 @@
 class Solution {
 public:
+    typedef long long ll;
     long long maxMatrixSum(vector<vector<int>>& matrix) {
-        long long ans=0;
-        int count_neg=0;
-        long long maxi= 1e6;
-        bool check=false;
-        for(int i=0;i<matrix.size();i++){
-            for(int j=0;j<matrix[i].size();j++){
-                if(matrix[i][j]==0){
-                    check=true;
+        ll neg = 0;
+        ll mini_neg = 1e9;
+        ll sum = 0;
+        ll zero = 0;
+        for(auto it : matrix){
+            for(auto it2 : it){
+                if(it2 < 0){
+                    neg++;
                 }
-                if(matrix[i][j]<0){
-                    count_neg++;
-                }
-                maxi=min(maxi,abs(matrix[i][j])*1ll);
-                ans+=(abs(matrix[i][j]));
+                else if(it2 == 0)zero++;
+                if(it2 != 0)
+                mini_neg = min((ll)abs(it2), mini_neg);
+                sum += abs(it2);
             }
         }
-        if(check)return ans;
-        if(count_neg&1){
-            ans-=(2*maxi);
-        }
-        return ans;
+        if(neg & 1 && !zero)return sum - 2 * 1ll * mini_neg;
+        return sum;
     }
 };
