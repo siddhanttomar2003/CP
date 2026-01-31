@@ -6,7 +6,7 @@ public:
         for(int i = 0; i < original.size(); i++){
             int idx1 = original[i] - 97;
             int idx2 = changed[i] - 97;
-            dis[idx1][idx2] = cost[i];
+            dis[idx1][idx2] = min(dis[idx1][idx2], (ll)cost[i]);
         }
         for(int i = 0; i < 26; i++){
             for(int j = 0; j < 26; j++){
