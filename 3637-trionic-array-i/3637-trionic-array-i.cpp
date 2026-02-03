@@ -1,26 +1,15 @@
 class Solution {
 public:
     bool isTrionic(vector<int>& nums) {
+        int i = 0;
         int n = nums.size();
-        int count1 = 0;
-        int i = 1;
-        while(i < n &&  nums[i] > nums[i - 1]){
-            i++;
-            count1++;
-        }
-        if(count1 == 0)return false;
-        count1 = 0;
-        while(i < n && nums[i] < nums[i - 1]){
-            i++;
-            count1++;
-        }
-        if(count1 == 0)return false;
-        count1 = 0;
-        while(i < n && nums[i] > nums[i - 1]){
-            i++;
-            count1++;
-        }
-        if(count1 == 0)return false;
-        return i == n;
+        while(i + 1 < n && nums[i + 1] > nums[i])i++;
+        if(i == 0)return false;
+        int last = i;
+        while(i + 1 < n && nums[i + 1] < nums[i])i++;
+        if(last == i)return false;
+        last = i;
+        while(i + 1 < n && nums[i + 1] > nums[i])i++;
+        return i == n - 1 && last != i;
     }
 };
