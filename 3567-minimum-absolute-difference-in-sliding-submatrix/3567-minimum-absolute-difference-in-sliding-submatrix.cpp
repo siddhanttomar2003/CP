@@ -1,38 +1,43 @@
 class Solution {
 public:
-    int cal_mini(vector<vector<int>>&grid,int i, int j ,int k){
-        priority_queue<int>q;
-        set<int>st;
-         for(int i2=i;i2<=i+k-1;i2++){
-            for(int j2=j;j2<=j+k-1;j2++){
-                int num=grid[i2][j2];
-                if(st.find(num)==st.end()){
-                 q.push(grid[i2][j2]);
-                 st.insert(num);
-                }
-            }
-         }
-         int mini=1e9;
-         if(q.size()==1)return 0;
-         while(!q.empty() && q.size()>=2){
-            int num1=q.top();
-            q.pop();
-            mini=min(mini,num1-q.top());
-         }
-         return mini;
+    typedef long long ll;
+    ll cal(map<int, int> &mp){
+        ll prev = -1e12;
+        ll mini = 1e12;
+        if(mp.size() == 1)return 0;
+        for(auto it : mp){
+            ll num = it.first;
+            mini = min(mini, num - prev);
+            prev = it.first;
+        }
+        return mini;
     }
     vector<vector<int>> minAbsDiff(vector<vector<int>>& grid, int k) {
-        vector<vector<int>>ans;
-        int n=grid.size(),m=grid[0].size();
-        for(int i=0;i<n;i++){
-            if(i+k-1<n){
-            vector<int>temp;
-            for(int j=0;j<m;j++){
-                if(i+k-1<n && j+k-1<m){
-                    temp.push_back(cal_mini(grid,i,j,k));
+        map<ll, int>mp;
+        int n = grid.size(), m = grid[0].size();
+        vector<vector<int>>ans(n - k + 1);
+        for(int i = 0; i < n; i++){
+            if(i + k <= n){
+                int j = 0;
+                map<int, int>mp;
+                while(j < k){
+                    for(int l = i; l < i + k; l++){
+                        mp[grid[l][j]]++;
+                    }
+                    j++;
                 }
-            }
-            ans.push_back(temp);
+                ans[i].push_back(cal(mp));
+                int p = 0;
+                while(j < m){
+                    for(int l = i; l < i + k; l++){
+                        mp[grid[l][p]]--;
+                        if(mp[grid[l][p]] == 0)mp.erase(grid[l][p]);
+                        mp[grid[l][j]]++;
+                    }
+                    p++;
+                    ans[i].push_back(cal(mp));
+                    j++;
+                }
             }
         }
         return ans;
