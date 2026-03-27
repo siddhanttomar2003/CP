@@ -31,6 +31,7 @@ COMPETITIVE PROGRAMMING
 | [1594-maximum-non-negative-product-in-a-matrix](https://github.com/siddhanttomar2003/CP/tree/main/1594-maximum-non-negative-product-in-a-matrix/) | Medium |
 | [1878-get-biggest-three-rhombus-sums-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/1878-get-biggest-three-rhombus-sums-in-a-grid/) | Medium |
 | [2906-construct-product-matrix](https://github.com/siddhanttomar2003/CP/tree/main/2906-construct-product-matrix/) | Medium |
+| [2946-matrix-similarity-after-cyclic-shifts](https://github.com/siddhanttomar2003/CP/tree/main/2946-matrix-similarity-after-cyclic-shifts/) | Easy |
 | [3296-minimum-number-of-seconds-to-make-mountain-height-zero](https://github.com/siddhanttomar2003/CP/tree/main/3296-minimum-number-of-seconds-to-make-mountain-height-zero/) | Medium |
 | [3567-minimum-absolute-difference-in-sliding-submatrix](https://github.com/siddhanttomar2003/CP/tree/main/3567-minimum-absolute-difference-in-sliding-submatrix/) | Medium |
 | [3643-flip-square-submatrix-vertically](https://github.com/siddhanttomar2003/CP/tree/main/3643-flip-square-submatrix-vertically/) | Easy |
@@ -39,6 +40,7 @@ COMPETITIVE PROGRAMMING
 | ------- | ------- |
 | [1622-fancy-sequence](https://github.com/siddhanttomar2003/CP/tree/main/1622-fancy-sequence/) | Hard |
 | [1878-get-biggest-three-rhombus-sums-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/1878-get-biggest-three-rhombus-sums-in-a-grid/) | Medium |
+| [2946-matrix-similarity-after-cyclic-shifts](https://github.com/siddhanttomar2003/CP/tree/main/2946-matrix-similarity-after-cyclic-shifts/) | Easy |
 | [3296-minimum-number-of-seconds-to-make-mountain-height-zero](https://github.com/siddhanttomar2003/CP/tree/main/3296-minimum-number-of-seconds-to-make-mountain-height-zero/) | Medium |
 ## Heap (Priority Queue)
 | Problem Name | Difficulty |
@@ -72,6 +74,7 @@ COMPETITIVE PROGRAMMING
 | [1594-maximum-non-negative-product-in-a-matrix](https://github.com/siddhanttomar2003/CP/tree/main/1594-maximum-non-negative-product-in-a-matrix/) | Medium |
 | [1878-get-biggest-three-rhombus-sums-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/1878-get-biggest-three-rhombus-sums-in-a-grid/) | Medium |
 | [2906-construct-product-matrix](https://github.com/siddhanttomar2003/CP/tree/main/2906-construct-product-matrix/) | Medium |
+| [2946-matrix-similarity-after-cyclic-shifts](https://github.com/siddhanttomar2003/CP/tree/main/2946-matrix-similarity-after-cyclic-shifts/) | Easy |
 | [3567-minimum-absolute-difference-in-sliding-submatrix](https://github.com/siddhanttomar2003/CP/tree/main/3567-minimum-absolute-difference-in-sliding-submatrix/) | Medium |
 | [3643-flip-square-submatrix-vertically](https://github.com/siddhanttomar2003/CP/tree/main/3643-flip-square-submatrix-vertically/) | Easy |
 ## Prefix Sum
@@ -87,4 +90,8 @@ COMPETITIVE PROGRAMMING
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [1594-maximum-non-negative-product-in-a-matrix](https://github.com/siddhanttomar2003/CP/tree/main/1594-maximum-non-negative-product-in-a-matrix/) | Medium |
+## Simulation
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [2946-matrix-similarity-after-cyclic-shifts](https://github.com/siddhanttomar2003/CP/tree/main/2946-matrix-similarity-after-cyclic-shifts/) | Easy |
 <!---LeetCode Topics End-->
