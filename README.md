@@ -30,6 +30,7 @@ COMPETITIVE PROGRAMMING
 | ------- | ------- |
 | [1594-maximum-non-negative-product-in-a-matrix](https://github.com/siddhanttomar2003/CP/tree/main/1594-maximum-non-negative-product-in-a-matrix/) | Medium |
 | [1878-get-biggest-three-rhombus-sums-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/1878-get-biggest-three-rhombus-sums-in-a-grid/) | Medium |
+| [2751-robot-collisions](https://github.com/siddhanttomar2003/CP/tree/main/2751-robot-collisions/) | Hard |
 | [2906-construct-product-matrix](https://github.com/siddhanttomar2003/CP/tree/main/2906-construct-product-matrix/) | Medium |
 | [2946-matrix-similarity-after-cyclic-shifts](https://github.com/siddhanttomar2003/CP/tree/main/2946-matrix-similarity-after-cyclic-shifts/) | Easy |
 | [3296-minimum-number-of-seconds-to-make-mountain-height-zero](https://github.com/siddhanttomar2003/CP/tree/main/3296-minimum-number-of-seconds-to-make-mountain-height-zero/) | Medium |
@@ -67,6 +68,7 @@ COMPETITIVE PROGRAMMING
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [1878-get-biggest-three-rhombus-sums-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/1878-get-biggest-three-rhombus-sums-in-a-grid/) | Medium |
+| [2751-robot-collisions](https://github.com/siddhanttomar2003/CP/tree/main/2751-robot-collisions/) | Hard |
 | [3567-minimum-absolute-difference-in-sliding-submatrix](https://github.com/siddhanttomar2003/CP/tree/main/3567-minimum-absolute-difference-in-sliding-submatrix/) | Medium |
 ## Matrix
 | Problem Name | Difficulty |
@@ -93,5 +95,10 @@ COMPETITIVE PROGRAMMING
 ## Simulation
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [2751-robot-collisions](https://github.com/siddhanttomar2003/CP/tree/main/2751-robot-collisions/) | Hard |
 | [2946-matrix-similarity-after-cyclic-shifts](https://github.com/siddhanttomar2003/CP/tree/main/2946-matrix-similarity-after-cyclic-shifts/) | Easy |
+## Stack
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [2751-robot-collisions](https://github.com/siddhanttomar2003/CP/tree/main/2751-robot-collisions/) | Hard |
 <!---LeetCode Topics End-->
