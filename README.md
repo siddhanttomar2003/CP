@@ -38,6 +38,7 @@ COMPETITIVE PROGRAMMING
 | [3567-minimum-absolute-difference-in-sliding-submatrix](https://github.com/siddhanttomar2003/CP/tree/main/3567-minimum-absolute-difference-in-sliding-submatrix/) | Medium |
 | [3643-flip-square-submatrix-vertically](https://github.com/siddhanttomar2003/CP/tree/main/3643-flip-square-submatrix-vertically/) | Easy |
 | [3653-xor-after-range-multiplication-queries-i](https://github.com/siddhanttomar2003/CP/tree/main/3653-xor-after-range-multiplication-queries-i/) | Medium |
+| [3741-minimum-distance-between-three-equal-elements-ii](https://github.com/siddhanttomar2003/CP/tree/main/3741-minimum-distance-between-three-equal-elements-ii/) | Medium |
 ## Math
 | Problem Name | Difficulty |
 | ------- | ------- |
@@ -115,6 +116,7 @@ COMPETITIVE PROGRAMMING
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0874-walking-robot-simulation](https://github.com/siddhanttomar2003/CP/tree/main/0874-walking-robot-simulation/) | Medium |
+| [3741-minimum-distance-between-three-equal-elements-ii](https://github.com/siddhanttomar2003/CP/tree/main/3741-minimum-distance-between-three-equal-elements-ii/) | Medium |
 ## Divide and Conquer
 | Problem Name | Difficulty |
 | ------- | ------- |
