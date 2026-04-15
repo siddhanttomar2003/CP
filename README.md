@@ -32,6 +32,7 @@ COMPETITIVE PROGRAMMING
 | [1594-maximum-non-negative-product-in-a-matrix](https://github.com/siddhanttomar2003/CP/tree/main/1594-maximum-non-negative-product-in-a-matrix/) | Medium |
 | [1848-minimum-distance-to-the-target-element](https://github.com/siddhanttomar2003/CP/tree/main/1848-minimum-distance-to-the-target-element/) | Easy |
 | [1878-get-biggest-three-rhombus-sums-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/1878-get-biggest-three-rhombus-sums-in-a-grid/) | Medium |
+| [2515-shortest-distance-to-target-string-in-a-circular-array](https://github.com/siddhanttomar2003/CP/tree/main/2515-shortest-distance-to-target-string-in-a-circular-array/) | Easy |
 | [2751-robot-collisions](https://github.com/siddhanttomar2003/CP/tree/main/2751-robot-collisions/) | Hard |
 | [2906-construct-product-matrix](https://github.com/siddhanttomar2003/CP/tree/main/2906-construct-product-matrix/) | Medium |
 | [2946-matrix-similarity-after-cyclic-shifts](https://github.com/siddhanttomar2003/CP/tree/main/2946-matrix-similarity-after-cyclic-shifts/) | Easy |
@@ -59,6 +60,7 @@ COMPETITIVE PROGRAMMING
 | [1320-minimum-distance-to-type-a-word-using-two-fingers](https://github.com/siddhanttomar2003/CP/tree/main/1320-minimum-distance-to-type-a-word-using-two-fingers/) | Hard |
 | [1415-the-k-th-lexicographical-string-of-all-happy-strings-of-length-n](https://github.com/siddhanttomar2003/CP/tree/main/1415-the-k-th-lexicographical-string-of-all-happy-strings-of-length-n/) | Medium |
 | [2075-decode-the-slanted-ciphertext](https://github.com/siddhanttomar2003/CP/tree/main/2075-decode-the-slanted-ciphertext/) | Medium |
+| [2515-shortest-distance-to-target-string-in-a-circular-array](https://github.com/siddhanttomar2003/CP/tree/main/2515-shortest-distance-to-target-string-in-a-circular-array/) | Easy |
 ## Backtracking
 | Problem Name | Difficulty |
 | ------- | ------- |
