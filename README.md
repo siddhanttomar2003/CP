@@ -43,6 +43,7 @@ COMPETITIVE PROGRAMMING
 | [3643-flip-square-submatrix-vertically](https://github.com/siddhanttomar2003/CP/tree/main/3643-flip-square-submatrix-vertically/) | Easy |
 | [3653-xor-after-range-multiplication-queries-i](https://github.com/siddhanttomar2003/CP/tree/main/3653-xor-after-range-multiplication-queries-i/) | Medium |
 | [3741-minimum-distance-between-three-equal-elements-ii](https://github.com/siddhanttomar2003/CP/tree/main/3741-minimum-distance-between-three-equal-elements-ii/) | Medium |
+| [3761-minimum-absolute-distance-between-mirror-pairs](https://github.com/siddhanttomar2003/CP/tree/main/3761-minimum-absolute-distance-between-mirror-pairs/) | Medium |
 ## Math
 | Problem Name | Difficulty |
 | ------- | ------- |
@@ -50,6 +51,7 @@ COMPETITIVE PROGRAMMING
 | [1878-get-biggest-three-rhombus-sums-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/1878-get-biggest-three-rhombus-sums-in-a-grid/) | Medium |
 | [2946-matrix-similarity-after-cyclic-shifts](https://github.com/siddhanttomar2003/CP/tree/main/2946-matrix-similarity-after-cyclic-shifts/) | Easy |
 | [3296-minimum-number-of-seconds-to-make-mountain-height-zero](https://github.com/siddhanttomar2003/CP/tree/main/3296-minimum-number-of-seconds-to-make-mountain-height-zero/) | Medium |
+| [3761-minimum-absolute-distance-between-mirror-pairs](https://github.com/siddhanttomar2003/CP/tree/main/3761-minimum-absolute-distance-between-mirror-pairs/) | Medium |
 ## Heap (Priority Queue)
 | Problem Name | Difficulty |
 | ------- | ------- |
@@ -125,6 +127,7 @@ COMPETITIVE PROGRAMMING
 | [0874-walking-robot-simulation](https://github.com/siddhanttomar2003/CP/tree/main/0874-walking-robot-simulation/) | Medium |
 | [3488-closest-equal-element-queries](https://github.com/siddhanttomar2003/CP/tree/main/3488-closest-equal-element-queries/) | Medium |
 | [3741-minimum-distance-between-three-equal-elements-ii](https://github.com/siddhanttomar2003/CP/tree/main/3741-minimum-distance-between-three-equal-elements-ii/) | Medium |
+| [3761-minimum-absolute-distance-between-mirror-pairs](https://github.com/siddhanttomar2003/CP/tree/main/3761-minimum-absolute-distance-between-mirror-pairs/) | Medium |
 ## Divide and Conquer
 | Problem Name | Difficulty |
 | ------- | ------- |
