@@ -12,6 +12,7 @@ COMPETITIVE PROGRAMMING
 ## Greedy
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [2078-two-furthest-houses-with-different-colors](https://github.com/siddhanttomar2003/CP/tree/main/2078-two-furthest-houses-with-different-colors/) | Easy |
 | [3296-minimum-number-of-seconds-to-make-mountain-height-zero](https://github.com/siddhanttomar2003/CP/tree/main/3296-minimum-number-of-seconds-to-make-mountain-height-zero/) | Medium |
 | [3600-maximize-spanning-tree-stability-with-upgrades](https://github.com/siddhanttomar2003/CP/tree/main/3600-maximize-spanning-tree-stability-with-upgrades/) | Hard |
 ## Union-Find
@@ -33,6 +34,7 @@ COMPETITIVE PROGRAMMING
 | [1594-maximum-non-negative-product-in-a-matrix](https://github.com/siddhanttomar2003/CP/tree/main/1594-maximum-non-negative-product-in-a-matrix/) | Medium |
 | [1848-minimum-distance-to-the-target-element](https://github.com/siddhanttomar2003/CP/tree/main/1848-minimum-distance-to-the-target-element/) | Easy |
 | [1878-get-biggest-three-rhombus-sums-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/1878-get-biggest-three-rhombus-sums-in-a-grid/) | Medium |
+| [2078-two-furthest-houses-with-different-colors](https://github.com/siddhanttomar2003/CP/tree/main/2078-two-furthest-houses-with-different-colors/) | Easy |
 | [2515-shortest-distance-to-target-string-in-a-circular-array](https://github.com/siddhanttomar2003/CP/tree/main/2515-shortest-distance-to-target-string-in-a-circular-array/) | Easy |
 | [2751-robot-collisions](https://github.com/siddhanttomar2003/CP/tree/main/2751-robot-collisions/) | Hard |
 | [2906-construct-product-matrix](https://github.com/siddhanttomar2003/CP/tree/main/2906-construct-product-matrix/) | Medium |
