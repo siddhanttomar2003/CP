@@ -73,6 +73,7 @@ COMPETITIVE PROGRAMMING
 | [2075-decode-the-slanted-ciphertext](https://github.com/siddhanttomar2003/CP/tree/main/2075-decode-the-slanted-ciphertext/) | Medium |
 | [2452-words-within-two-edits-of-dictionary](https://github.com/siddhanttomar2003/CP/tree/main/2452-words-within-two-edits-of-dictionary/) | Medium |
 | [2515-shortest-distance-to-target-string-in-a-circular-array](https://github.com/siddhanttomar2003/CP/tree/main/2515-shortest-distance-to-target-string-in-a-circular-array/) | Easy |
+| [2833-furthest-point-from-origin](https://github.com/siddhanttomar2003/CP/tree/main/2833-furthest-point-from-origin/) | Easy |
 ## Backtracking
 | Problem Name | Difficulty |
 | ------- | ------- |
@@ -150,4 +151,8 @@ COMPETITIVE PROGRAMMING
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [2452-words-within-two-edits-of-dictionary](https://github.com/siddhanttomar2003/CP/tree/main/2452-words-within-two-edits-of-dictionary/) | Medium |
+## Counting
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [2833-furthest-point-from-origin](https://github.com/siddhanttomar2003/CP/tree/main/2833-furthest-point-from-origin/) | Easy |
 <!---LeetCode Topics End-->
