@@ -50,6 +50,7 @@ COMPETITIVE PROGRAMMING
 | [3643-flip-square-submatrix-vertically](https://github.com/siddhanttomar2003/CP/tree/main/3643-flip-square-submatrix-vertically/) | Easy |
 | [3653-xor-after-range-multiplication-queries-i](https://github.com/siddhanttomar2003/CP/tree/main/3653-xor-after-range-multiplication-queries-i/) | Medium |
 | [3741-minimum-distance-between-three-equal-elements-ii](https://github.com/siddhanttomar2003/CP/tree/main/3741-minimum-distance-between-three-equal-elements-ii/) | Medium |
+| [3742-maximum-path-score-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/3742-maximum-path-score-in-a-grid/) | Medium |
 | [3761-minimum-absolute-distance-between-mirror-pairs](https://github.com/siddhanttomar2003/CP/tree/main/3761-minimum-absolute-distance-between-mirror-pairs/) | Medium |
 ## Math
 | Problem Name | Difficulty |
@@ -106,6 +107,7 @@ COMPETITIVE PROGRAMMING
 | [2946-matrix-similarity-after-cyclic-shifts](https://github.com/siddhanttomar2003/CP/tree/main/2946-matrix-similarity-after-cyclic-shifts/) | Easy |
 | [3567-minimum-absolute-difference-in-sliding-submatrix](https://github.com/siddhanttomar2003/CP/tree/main/3567-minimum-absolute-difference-in-sliding-submatrix/) | Medium |
 | [3643-flip-square-submatrix-vertically](https://github.com/siddhanttomar2003/CP/tree/main/3643-flip-square-submatrix-vertically/) | Easy |
+| [3742-maximum-path-score-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/3742-maximum-path-score-in-a-grid/) | Medium |
 ## Prefix Sum
 | Problem Name | Difficulty |
 | ------- | ------- |
@@ -121,6 +123,7 @@ COMPETITIVE PROGRAMMING
 | ------- | ------- |
 | [1320-minimum-distance-to-type-a-word-using-two-fingers](https://github.com/siddhanttomar2003/CP/tree/main/1320-minimum-distance-to-type-a-word-using-two-fingers/) | Hard |
 | [1594-maximum-non-negative-product-in-a-matrix](https://github.com/siddhanttomar2003/CP/tree/main/1594-maximum-non-negative-product-in-a-matrix/) | Medium |
+| [3742-maximum-path-score-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/3742-maximum-path-score-in-a-grid/) | Medium |
 ## Simulation
 | Problem Name | Difficulty |
 | ------- | ------- |
