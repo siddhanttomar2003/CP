@@ -55,6 +55,7 @@ COMPETITIVE PROGRAMMING
 ## Math
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0788-rotated-digits](https://github.com/siddhanttomar2003/CP/tree/main/0788-rotated-digits/) | Medium |
 | [1622-fancy-sequence](https://github.com/siddhanttomar2003/CP/tree/main/1622-fancy-sequence/) | Hard |
 | [1878-get-biggest-three-rhombus-sums-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/1878-get-biggest-three-rhombus-sums-in-a-grid/) | Medium |
 | [2033-minimum-operations-to-make-a-uni-value-grid](https://github.com/siddhanttomar2003/CP/tree/main/2033-minimum-operations-to-make-a-uni-value-grid/) | Medium |
@@ -121,6 +122,7 @@ COMPETITIVE PROGRAMMING
 ## Dynamic Programming
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0788-rotated-digits](https://github.com/siddhanttomar2003/CP/tree/main/0788-rotated-digits/) | Medium |
 | [1320-minimum-distance-to-type-a-word-using-two-fingers](https://github.com/siddhanttomar2003/CP/tree/main/1320-minimum-distance-to-type-a-word-using-two-fingers/) | Hard |
 | [1594-maximum-non-negative-product-in-a-matrix](https://github.com/siddhanttomar2003/CP/tree/main/1594-maximum-non-negative-product-in-a-matrix/) | Medium |
 | [3742-maximum-path-score-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/3742-maximum-path-score-in-a-grid/) | Medium |
