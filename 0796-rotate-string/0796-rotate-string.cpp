@@ -1,13 +1,19 @@
 class Solution {
 public:
-    bool rotateString(string s, string goal) {
-        int n = s.size();
-        int m = goal.size();
-        if(n != m)return false;
-        for(int i = 0; i < n; i++){
-            reverse(s.begin(), s.end());
-            reverse(s.begin(), s.end() - 1);
-            if(s == goal) return true;
+    bool rotateString(string s, string g) {
+        string a = s + s;
+        int n = a.size(), m = g.size();
+        if(s.size() != g.size())return false;
+        int i = 0, j = 0;
+        while(i < n && j < m){
+            int prev = i;
+            while(j < m && a[i] == g[j]){
+                i++;
+                j++;
+            }
+            if(j == m)return true;
+            i = prev + 1;
+            j = 0;
         }
         return false;
     }
