@@ -31,6 +31,7 @@ COMPETITIVE PROGRAMMING
 ## Array
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0396-rotate-function](https://github.com/siddhanttomar2003/CP/tree/main/0396-rotate-function/) | Medium |
 | [0874-walking-robot-simulation](https://github.com/siddhanttomar2003/CP/tree/main/0874-walking-robot-simulation/) | Medium |
 | [1594-maximum-non-negative-product-in-a-matrix](https://github.com/siddhanttomar2003/CP/tree/main/1594-maximum-non-negative-product-in-a-matrix/) | Medium |
 | [1722-minimize-hamming-distance-after-swap-operations](https://github.com/siddhanttomar2003/CP/tree/main/1722-minimize-hamming-distance-after-swap-operations/) | Medium |
@@ -55,6 +56,7 @@ COMPETITIVE PROGRAMMING
 ## Math
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0396-rotate-function](https://github.com/siddhanttomar2003/CP/tree/main/0396-rotate-function/) | Medium |
 | [0788-rotated-digits](https://github.com/siddhanttomar2003/CP/tree/main/0788-rotated-digits/) | Medium |
 | [1622-fancy-sequence](https://github.com/siddhanttomar2003/CP/tree/main/1622-fancy-sequence/) | Hard |
 | [1878-get-biggest-three-rhombus-sums-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/1878-get-biggest-three-rhombus-sums-in-a-grid/) | Medium |
@@ -123,6 +125,7 @@ COMPETITIVE PROGRAMMING
 ## Dynamic Programming
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0396-rotate-function](https://github.com/siddhanttomar2003/CP/tree/main/0396-rotate-function/) | Medium |
 | [0788-rotated-digits](https://github.com/siddhanttomar2003/CP/tree/main/0788-rotated-digits/) | Medium |
 | [1320-minimum-distance-to-type-a-word-using-two-fingers](https://github.com/siddhanttomar2003/CP/tree/main/1320-minimum-distance-to-type-a-word-using-two-fingers/) | Hard |
 | [1594-maximum-non-negative-product-in-a-matrix](https://github.com/siddhanttomar2003/CP/tree/main/1594-maximum-non-negative-product-in-a-matrix/) | Medium |
