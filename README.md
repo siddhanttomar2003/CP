@@ -124,6 +124,7 @@ COMPETITIVE PROGRAMMING
 ## Two Pointers
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0061-rotate-list](https://github.com/siddhanttomar2003/CP/tree/main/0061-rotate-list/) | Medium |
 | [3643-flip-square-submatrix-vertically](https://github.com/siddhanttomar2003/CP/tree/main/3643-flip-square-submatrix-vertically/) | Easy |
 ## Dynamic Programming
 | Problem Name | Difficulty |
@@ -175,4 +176,8 @@ COMPETITIVE PROGRAMMING
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0796-rotate-string](https://github.com/siddhanttomar2003/CP/tree/main/0796-rotate-string/) | Easy |
+## Linked List
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [0061-rotate-list](https://github.com/siddhanttomar2003/CP/tree/main/0061-rotate-list/) | Medium |
 <!---LeetCode Topics End-->
