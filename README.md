@@ -46,6 +46,7 @@ COMPETITIVE PROGRAMMING
 | [2515-shortest-distance-to-target-string-in-a-circular-array](https://github.com/siddhanttomar2003/CP/tree/main/2515-shortest-distance-to-target-string-in-a-circular-array/) | Easy |
 | [2615-sum-of-distances](https://github.com/siddhanttomar2003/CP/tree/main/2615-sum-of-distances/) | Medium |
 | [2751-robot-collisions](https://github.com/siddhanttomar2003/CP/tree/main/2751-robot-collisions/) | Hard |
+| [2770-maximum-number-of-jumps-to-reach-the-last-index](https://github.com/siddhanttomar2003/CP/tree/main/2770-maximum-number-of-jumps-to-reach-the-last-index/) | Medium |
 | [2906-construct-product-matrix](https://github.com/siddhanttomar2003/CP/tree/main/2906-construct-product-matrix/) | Medium |
 | [2946-matrix-similarity-after-cyclic-shifts](https://github.com/siddhanttomar2003/CP/tree/main/2946-matrix-similarity-after-cyclic-shifts/) | Easy |
 | [3296-minimum-number-of-seconds-to-make-mountain-height-zero](https://github.com/siddhanttomar2003/CP/tree/main/3296-minimum-number-of-seconds-to-make-mountain-height-zero/) | Medium |
@@ -138,6 +139,7 @@ COMPETITIVE PROGRAMMING
 | [0788-rotated-digits](https://github.com/siddhanttomar2003/CP/tree/main/0788-rotated-digits/) | Medium |
 | [1320-minimum-distance-to-type-a-word-using-two-fingers](https://github.com/siddhanttomar2003/CP/tree/main/1320-minimum-distance-to-type-a-word-using-two-fingers/) | Hard |
 | [1594-maximum-non-negative-product-in-a-matrix](https://github.com/siddhanttomar2003/CP/tree/main/1594-maximum-non-negative-product-in-a-matrix/) | Medium |
+| [2770-maximum-number-of-jumps-to-reach-the-last-index](https://github.com/siddhanttomar2003/CP/tree/main/2770-maximum-number-of-jumps-to-reach-the-last-index/) | Medium |
 | [3742-maximum-path-score-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/3742-maximum-path-score-in-a-grid/) | Medium |
 ## Simulation
 | Problem Name | Difficulty |
