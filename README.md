@@ -14,6 +14,7 @@ COMPETITIVE PROGRAMMING
 ## Greedy
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [1665-minimum-initial-energy-to-finish-tasks](https://github.com/siddhanttomar2003/CP/tree/main/1665-minimum-initial-energy-to-finish-tasks/) | Hard |
 | [2078-two-furthest-houses-with-different-colors](https://github.com/siddhanttomar2003/CP/tree/main/2078-two-furthest-houses-with-different-colors/) | Easy |
 | [3296-minimum-number-of-seconds-to-make-mountain-height-zero](https://github.com/siddhanttomar2003/CP/tree/main/3296-minimum-number-of-seconds-to-make-mountain-height-zero/) | Medium |
 | [3600-maximize-spanning-tree-stability-with-upgrades](https://github.com/siddhanttomar2003/CP/tree/main/3600-maximize-spanning-tree-stability-with-upgrades/) | Hard |
@@ -39,6 +40,7 @@ COMPETITIVE PROGRAMMING
 | [0396-rotate-function](https://github.com/siddhanttomar2003/CP/tree/main/0396-rotate-function/) | Medium |
 | [0874-walking-robot-simulation](https://github.com/siddhanttomar2003/CP/tree/main/0874-walking-robot-simulation/) | Medium |
 | [1594-maximum-non-negative-product-in-a-matrix](https://github.com/siddhanttomar2003/CP/tree/main/1594-maximum-non-negative-product-in-a-matrix/) | Medium |
+| [1665-minimum-initial-energy-to-finish-tasks](https://github.com/siddhanttomar2003/CP/tree/main/1665-minimum-initial-energy-to-finish-tasks/) | Hard |
 | [1674-minimum-moves-to-make-array-complementary](https://github.com/siddhanttomar2003/CP/tree/main/1674-minimum-moves-to-make-array-complementary/) | Medium |
 | [1722-minimize-hamming-distance-after-swap-operations](https://github.com/siddhanttomar2003/CP/tree/main/1722-minimize-hamming-distance-after-swap-operations/) | Medium |
 | [1848-minimum-distance-to-the-target-element](https://github.com/siddhanttomar2003/CP/tree/main/1848-minimum-distance-to-the-target-element/) | Easy |
@@ -107,6 +109,7 @@ COMPETITIVE PROGRAMMING
 ## Sorting
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [1665-minimum-initial-energy-to-finish-tasks](https://github.com/siddhanttomar2003/CP/tree/main/1665-minimum-initial-energy-to-finish-tasks/) | Hard |
 | [1878-get-biggest-three-rhombus-sums-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/1878-get-biggest-three-rhombus-sums-in-a-grid/) | Medium |
 | [2033-minimum-operations-to-make-a-uni-value-grid](https://github.com/siddhanttomar2003/CP/tree/main/2033-minimum-operations-to-make-a-uni-value-grid/) | Medium |
 | [2751-robot-collisions](https://github.com/siddhanttomar2003/CP/tree/main/2751-robot-collisions/) | Hard |
