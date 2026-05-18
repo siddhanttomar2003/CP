@@ -39,6 +39,7 @@ COMPETITIVE PROGRAMMING
 | [0154-find-minimum-in-rotated-sorted-array-ii](https://github.com/siddhanttomar2003/CP/tree/main/0154-find-minimum-in-rotated-sorted-array-ii/) | Hard |
 | [0396-rotate-function](https://github.com/siddhanttomar2003/CP/tree/main/0396-rotate-function/) | Medium |
 | [0874-walking-robot-simulation](https://github.com/siddhanttomar2003/CP/tree/main/0874-walking-robot-simulation/) | Medium |
+| [1345-jump-game-iv](https://github.com/siddhanttomar2003/CP/tree/main/1345-jump-game-iv/) | Hard |
 | [1594-maximum-non-negative-product-in-a-matrix](https://github.com/siddhanttomar2003/CP/tree/main/1594-maximum-non-negative-product-in-a-matrix/) | Medium |
 | [1665-minimum-initial-energy-to-finish-tasks](https://github.com/siddhanttomar2003/CP/tree/main/1665-minimum-initial-energy-to-finish-tasks/) | Hard |
 | [1674-minimum-moves-to-make-array-complementary](https://github.com/siddhanttomar2003/CP/tree/main/1674-minimum-moves-to-make-array-complementary/) | Medium |
@@ -169,6 +170,7 @@ COMPETITIVE PROGRAMMING
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0874-walking-robot-simulation](https://github.com/siddhanttomar2003/CP/tree/main/0874-walking-robot-simulation/) | Medium |
+| [1345-jump-game-iv](https://github.com/siddhanttomar2003/CP/tree/main/1345-jump-game-iv/) | Hard |
 | [1674-minimum-moves-to-make-array-complementary](https://github.com/siddhanttomar2003/CP/tree/main/1674-minimum-moves-to-make-array-complementary/) | Medium |
 | [2615-sum-of-distances](https://github.com/siddhanttomar2003/CP/tree/main/2615-sum-of-distances/) | Medium |
 | [3488-closest-equal-element-queries](https://github.com/siddhanttomar2003/CP/tree/main/3488-closest-equal-element-queries/) | Medium |
@@ -198,4 +200,8 @@ COMPETITIVE PROGRAMMING
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0061-rotate-list](https://github.com/siddhanttomar2003/CP/tree/main/0061-rotate-list/) | Medium |
+## Breadth-First Search
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [1345-jump-game-iv](https://github.com/siddhanttomar2003/CP/tree/main/1345-jump-game-iv/) | Hard |
 <!---LeetCode Topics End-->
