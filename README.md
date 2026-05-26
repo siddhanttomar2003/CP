@@ -93,6 +93,7 @@ COMPETITIVE PROGRAMMING
 | [0796-rotate-string](https://github.com/siddhanttomar2003/CP/tree/main/0796-rotate-string/) | Easy |
 | [1320-minimum-distance-to-type-a-word-using-two-fingers](https://github.com/siddhanttomar2003/CP/tree/main/1320-minimum-distance-to-type-a-word-using-two-fingers/) | Hard |
 | [1415-the-k-th-lexicographical-string-of-all-happy-strings-of-length-n](https://github.com/siddhanttomar2003/CP/tree/main/1415-the-k-th-lexicographical-string-of-all-happy-strings-of-length-n/) | Medium |
+| [1871-jump-game-vii](https://github.com/siddhanttomar2003/CP/tree/main/1871-jump-game-vii/) | Medium |
 | [2075-decode-the-slanted-ciphertext](https://github.com/siddhanttomar2003/CP/tree/main/2075-decode-the-slanted-ciphertext/) | Medium |
 | [2452-words-within-two-edits-of-dictionary](https://github.com/siddhanttomar2003/CP/tree/main/2452-words-within-two-edits-of-dictionary/) | Medium |
 | [2515-shortest-distance-to-target-string-in-a-circular-array](https://github.com/siddhanttomar2003/CP/tree/main/2515-shortest-distance-to-target-string-in-a-circular-array/) | Easy |
@@ -138,6 +139,7 @@ COMPETITIVE PROGRAMMING
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [1674-minimum-moves-to-make-array-complementary](https://github.com/siddhanttomar2003/CP/tree/main/1674-minimum-moves-to-make-array-complementary/) | Medium |
+| [1871-jump-game-vii](https://github.com/siddhanttomar2003/CP/tree/main/1871-jump-game-vii/) | Medium |
 | [1878-get-biggest-three-rhombus-sums-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/1878-get-biggest-three-rhombus-sums-in-a-grid/) | Medium |
 | [2615-sum-of-distances](https://github.com/siddhanttomar2003/CP/tree/main/2615-sum-of-distances/) | Medium |
 | [2906-construct-product-matrix](https://github.com/siddhanttomar2003/CP/tree/main/2906-construct-product-matrix/) | Medium |
@@ -156,6 +158,7 @@ COMPETITIVE PROGRAMMING
 | [1320-minimum-distance-to-type-a-word-using-two-fingers](https://github.com/siddhanttomar2003/CP/tree/main/1320-minimum-distance-to-type-a-word-using-two-fingers/) | Hard |
 | [1340-jump-game-v](https://github.com/siddhanttomar2003/CP/tree/main/1340-jump-game-v/) | Hard |
 | [1594-maximum-non-negative-product-in-a-matrix](https://github.com/siddhanttomar2003/CP/tree/main/1594-maximum-non-negative-product-in-a-matrix/) | Medium |
+| [1871-jump-game-vii](https://github.com/siddhanttomar2003/CP/tree/main/1871-jump-game-vii/) | Medium |
 | [2770-maximum-number-of-jumps-to-reach-the-last-index](https://github.com/siddhanttomar2003/CP/tree/main/2770-maximum-number-of-jumps-to-reach-the-last-index/) | Medium |
 | [3742-maximum-path-score-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/3742-maximum-path-score-in-a-grid/) | Medium |
 ## Simulation
@@ -216,4 +219,8 @@ COMPETITIVE PROGRAMMING
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [2657-find-the-prefix-common-array-of-two-arrays](https://github.com/siddhanttomar2003/CP/tree/main/2657-find-the-prefix-common-array-of-two-arrays/) | Medium |
+## Sliding Window
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [1871-jump-game-vii](https://github.com/siddhanttomar2003/CP/tree/main/1871-jump-game-vii/) | Medium |
 <!---LeetCode Topics End-->
