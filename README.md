@@ -16,6 +16,7 @@ COMPETITIVE PROGRAMMING
 | ------- | ------- |
 | [1665-minimum-initial-energy-to-finish-tasks](https://github.com/siddhanttomar2003/CP/tree/main/1665-minimum-initial-energy-to-finish-tasks/) | Hard |
 | [2078-two-furthest-houses-with-different-colors](https://github.com/siddhanttomar2003/CP/tree/main/2078-two-furthest-houses-with-different-colors/) | Easy |
+| [2126-destroying-asteroids](https://github.com/siddhanttomar2003/CP/tree/main/2126-destroying-asteroids/) | Medium |
 | [3296-minimum-number-of-seconds-to-make-mountain-height-zero](https://github.com/siddhanttomar2003/CP/tree/main/3296-minimum-number-of-seconds-to-make-mountain-height-zero/) | Medium |
 | [3600-maximize-spanning-tree-stability-with-upgrades](https://github.com/siddhanttomar2003/CP/tree/main/3600-maximize-spanning-tree-stability-with-upgrades/) | Hard |
 ## Union-Find
@@ -51,6 +52,7 @@ COMPETITIVE PROGRAMMING
 | [1914-cyclically-rotating-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/1914-cyclically-rotating-a-grid/) | Medium |
 | [2033-minimum-operations-to-make-a-uni-value-grid](https://github.com/siddhanttomar2003/CP/tree/main/2033-minimum-operations-to-make-a-uni-value-grid/) | Medium |
 | [2078-two-furthest-houses-with-different-colors](https://github.com/siddhanttomar2003/CP/tree/main/2078-two-furthest-houses-with-different-colors/) | Easy |
+| [2126-destroying-asteroids](https://github.com/siddhanttomar2003/CP/tree/main/2126-destroying-asteroids/) | Medium |
 | [2452-words-within-two-edits-of-dictionary](https://github.com/siddhanttomar2003/CP/tree/main/2452-words-within-two-edits-of-dictionary/) | Medium |
 | [2515-shortest-distance-to-target-string-in-a-circular-array](https://github.com/siddhanttomar2003/CP/tree/main/2515-shortest-distance-to-target-string-in-a-circular-array/) | Easy |
 | [2615-sum-of-distances](https://github.com/siddhanttomar2003/CP/tree/main/2615-sum-of-distances/) | Medium |
@@ -120,6 +122,7 @@ COMPETITIVE PROGRAMMING
 | [1665-minimum-initial-energy-to-finish-tasks](https://github.com/siddhanttomar2003/CP/tree/main/1665-minimum-initial-energy-to-finish-tasks/) | Hard |
 | [1878-get-biggest-three-rhombus-sums-in-a-grid](https://github.com/siddhanttomar2003/CP/tree/main/1878-get-biggest-three-rhombus-sums-in-a-grid/) | Medium |
 | [2033-minimum-operations-to-make-a-uni-value-grid](https://github.com/siddhanttomar2003/CP/tree/main/2033-minimum-operations-to-make-a-uni-value-grid/) | Medium |
+| [2126-destroying-asteroids](https://github.com/siddhanttomar2003/CP/tree/main/2126-destroying-asteroids/) | Medium |
 | [2751-robot-collisions](https://github.com/siddhanttomar2003/CP/tree/main/2751-robot-collisions/) | Hard |
 | [3567-minimum-absolute-difference-in-sliding-submatrix](https://github.com/siddhanttomar2003/CP/tree/main/3567-minimum-absolute-difference-in-sliding-submatrix/) | Medium |
 ## Matrix
